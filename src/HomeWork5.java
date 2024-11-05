@@ -67,19 +67,75 @@ public class HomeWork5 {
         }
         System.out.println();
         //Фигура #6
+        //Фигура #6
         System.out.println("Фигура 6");
-        int osnovanie = 15;
-        for (int i = 1; i < 8; i++) {// используем переменную count из "Фигуры #2"
-            for (int j = 1; j <= osnovanie; j++) {// используем переменную count из "Фигуры #2"
-                //if (i /j !=0) {
+//        int osnovanie = 7;
+//        for (int i = 0; i < 8; i++) {// используем переменную count из "Фигуры #2"
+//            for (int j = osnovanie; j > 0; j--) {
+//                if (i < j) {
+//                    System.out.print(" ");
+//                } else {
+//                    System.out.print("*");
+//                }
+//            }
+//            System.out.println();
+//        }
+//        System.out.println();
+
+        System.out.println();
+        System.out.print(" ");
+        System.out.print(" ");
+        System.out.print(" ");
+        System.out.print("*");
+        System.out.print(" ");
+        System.out.print(" ");
+        System.out.print(" ");
+        System.out.println();
+        System.out.print(" ");
+        System.out.print(" ");
+        System.out.print("*");
+        System.out.print("*");
+        System.out.print("*");
+        System.out.print(" ");
+        System.out.print(" ");
+        System.out.println();
+        System.out.print(" ");
+        System.out.print("*");
+        System.out.print("*");
+        System.out.print("*");
+        System.out.print("*");
+        System.out.print("*");
+        System.out.print(" ");
+        System.out.println();
+        System.out.print("*");
+        System.out.print("*");
+        System.out.print("*");
+        System.out.print("*");
+        System.out.print("*");
+        System.out.print("*");
+        System.out.print("*");
+        System.out.println();
+        System.out.println();
+//        System.out.println("       *       ");
+//        System.out.println("      ***      ");
+//        System.out.println("     *****     ");
+//        System.out.println("    *******    ");
+//        System.out.println("   *********   ");
+//        System.out.println("  ***********  ");
+//        System.out.println(" ************* ");
+//        System.out.println("***************");
+        int size = 15;
+        //int lines = 8; //количество строк
+        //int osn = 15; // основание
+        for (int y = size; y > 0; y--) {
+            for (int x = 0; x < size; x++) {
+                if (x == size / 2) {
                     System.out.print("*");
-                //} else {
-                    System.out.print(" ");
-                //}
+                } else {
+                    System.out.print("0");
+                }
             }
             System.out.println();
         }
-        System.out.println();
     }
-
 }
