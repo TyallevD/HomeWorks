@@ -70,12 +70,12 @@ public class HomeWork5 {
         System.out.println("Фигура 6");
         int osnovanie = 15;
         for (int i = 1; i < 8; i++) {// используем переменную count из "Фигуры #2"
-            for (int j = 0; j <= osnovanie; j++) {// используем переменную count из "Фигуры #2"
-                if (i /j !=0) {
+            for (int j = 1; j <= osnovanie; j++) {// используем переменную count из "Фигуры #2"
+                //if (i /j !=0) {
                     System.out.print("*");
-                } else {
+                //} else {
                     System.out.print(" ");
-                }
+                //}
             }
             System.out.println();
         }
