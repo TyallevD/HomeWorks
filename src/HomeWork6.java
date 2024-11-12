@@ -279,7 +279,83 @@ public class HomeWork6 {
             y8--;
         } while (y8 > 0);
         //ЗАДАНИЕ 2. Нарисовать все фигуры только с границами
-        //Фигура 1.
-
+        //Первый контур
+        System.out.println("Контур 1 фигуры");
+        int count = 10;
+        for (int y = 0; y <= count; y++) {
+            for (int x = 0; x <= count; x++) {
+                if (y == 0 || y == count || x == 0 || x == count) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
+        //Второй контур
+        System.out.println("Контур второй фигуры");
+        for (int y = 0; y <= count; y++) {
+            for (int x = 0; x <= count; x++) {
+                if (x == y || y == count || x == 0) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
+        //Третий контур
+        System.out.println("Контур третьей фигуры");
+        for (int y = 0; y <= count; y++) {
+            for (int x = count; x >= 0; x--) {
+                if (x == y || y == 0 || x == count) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+        //Четвертый контур
+        System.out.println("Контур четвёртой фигуры");
+        int osnovanie = 15;
+        int center = osnovanie / 2;
+        for (int y = 0; y <= center; y++) {
+            for (int x = 0; x < osnovanie; x++) {
+                if (x == (center - y) || x == (center + y) || y == center) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
+        //Пятый контур
+        System.out.println("Контур пятой фигуры");
+        int osnovanie2 = 17;
+        int center2 = osnovanie2 / 2;
+        for (int y = 0; y <= center2; y++) {
+            for (int x = 0; x < osnovanie2; x++) {
+                if (x == (center2 - y) || x == (center2 + y)) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+        for (int y = center2; y > 0; y--) {
+            for (int x = 0; x < osnovanie2; x++) {
+                if (x == (center2 +1 - y) || x == (center2 -1 + y)) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
     }
 }
