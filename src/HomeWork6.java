@@ -1,9 +1,10 @@
 public class HomeWork6 {
     public static void main(String[] args) {
+        //ЗАДАНИЕ 1. Нарисовать все фигуры, используя while и do while
         //Фигура #1. While
         System.out.println("Фигура 1. Построение с while");
-        int height1 = 8;   //высота
-        int width1 = 5;      //ширина
+        int height1 = 8;
+        int width1 = 5;
         int y1 = 0;
         int x1 = 0;
 
@@ -277,5 +278,8 @@ public class HomeWork6 {
             System.out.println();
             y8--;
         } while (y8 > 0);
+        //ЗАДАНИЕ 2. Нарисовать все фигуры только с границами
+        //Фигура 1.
+        
     }
 }
