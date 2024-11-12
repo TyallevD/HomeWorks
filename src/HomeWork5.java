@@ -70,9 +70,9 @@ public class HomeWork5 {
         System.out.println("Фигура 6");
         int osnovanie = 15;
         int center = osnovanie / 2;
-        for (int i = 0; i <= (osnovanie + 2) / 2; i++) {
+        for (int i = 0; i <= center; i++) {
             for (int j = 0; j < osnovanie; j++) {
-                if (j > (center - i) && j < (center + i)) {
+                if (j >= (center - i) && j <= (center + i)) {
                     System.out.print("*");
                 } else {
                     System.out.print(" ");
@@ -85,9 +85,9 @@ public class HomeWork5 {
         System.out.println("Фигура #7");
         int osnovanie2 = 17;
         int center2 = osnovanie2 / 2;
-        for (int y = 0; y <= (osnovanie2 + 2) / 2; y++) {
+        for (int y = 0; y <= center2; y++) {
             for (int x = 0; x < osnovanie2; x++) {
-                if (x > (center2 - y) && x < (center2 + y)) {
+                if (x >= (center2 - y) && x <= (center2 + y)) {
                     System.out.print("*");
                 } else {
                     System.out.print(" ");

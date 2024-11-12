@@ -1,6 +1,6 @@
 public class HomeWork6 {
     public static void main(String[] args) {
-        //ЗАДАНИЕ 1. Нарисовать все фигуры, используя while и do while
+        //ЗАДАНИЕ 1. ПОСТРОИТЬ ВСЕ ФИГУРЫ С ПОМОЩЬЮ ЦИКЛОВ WHILE/DO WHILE
         //Фигура #1. While
         System.out.println("Фигура 1. Построение с while");
         int height1 = 8;
@@ -181,9 +181,9 @@ public class HomeWork6 {
         int y6 = 0;
         int osnovanie6 = 15;
         int center6 = osnovanie6 / 2;
-        while (y6 <= (osnovanie6 + 2) / 2) {
+        while (y6 <= center6) {
             while (x6 < osnovanie6) {
-                if (x6 > (center6 - y6) && x6 < (center6 + y6)) {
+                if (x6 >= (center6 - y6) && x6 <= (center6 + y6)) {
                     System.out.print("*");
                 } else {
                     System.out.print(" ");
@@ -200,7 +200,7 @@ public class HomeWork6 {
         y6 = 0;
         do {
             do {
-                if (x6 > (center6 - y6) && x6 < (center6 + y6)) {
+                if (x6 >= (center6 - y6) && x6 <= (center6 + y6)) {
                     System.out.print("*");
                 } else {
                     System.out.print(" ");
@@ -210,7 +210,7 @@ public class HomeWork6 {
             x6 = 0;
             System.out.println();
             y6++;
-        } while (y6 <= (osnovanie6 + 2) / 2);
+        } while (y6 <= center6);
         System.out.println();
         //Фигура #7. While
         System.out.println("Фигура 7. Построение с помощью while");
@@ -220,9 +220,9 @@ public class HomeWork6 {
         int center7 = osnovanie7 / 2;
         int x8 = 0;
         int y8 = center7;
-        while (y7 <= (osnovanie7 + 2) / 2) {
+        while (y7 <= center7){
             while (x7 < osnovanie7) {
-                if (x7 > (center7 - y7) && x7 < (center7 + y7)) {
+                if (x7 >= (center7 - y7) && x7 <= (center7 + y7)) {
                     System.out.print("*");
                 } else {
                     System.out.print(" ");
@@ -253,7 +253,7 @@ public class HomeWork6 {
         y8 = center7;
         do {
             do {
-                if (x7 > (center7 - y7) && x7 < (center7 + y7)) {
+                if (x7 >= (center7 - y7) && x7 <= (center7 + y7)) {
                     System.out.print("*");
                 } else {
                     System.out.print(" ");
@@ -264,7 +264,7 @@ public class HomeWork6 {
             x7 = 0;
             System.out.println();
             y7++;
-        } while (y7 <= (osnovanie7 + 2) / 2);
+        } while (y7 <= center7);
         do {
             do {
                 if (x8 > (center7 - y8) && x8 < (center7 + y8)) {
@@ -280,6 +280,6 @@ public class HomeWork6 {
         } while (y8 > 0);
         //ЗАДАНИЕ 2. Нарисовать все фигуры только с границами
         //Фигура 1.
-        
+
     }
 }
