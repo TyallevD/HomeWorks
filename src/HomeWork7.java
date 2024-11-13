@@ -23,36 +23,32 @@ public class HomeWork7 {
         //3) Найдите максимальный элемент массива. Создайте массив из 10 целых чисел и найдите максимальное значение.
         System.out.println("Задача 3. Вывод:");
         int[] arr3 = new int[10];
-        int index1 = 0;
+        int index3 = 0;
         int max3 = 0;
         Random random = new Random();
         for (int i = 0; i < arr3.length; i++) {
             arr3[i] = random.nextInt(101); //ставим 101, потому что по документации к java.util.Random диапазон идёт от 0 включительно и до значения bound исключительно
             System.out.print(arr3[i] + " ");
-        }
-        for (int i = 0; i < arr3.length; i++) {
             if (max3 < arr3[i]) {
                 max3 = arr3[i];
-                index1 = i;
+                index3 = i;
             }
         }
-        System.out.println("\nМаксимальное значение = " + max3 + " в индексе " + index1 + "\n");
+        System.out.println("\nМаксимальное значение = " + max3 + " в индексе " + index3 + "\n");
         //4) Найдите минимальный элемент массива. Создайте массив из 10 целых чисел и найдите минимальное значение.
         System.out.println("Задача 4. Вывод:");
         int[] arr4 = new int[10];
-        int index2 = 0;
+        int index4 = 0;
         int min4 = 100;
         for (int i = 0; i < arr4.length; i++) {
             arr4[i] = random.nextInt(101);
             System.out.print(arr4[i] + " ");
-        }
-        for (int i = 0; i < arr4.length; i++) {
             if (min4 > arr4[i]) {
                 min4 = arr4[i];
-                index2 = i;
+                index4 = i;
             }
         }
-        System.out.println("\nМинимальное значение = " + min4 + " в индексе " + index2 + "\n");
+        System.out.println("\nМинимальное значение = " + min4 + " в индексе " + index4 + "\n");
         //5) Посчитайте количество чётных чисел в массиве.
         System.out.println("Задача 5. Вывод:");
         int[] arr5 = new int[10];
@@ -60,8 +56,6 @@ public class HomeWork7 {
         for (int i = 0; i < arr5.length; i++) {
             arr5[i] = random.nextInt(101);
             System.out.print(arr5[i] + " ");
-        }
-        for (int i = 0; i < arr5.length; i++) {
             if (arr5[i] % 2 == 0) {
                 count5++;
             }
@@ -74,8 +68,6 @@ public class HomeWork7 {
         for (int i = 0; i < arr6.length; i++) {
             arr6[i] = random.nextInt(101);//i + 1;
             System.out.print(arr6[i] + " ");
-        }
-        for (int i = 0; i < arr6.length; i++) {
             if (arr6[i] % 2 != 0) {
                 count6++;
             }
@@ -146,7 +138,8 @@ public class HomeWork7 {
             }
             System.out.print(arr11[i] + " ");
         }
-        System.out.println("\nРазница максимального значения " + max11 + " и минимального значения " + min11 + " в массиве равна: " + (max11 - min11) + "\n");
+        System.out.println("\nРазница максимального значения " + max11 + " и минимального значения " +
+                min11 + " в массиве равна: " + (max11 - min11) + "\n");
         //12)Посчитайте количество элементов, больше среднего арифметического.
         System.out.println("Задание 12. Вывод:");
         int summ12 = 0;
@@ -165,7 +158,8 @@ public class HomeWork7 {
                 count12++;
             }
         }
-        System.out.println("\nКоличество элементов больше среднего арифметического (" + ariphmetic + ") равно: " + count12 + "\n");
+        System.out.println("\nКоличество элементов больше среднего арифметического (" +
+                ariphmetic + ") равно: " + count12 + "\n");
         //13)Создайте массив и заполните его квадратами чисел от 1 до 10.
         System.out.println("Задание 13. Вывод:");
         int[] arr13 = new int[10];
@@ -173,5 +167,6 @@ public class HomeWork7 {
             arr13[i] = (i + 1) * (i + 1);
             System.out.print(arr13[i] + " ");
         }
+        System.out.println();
     }
 }
