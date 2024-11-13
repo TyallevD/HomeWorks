@@ -281,7 +281,7 @@ public class HomeWork6 {
         System.out.println();
         //ЗАДАНИЕ 2. ПОСТРОИТЬ ВСЕ ФИГУРЫ ТОЛЬКО С ГРАНИЦАМИ
         //Первый контур
-        System.out.println("Контур 1 фигуры");
+        System.out.println("Контур первой фигуры");
         int count = 10;
         for (int y = 0; y <= count; y++) {
             for (int x = 0; x <= count; x++) {
