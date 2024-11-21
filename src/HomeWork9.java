@@ -159,6 +159,7 @@ public class HomeWork9 {
         int[] arr12 = new int[10];
         int count12 = 0;
         int diapazon12 = 5;
+        int temp12;
         System.out.println("Вывод массива:");
         for (int i = 0; i < arr12.length; i++) {
             arr12[i] = random.nextInt(diapazon12);
@@ -166,7 +167,7 @@ public class HomeWork9 {
         }
         //подсчет повторяющихся элементов
 
-        System.out.println("Повторных значений в массиве: " + count12);
+        System.out.println("\nПовторных значений в массиве: " + count12);
         System.out.println("\n");
         //13) Инвертирование знаков: Замените все положительные числа в массиве на отрицательные, и наоборот.
         System.out.println("Задача 13. Вывод:");
