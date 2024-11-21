@@ -106,18 +106,17 @@ public class HomeWork9 {
         System.out.println("\n");
         //9) Поиск двух наименьших элементов: Найдите два наименьших элемента в массиве из 10 чисел.
         System.out.println("Задача 9. Вывод:");
+        int diapazon9 = 100;
+        int min9_1 = diapazon9;
+        int min9_2 = diapazon9;
         int[] arr9 = new int[10];
         for (int i = 0; i < arr9.length; i++) {
-            arr9[i] = random.nextInt(101);
+            arr9[i] = random.nextInt(diapazon9 + 1);
             System.out.print(arr9[i] + " ");
-        }
-        int min9_1 = arr9[0];
-        int min9_2 = arr9[0];
-        for (int i = 1; i < arr9.length; i++) {
             if (min9_1 > arr9[i]) {
+                min9_2 = min9_1;
                 min9_1 = arr9[i];
-            }
-            if (min9_1 != arr9[i] && min9_2 > arr9[i]) {
+            } else if (min9_1 != arr9[i] && min9_2 > arr9[i]) {
                 min9_2 = arr9[i];
             }
         }
@@ -155,8 +154,19 @@ public class HomeWork9 {
         }
         System.out.println("\nОтвет: " + (isSort11 ? "Массив отсортирован по убыванию" : "Массив не отсортирован по убыванию"));
         System.out.println("\n");
-        //12) Частота элементов: Подсчитайте, сколько раз каждое число встречается в массиве.
+        //12) Частота элементов: Подсчитайте, сколько раз каждое число встречается в массиве. !!!
         System.out.println("Задача 12. Вывод:");
+        int[] arr12 = new int[10];
+        int count12 = 0;
+        int diapazon12 = 5;
+        System.out.println("Вывод массива:");
+        for (int i = 0; i < arr12.length; i++) {
+            arr12[i] = random.nextInt(diapazon12);
+            System.out.print(arr12[i] + " ");
+        }
+        //подсчет повторяющихся элементов
+
+        System.out.println("Повторных значений в массиве: " + count12);
         System.out.println("\n");
         //13) Инвертирование знаков: Замените все положительные числа в массиве на отрицательные, и наоборот.
         System.out.println("Задача 13. Вывод:");
@@ -169,15 +179,16 @@ public class HomeWork9 {
         //14) Замена элементов на чётные индексы: Замените все элементы на чётных индексах на их квадрат.
         System.out.println("Задача 14. Вывод:");
         int[] arr14 = new int[10];
+        System.out.println("Вывод изначального массива:");
         for (int i = 0; i < arr14.length; i++) {
             arr14[i] = random.nextInt(101);
             System.out.print(arr14[i] + " ");
+        }
+        System.out.println("Возведение в квадрат и вывод массива:");
+        for (int i = 0; i < arr14.length; i++) {
             if (i % 2 == 0 && i != 0) {
                 arr14[i] = arr14[i] * arr14[i];
             }
-        }
-        System.out.println();
-        for (int i = 0; i < arr14.length; i++) {
             System.out.print(arr14[i] + " ");
         }
         System.out.println("\n");
@@ -336,7 +347,7 @@ public class HomeWork9 {
         double ariphmetic24;
         double sum24 = 0;
         int count24 = 0;
-        System.out.println("Массив:");
+        System.out.println("Вывод массива:");
         for (int i = 0; i < arr24.length; i++) {
             arr24[i] = random.nextInt(101);
             System.out.print(arr24[i] + " ");
