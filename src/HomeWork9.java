@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Random;
 
 public class HomeWork9 {
@@ -107,12 +106,54 @@ public class HomeWork9 {
         System.out.println("\n");
         //9) Поиск двух наименьших элементов: Найдите два наименьших элемента в массиве из 10 чисел.
         System.out.println("Задача 9. Вывод:");
+        int[] arr9 = new int[10];
+        for (int i = 0; i < arr9.length; i++) {
+            arr9[i] = random.nextInt(101);
+            System.out.print(arr9[i] + " ");
+        }
+        int min9_1 = arr9[0];
+        int min9_2 = arr9[0];
+        for (int i = 1; i < arr9.length; i++) {
+            if (min9_1 > arr9[i]) {
+                min9_1 = arr9[i];
+            }
+            if (min9_1 != arr9[i] && min9_2 > arr9[i]) {
+                min9_2 = arr9[i];
+            }
+        }
+        System.out.println("\nСамое минимальное значение в массиве равно: " + min9_1 + ". Второе минимальное значение равно: " + min9_2);
         System.out.println("\n");
-        //10) Проверка на упорядоченность: Определите, отсортирован ли массив по возрастанию. ???
+        //10) Проверка на упорядоченность: Определите, отсортирован ли массив по возрастанию.
         System.out.println("Задача 10. Вывод:");
+        int[] arr10 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        boolean isSort10 = true;
+        System.out.println("Вывод массива:");
+        for (int i = 0; i < arr10.length; i++) {
+            System.out.print(arr10[i] + " ");
+        }
+        for (int i = 0; i < arr10.length - 1; i++) {
+            if (arr10[i] > arr10[i + 1]) {
+                isSort10 = false;
+                break;
+            }
+        }
+        System.out.println("\nОтвет: " + (isSort10 ? "Массив отсортирован по возрастанию" : "Массив не отсортирован по возрастанию"));
         System.out.println("\n");
-        //11) Проверка на упорядоченность: Определите, отсортирован ли массив по убыванию. ???
+        //11) Проверка на упорядоченность: Определите, отсортирован ли массив по убыванию.
         System.out.println("Задача 11. Вывод:");
+        int[] arr11 = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+        boolean isSort11 = true;
+        System.out.println("Вывод массива:");
+        for (int i = 0; i < arr11.length; i++) {
+            System.out.print(arr11[i] + " ");
+        }
+        for (int i = 0; i < arr11.length - 1; i++) {
+            if (arr11[i] < arr11[i + 1]) {
+                isSort11 = false;
+                break;
+            }
+        }
+        System.out.println("\nОтвет: " + (isSort11 ? "Массив отсортирован по убыванию" : "Массив не отсортирован по убыванию"));
         System.out.println("\n");
         //12) Частота элементов: Подсчитайте, сколько раз каждое число встречается в массиве.
         System.out.println("Задача 12. Вывод:");
@@ -131,7 +172,7 @@ public class HomeWork9 {
         for (int i = 0; i < arr14.length; i++) {
             arr14[i] = random.nextInt(101);
             System.out.print(arr14[i] + " ");
-            if (i % 2 == 0) {
+            if (i % 2 == 0 && i != 0) {
                 arr14[i] = arr14[i] * arr14[i];
             }
         }
@@ -147,32 +188,132 @@ public class HomeWork9 {
         for (int i = 0; i < arr15.length; i++) {
             arr15[i] = random.nextInt(101);
             System.out.print(arr15[i] + " ");
-            if (i % 2 == 0) {
+            if (i % 2 == 0 && i != 0) {//Исключаем нулевой индекс, т.к. 0 является нейтральным (ни четным, ни нечетным)
                 summ15 += arr15[i];
             }
         }
         System.out.println("\nCумма элементов, расположенных на четных индексах равна: " + summ15);
-        System.out.println("\n");
+        System.out.println();
         //16) Замена минимального элемента на 100: Замените минимальный элемент из массива.
         System.out.println("Задача 16. Вывод:");
+        int[] arr16 = new int[10];
+        System.out.println("Вывод массива:");
+        for (int i = 0; i < arr16.length; i++) {
+            arr16[i] = random.nextInt(101);
+            System.out.print(arr16[i] + " ");
+        }
+        int min16 = arr16[0];
+        for (int i = 1; i < arr16.length; i++) {
+            if (min16 > arr16[i]) {
+                min16 = arr16[i];
+            }
+        }
+        System.out.println("\nМинимальное значение в массиве: " + min16);
+        System.out.println("Вывод исправленного массива:");
+        for (int i = 0; i < arr16.length; i++) {
+            if (arr16[i] == min16) {
+                arr16[i] = 100;
+            }
+            System.out.print(arr16[i] + " ");
+        }
         System.out.println("\n");
         //17) Обратный порядок массива: Распечатайте массив наоборот
         System.out.println("Задача 17. Вывод:");
+        int[] arr17 = new int[10];
+        System.out.println("Вывод массива:");
+        for (int i = 0; i < arr17.length; i++) {
+            arr17[i] = random.nextInt(101);
+            System.out.print(arr17[i] + " ");
+        }
+        System.out.println("\nВывод обратного массива:");
+        for (int i = arr17.length - 1; i >= 0; i--) {
+            System.out.print(arr17[i] + " ");
+        }
         System.out.println("\n");
         //18) Замена элементов на индекс: Замените все элементы массива на их индекс.
         System.out.println("Задача 18. Вывод:");
+        int[] arr18 = new int[10];
+        System.out.println("Вывод первоначального массива:");
+        for (int i = 0; i < arr18.length; i++) {
+            arr18[i] = random.nextInt(101);
+            System.out.print(arr18[i] + " ");
+        }
+        System.out.println("\nВывод измененного массива:");
+        for (int i = 0; i < arr18.length; i++) {
+            arr18[i] = i;
+            System.out.print(arr18[i] + " ");
+        }
         System.out.println("\n");
         //19) Сумма положительных элементов: Найдите сумму всех положительных элементов массива.
         System.out.println("Задача 19. Вывод:");
-        System.out.println("\n");
+        int[] arr19 = new int[]{0, -1, 5, -72, 14, 45, -44, 35, -3};
+        int summ19 = 0;
+        for (int i = 0; i < arr19.length; i++) {
+            System.out.print(arr19[i] + " ");
+            if (arr19[i] >= 0) {
+                summ19 += arr19[i];
+            }
+        }
+        System.out.println("\nСумма положительных элементов равна: " + summ19);
+        System.out.println();
         //20) Поиск последнего отрицательного элемента: Найдите последний отрицательный элемент в массиве и замените его на 0.
         System.out.println("Задача 20. Вывод:");
+        int[] arr20 = new int[]{1, 4, -1, 6, -4, 6, 7, -14, 52, 756, -14, 5, 6};
+        System.out.println("Вывод изначального массива:");
+        for (int i = 0; i < arr20.length; i++) {
+            System.out.print(arr20[i] + " ");
+        }
+        for (int i = arr20.length - 1; i >= 0; i--) {
+            if (arr20[i] < 0) {
+                arr20[i] = 0;
+                break;
+            }
+        }
+        System.out.println("\nВывод измененного массива:");
+        for (int i = 0; i < arr20.length; i++) {
+            System.out.print(arr20[i] + " ");
+        }
         System.out.println("\n");
         //21) Удвоение элементов на нечётных индексах: Умножьте все элементы на нечётных индексах на 2.
         System.out.println("Задача 21. Вывод:");
+        int[] arr21 = new int[10];
+        for (int i = 0; i < arr21.length; i++) {
+            arr21[i] = random.nextInt(101);
+            System.out.print(arr21[i] + " ");
+            if (i % 2 != 0) {
+                arr21[i] = arr21[i] * 2;
+            }
+        }
+        System.out.println();
+        for (int i = 0; i < arr21.length; i++) {
+            System.out.print(arr21[i] + " ");
+        }
         System.out.println("\n");
         //22) Замена максимального элемента на минимальный: Найдите максимальный элемент массива и замените его на минимальный.
         System.out.println("Задача 22. Вывод:");
+        int[] arr22 = new int[10];
+        System.out.println("Вывод массива:");
+        for (int i = 0; i < arr22.length; i++) {
+            arr22[i] = random.nextInt(101);
+            System.out.print(arr22[i] + " ");
+        }
+        int max22 = arr22[0];
+        int min22 = arr22[0];
+        for (int i = 0; i < arr22.length; i++) {
+            if (max22 < arr22[i]) {
+                max22 = arr22[i];
+            }
+            if (min22 > arr22[i]) {
+                min22 = arr22[i];
+            }
+        }
+        System.out.println("\nЗаменяем максимальное (" + max22 + ") значение на минимальное (" + min22 + ")  и выводим массив:");
+        for (int i = 0; i < arr22.length; i++) {
+            if (max22 == arr22[i]) {
+                arr22[i] = min22;
+            }
+            System.out.print(arr22[i] + " ");
+        }
         System.out.println("\n");
         //23) Замена элементов, делящихся на 2 и 3: Замените в массиве все элементы, которые делятся на 2 и на 3 на число 100.
         System.out.println("Задача 23. Вывод:");
@@ -191,9 +332,41 @@ public class HomeWork9 {
         System.out.println("\n");
         //24) Количество элементов, больших среднего арифметического: Подсчитайте количество элементов, которые больше среднего арифметического массива.
         System.out.println("Задача 24. Вывод:");
+        int[] arr24 = new int[10];
+        double ariphmetic24;
+        double sum24 = 0;
+        int count24 = 0;
+        System.out.println("Массив:");
+        for (int i = 0; i < arr24.length; i++) {
+            arr24[i] = random.nextInt(101);
+            System.out.print(arr24[i] + " ");
+            sum24 += arr24[i];
+        }
+        ariphmetic24 = sum24 / arr24.length;
+        System.out.println("\nСреднее арифметическое равно: " + ariphmetic24);
+        for (int i = 0; i < arr24.length; i++) {
+            if (ariphmetic24 < arr24[i]) {
+                count24++;
+            }
+        }
+        System.out.println("Количество элементов, значение которых выше среднего арифметического: " + count24);
         System.out.println("\n");
         //25) Нахождение индекса максимального элемента: Найдите индекс максимального элемента в массиве.
         System.out.println("Задача 25. Вывод:");
+        int[] arr25 = new int[10];
+        int maxIndex25 = 0;
+        for (int i = 0; i < arr25.length; i++) {
+            arr25[i] = random.nextInt(101);
+            System.out.print(arr25[i] + " ");
+        }
+        int max25 = arr25[0];
+        for (int i = 1; i < arr25.length; i++) {
+            if (max25 < arr25[i]) {
+                max25 = arr25[i];
+                maxIndex25 = i;
+            }
+        }
+        System.out.println("\nМаксимальное значение (" + max25 + ") находится в индексе: " + maxIndex25);
         System.out.println();
     }
 }
