@@ -157,7 +157,7 @@ public class HomeWork9 {
         //12) Частота элементов: Подсчитайте, сколько раз каждое число встречается в массиве.
         System.out.println("Задача 12. Вывод:");
         int[] arr12 = new int[10];
-        int tempCount12; //счетчик повторений чисел
+        int tempCount12;
         int diapazon12 = 10; //диапазон маленький, чтоб было больше повторяющихся элементов в массиве случайных чисел.
         System.out.println("Вывод массива:");
         for (int i = 0; i < arr12.length; i++) {
@@ -165,20 +165,17 @@ public class HomeWork9 {
             System.out.print(arr12[i] + " ");
         }
         System.out.println("\nПодсчет повторяющихся элементов:");
-        //подсчет повторяющихся элементов
-        for (int i = 0; i <= diapazon12; i++) { //проходим по диапазону чисел
-            tempCount12 = 0; //каждый проход обнуляем счетчик повторений
+        for (int i = 0; i <= diapazon12; i++) {
+            tempCount12 = 0;
             for (int j = 0; j < arr12.length; j++) {
-                if (i == arr12[j]) { //берём значение из диапазона чисел и сравниваем с каждым элементом массива
-                    tempCount12++; //если значение встречается в индексе - плюсуем
+                if (i == arr12[j]) {
+                    tempCount12++;
                 }
             }
-            if (tempCount12 >= 0) {
-                System.out.print("Значение " + i + " встречается в массиве " + tempCount12);
-                switch (tempCount12) {
-                    case 0, 1, 5, 6, 7, 8, 9, 10 -> System.out.println(" раз");
-                    case 2, 3, 4 -> System.out.println(" раза");
-                }
+            System.out.print("Значение " + i + " встречается в массиве " + tempCount12);
+            switch (tempCount12) {
+                case 0, 1, 5, 6, 7, 8, 9, 10 -> System.out.println(" раз");
+                case 2, 3, 4 -> System.out.println(" раза");
             }
         }
         System.out.println("\n");
