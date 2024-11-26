@@ -21,13 +21,13 @@ public class HomeWork11 {
 
     //===========================================================//
     //Метод для задания 1
-//    public static int factorial(int num) {
-//        if (num > 0) {
-//            num--;
-//        factorial(num);
-//        }
-//        return 1;
-//    }
+    public static int factorial(int num) {
+        if (num > 0) {
+            return num * factorial(num - 1);
+        } else {
+            return 1;
+        }
+    }
     //Метод для задания 2
     public static double arrAriphmetic(int[] arr) {
         int i = 0;
@@ -115,9 +115,7 @@ public class HomeWork11 {
     public static void main(String[] args) {
         //1) Написать метод, который возвращает факториал заданного числа.
         System.out.println("Задание 1. Вывод:");
-
-        //TODO нужно выполнить с рекурсией
-//        System.out.println(factorial(5));
+        System.out.println(factorial(5));
         System.out.println();
         //2) Написать метод, который возвращает среднее арифметическое массива чисел.
         System.out.println("Задание 2. Вывод:");
