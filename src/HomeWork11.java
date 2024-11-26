@@ -211,6 +211,7 @@ public class HomeWork11 {
         int num11 = 10;
         int sum11 = numberSumm(num11);
         System.out.println("Сумма цифр от 1 до " + num11 + " равна: " + sum11);
+        //TODO достаточно ли тернарного оператора в этом задании?
         System.out.println();
         //12) Написать метод, который проверяет, является ли число степенью двойки.
         System.out.println("Задание 12. Вывод:");
@@ -250,6 +251,7 @@ public class HomeWork11 {
         System.out.println();
         //18) Написать метод, который возвращает значение числа Фибоначчи с заданным номером.
         System.out.println("Задание 18. Вывод:");
+        int number18 = 5;
 
         //TODO понять формулу?
 
