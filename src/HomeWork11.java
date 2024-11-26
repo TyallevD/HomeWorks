@@ -22,12 +22,14 @@ public class HomeWork11 {
     //===========================================================//
     //Метод для задания 1
     public static int factorial(int num) {
-        if (num > 0) {
-            return num * factorial(num - 1);
-        } else {
-            return 1;
-        }
+//        if (num > 0) {
+//            return num * factorial(num - 1);
+//        } else {
+//            return 1;
+//        }
+        return (num > 0) ? num * factorial((num - 1)) : 1;
     }
+
     //Метод для задания 2
     public static double arrAriphmetic(int[] arr) {
         int i = 0;
@@ -55,11 +57,15 @@ public class HomeWork11 {
         return Math.sqrt((Math.pow(sideA, 2) + Math.pow(sideB, 2)));
     }
 
-    //Метод для задания 11
+    //Метод для задания 11 ??? тернарный оператор подойдёт? или есть ещё другое решение
+    public static int numberSumm(int num) {
+        return (num > 0) ? num + numberSumm(num - 1) : 0;
+    }
+
     //Метод для задания 12
     //Метод для задания 13
     //Метод для задания 14
-    public static int numberSumm(int number) {
+    public static int digitSumm(int number) {
         int result = 0;
         int temp = number;
         while (temp != 0) {
@@ -112,10 +118,16 @@ public class HomeWork11 {
     }
 
     //Метод для задания 20
+    public static boolean isRectangular(int sideA, int sideB, int sideC) {
+        return (Math.pow(sideA, 2) + Math.pow(sideB, 2) == Math.pow(sideC, 2));
+    }
+
     public static void main(String[] args) {
         //1) Написать метод, который возвращает факториал заданного числа.
         System.out.println("Задание 1. Вывод:");
-        System.out.println(factorial(5));
+        int num1 = 5;
+        int result1 = factorial(num1);
+        System.out.println("Факториал числа " + num1 + " равен: " + result1);
         System.out.println();
         //2) Написать метод, который возвращает среднее арифметическое массива чисел.
         System.out.println("Задание 2. Вывод:");
@@ -180,18 +192,25 @@ public class HomeWork11 {
         //9) Написать метод, который находит объем цилиндра по радиусу и высоте.
         System.out.println("Задание 9. Вывод:");
         //V=πr2h
-        System.out.println("Объём цилиндра по его радиусу и высоте равен: " + cylinderVolume(5, 9));
+        int radius9 = 5;
+        int height9 = 9;
+        double volume9 = cylinderVolume(radius9, height9);
+        System.out.println("Объём цилиндра по радиусу " + radius9 + " и высоте " + height9
+                + " равен: " + volume9);
         System.out.println();
         //10) Написать метод, который вычисляет гипотенузу прямоугольного треугольника по двум катетам.
         System.out.println("Задание 10. Вывод:");
         //теорема Пифагора, только нужен квадратный корень
-        System.out.println("Гипотенуза треугольника равна: " + hypotenuse(10, 10));
+        int sideA10 = 3;
+        int sideB10 = 4;
+        double result10 = hypotenuse(sideA10, sideB10);
+        System.out.println("Гипотенуза треугольника со сторонами " + sideA10 + " и " + sideB10 + " равна: " + result10);
         System.out.println();
         //11) Написать метод, который возвращает сумму чисел от 1 до заданного числа без использования циклов и условий.
         System.out.println("Задание 11. Вывод:");
-
-        //TODO выполнить с рекурсией
-
+        int num11 = 10;
+        int sum11 = numberSumm(num11);
+        System.out.println("Сумма цифр от 1 до " + num11 + " равна: " + sum11);
         System.out.println();
         //12) Написать метод, который проверяет, является ли число степенью двойки.
         System.out.println("Задание 12. Вывод:");
@@ -207,19 +226,27 @@ public class HomeWork11 {
         System.out.println();
         //14) Написать метод, который возвращает сумму цифр числа.
         System.out.println("Задание 14. Вывод:");
-        System.out.println("Сумма цифр числа равно: " + numberSumm(123456789));
+        int number14 = 123456789;
+        int result14 = digitSumm(number14);
+        System.out.println("Сумма цифр числа " + number14 + " равно: " + result14);
         System.out.println();
         //15) Написать метод, который возвращает произведение цифр числа.
         System.out.println("Задание 15. Вывод:");
-        System.out.println("Произведение цифр числа равно:" + numberMultiply(657));
+        int number15 = 657;
+        int result15 = numberMultiply(number15);
+        System.out.println("Произведение цифр числа " + number15 + " равно:" + result15);
         System.out.println();
         //16) Написать метод, который возвращает количество цифр в числе.
         System.out.println("Задание 16. Вывод:");
-        System.out.println("Количество цифр в числе: " + numberCount(12345));
+        int number16 = 12345;
+        int result16 = numberCount(number16);
+        System.out.println("Количество цифр в числе " + number16 + ": " + result16);
         System.out.println();
         //17) Написать метод, который возвращает число, полученное в результате зеркального отображения (реверса) заданного числа.
         System.out.println("Задание 17. Вывод:");
-        System.out.println("Зеркальное отображение числа: " + numberReverse(123450789));
+        int number17 = 123450789;
+        int result17 = numberReverse(number17);
+        System.out.println("Зеркальное отображение числа " + number17 + ": " + result17);
         System.out.println();
         //18) Написать метод, который возвращает значение числа Фибоначчи с заданным номером.
         System.out.println("Задание 18. Вывод:");
@@ -229,13 +256,23 @@ public class HomeWork11 {
         System.out.println();
         //19) Написать метод, который возвращает длину окружности по заданному радиусу.
         System.out.println("Задание 19. Вывод:");
-        System.out.println("Длина окружности равна " + circleLength(5));
+        int radius19 = 5;
+        double result19 = circleLength(radius19);
+        System.out.println("Длина окружности c радиусом " + radius19 + " равна: " + result19);
         System.out.println();
         //20) Написать метод, который проверяет, является ли треугольник прямоугольным по трём сторонам.
         System.out.println("Задание 20. Вывод:");
-
-        //TODO Если теорема Пифагора будет верна, и квадрат большей стороны треугольника равен сумме квадратов двух меньших сторон, то треугольник прямоугольный
-
+        int sideA20 = 3;
+        int sideB20 = 4;
+        int sideC20 = 5;
+        String result20;
+        if (isRectangular(sideA20, sideB20, sideC20)) {
+            result20 = "Треугольник прямоугольный";
+        } else {
+            result20 = "Треугольник не прямоугольный";
+        }
+        System.out.println("Является ли треугольник прямоугольным по сторонам А = "
+                + sideA20 + "; B = " + sideB20 + "; C = " + sideC20 + ";\nОтвет: " + result20);
         System.out.println();
     }
 }
