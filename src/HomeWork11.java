@@ -119,6 +119,18 @@ public class HomeWork11 {
 
     //Метод для задания 12
     //Метод для задания 13
+    public static int sumOfThreeFive(int begin, int last) {
+        int sum = 0;
+        int i = begin;
+        while (i <= last) {
+            if (i % 5 == 0 || i % 3 == 0) {
+                sum += i;
+            }
+            i++;
+        }
+        return sum;
+    }
+
     //Метод для задания 14
     public static int digitSumm(int number) {
         int result = 0;
@@ -277,9 +289,11 @@ public class HomeWork11 {
 
         //13) Написать метод, который вычисляет сумму чисел, кратных 3 или 5, в заданном диапазоне.
         System.out.println("Задание 13. Вывод:");
-
-        //TODO из диапазона нужно условием выделить число, которое делится или на 3 или на 5 (if (num%3==0||num%5==0) то записываем в сумму)
-
+        int first13 = 0;
+        int last13 = 10;
+        int result13 = sumOfThreeFive(first13, last13);
+        System.out.println("Сумма чисел, кратных 3 или 5 из диапазона от " +
+                first13 + " до " + last13 + " равна: " + result13); //TODO попробовать рекурсию?
         System.out.println();
 
         //14) Написать метод, который возвращает сумму цифр числа.
