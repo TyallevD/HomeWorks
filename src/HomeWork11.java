@@ -134,11 +134,9 @@ public class HomeWork11 {
     //Метод для задания 14
     public static int digitSumm(int number) {
         int result = 0;
-        int temp = number;
-        while (temp != 0) {
-            int ostatok = temp % 10;
-            result = result + ostatok;
-            temp /= 10;
+        while (number != 0) {
+            result = result + (number%10);
+            number /= 10;
         }
         return result;
     }
@@ -146,11 +144,9 @@ public class HomeWork11 {
     //Метод для задания 15
     public static int numberMultiply(int number) {
         int result = 1;
-        int temp = number;
-        while (temp != 0) {
-            int ostatok = temp % 10;
-            result = result * ostatok;
-            temp /= 10;
+        while (number != 0) {
+            result = result * (number%10);
+            number /= 10;
         }
         return result;
     }
@@ -158,10 +154,9 @@ public class HomeWork11 {
     //Метод для задания 16
     public static int numberCount(int number) {
         int count = 0;
-        int temp = number;
-        while (temp != 0) {
+        while (number != 0) {
             count++;
-            temp /= 10;
+            number /= 10;
         }
         return count;
     }
@@ -169,11 +164,9 @@ public class HomeWork11 {
     //Метод для задания 17
     public static int numberReverse(int number) {
         int result = 0;
-        int temp = number;
-        while (temp != 0) {
-            int ostatok = temp % 10;
-            result = result * 10 + ostatok;
-            temp /= 10;
+        while (number != 0) {
+            result = result * 10 + (number%10);
+            number /= 10;
         }
         return result;
     }
