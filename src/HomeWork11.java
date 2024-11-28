@@ -112,12 +112,19 @@ public class HomeWork11 {
         return Math.sqrt((Math.pow(sideA, 2) + Math.pow(sideB, 2)));
     }
 
-    //Метод для задания 11 ??? тернарный оператор подойдёт? или есть ещё другое решение
+    //Метод для задания 11 ??? тернарный оператор подойдёт? или есть ещё другое решение //TODO если ответ да, надо стереть коммент
     public static int numberSumm(int num) {
         return (num > 0) ? num + numberSumm(num - 1) : 0;
     }
 
     //Метод для задания 12
+    public static String powerOfTwo(int number) {
+        while (number > 1 && number % 2 == 0) {
+            number = number / 2;
+        }
+        return (number == 1) ? "Да, число является степенью двойки" : "Нет, число не является степенью двойки";
+    }
+
     //Метод для задания 13
     public static int sumOfThreeFive(int begin, int last) {
         int sum = 0;
@@ -135,7 +142,7 @@ public class HomeWork11 {
     public static int digitSumm(int number) {
         int result = 0;
         while (number != 0) {
-            result = result + (number%10);
+            result = result + (number % 10);
             number /= 10;
         }
         return result;
@@ -145,7 +152,7 @@ public class HomeWork11 {
     public static int numberMultiply(int number) {
         int result = 1;
         while (number != 0) {
-            result = result * (number%10);
+            result = result * (number % 10);
             number /= 10;
         }
         return result;
@@ -165,13 +172,18 @@ public class HomeWork11 {
     public static int numberReverse(int number) {
         int result = 0;
         while (number != 0) {
-            result = result * 10 + (number%10);
+            result = result * 10 + (number % 10);
             number /= 10;
         }
         return result;
     }
 
     //Метод для задания 18
+    public static int fibonacci(int number) {
+        int result = 0; //TODO доделать метод
+        return result;
+    }
+
     //Метод для задания 19
     public static double circleLength(int num) {
         return Math.PI * num * 2;
@@ -275,9 +287,9 @@ public class HomeWork11 {
 
         //12) Написать метод, который проверяет, является ли число степенью двойки.
         System.out.println("Задание 12. Вывод:");
-
-        //TODO надо понять алгоритм
-
+        int num12 = 128;
+        String result12 = powerOfTwo(num12);
+        System.out.println("Является ли число " + num12 + " степенью двойки?\nОтвет: " + result12);
         System.out.println();
 
         //13) Написать метод, который вычисляет сумму чисел, кратных 3 или 5, в заданном диапазоне.
@@ -320,9 +332,8 @@ public class HomeWork11 {
         //18) Написать метод, который возвращает значение числа Фибоначчи с заданным номером.
         System.out.println("Задание 18. Вывод:");
         int number18 = 5;
-
-        //TODO понять формулу?
-
+        int result18 = fibonacci(number18);
+        System.out.println("Значение числа Фибонначи с номером " + number18 + " равно " + result18); //TODO доделать метод
         System.out.println();
 
         //19) Написать метод, который возвращает длину окружности по заданному радиусу.
