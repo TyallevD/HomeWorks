@@ -345,6 +345,7 @@ public class HomeWork11 {
         printArray(fibonacciArray(arr18));
         int result18 = fibonacci(arr18, number18);
         System.out.println("Значение числа Фибоначчи с номером " + number18 + " равно " + result18);
+        System.out.println();
 
         //19) Написать метод, который возвращает длину окружности по заданному радиусу.
         System.out.println("Задание 19. Вывод:");
