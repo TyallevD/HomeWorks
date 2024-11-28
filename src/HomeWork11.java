@@ -179,9 +179,17 @@ public class HomeWork11 {
     }
 
     //Метод для задания 18
-    public static int fibonacci(int number) {
-        int result = 0; //TODO доделать метод
-        return result;
+    public static int[] fibonacciArray(int[] arr) {
+        arr[0] = 0;
+        arr[1] = 1;
+        for (int i = 2; i < arr.length; i++) {
+            arr[i] = arr[i - 1] + arr[i - 2];
+        }
+        return arr;
+    }
+
+    public static int fibonacci(int[] arr, int number) {
+        return arr[number];
     }
 
     //Метод для задания 19
@@ -331,10 +339,12 @@ public class HomeWork11 {
 
         //18) Написать метод, который возвращает значение числа Фибоначчи с заданным номером.
         System.out.println("Задание 18. Вывод:");
-        int number18 = 5;
-        int result18 = fibonacci(number18);
-        System.out.println("Значение числа Фибонначи с номером " + number18 + " равно " + result18); //TODO доделать метод
-        System.out.println();
+        int number18 = 10; //число, которое хотим найти
+        int size18 = 20; //размер последовательности чисел Фибоначчи
+        int[] arr18 = new int[size18];
+        printArray(fibonacciArray(arr18));
+        int result18 = fibonacci(arr18, number18);
+        System.out.println("Значение числа Фибоначчи с номером " + number18 + " равно " + result18);
 
         //19) Написать метод, который возвращает длину окружности по заданному радиусу.
         System.out.println("Задание 19. Вывод:");
