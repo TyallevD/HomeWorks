@@ -98,7 +98,6 @@ public class HomeWork12 {
         //1) public static int length(char[] arr));
         //Описание: Метод возвращает длину массива символов arr.
         //Считает количество символов в массиве arr и возвращает это значение.
-
         char[] str1 = {'J', 'o', 'h', 'n', ' ', 'W', 'i', 'l', 'l', 'i', 'a', 'm', 's'};
         System.out.println("Задание 1. Вывод:");
         printArray(str1);
