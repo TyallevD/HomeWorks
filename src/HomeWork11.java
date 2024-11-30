@@ -20,6 +20,7 @@ public class HomeWork11 {
     }
 
     /*===========================================================*/
+
     //Метод для задания 1
     public static int factorial(int num) {
         return (num > 0) ? num * factorial((num - 1)) : 1;
@@ -37,25 +38,38 @@ public class HomeWork11 {
     }
 
     //Метод для задания 3
-    public static int arraySumm(int[] arr) {
-        int sum = 0;
-        int i = 0;
-        while (i < arr.length) {
-            sum += arr[i];
-            i++;
-        }
-        return sum;
+    public static int arraySumm(int[] arr, int index) {
+        //Реализация без рекурсии, принимает только массив и возвращает сумму, шапка метода public static int arraySumm(int[] arr). Закомментировал.
+//        int sum = 0;
+//        int i = 0;
+//        while (i < arr.length) {
+//            sum += arr[i];
+//            i++;
+//        }
+//        return sum;
+
+        //Реализация с рекурсией
+        return (arr.length == index) ? 0 : (arr[index] + arraySumm(arr, index + 1));
     }
 
     //Метод для задания 4
-    public static int arrayMultiply(int[] arr) {
-        int multiply = 1;
-        int i = 0;
-        while (i < arr.length) {
-            multiply *= arr[i];
-            i++;
-        }
-        return multiply;
+    public static int arrayMultiply(int[] arr, int index) {
+        //Реализация без рекурсии, принимает только массив и произведение элементов, шапка метода public static int arrayMultiply(int[] arr). Закомментировал.
+//        int multiply = 1;
+//        int i = 0;
+//        while (i < arr.length) {
+//            if (arr[i] != 0) {
+//                multiply *= arr[i];
+//            }
+//            i++;
+//        }
+//        return multiply;
+
+        //Реализация с рекурсией. Если будет элемент == 0, то считаем, что значение равно 1 (как бы пропускаем его),
+        // иначе, если будет 0, то всё произведение будет равно 0.
+        return (arr.length == index) ? 1 :
+                ((arr[index] == 0) ? arrayMultiply(arr, index + 1) :
+                        arr[index] * arrayMultiply(arr, index + 1));
     }
 
     //Метод для задания 5
@@ -112,7 +126,7 @@ public class HomeWork11 {
         return Math.sqrt((Math.pow(sideA, 2) + Math.pow(sideB, 2)));
     }
 
-    //Метод для задания 11 ??? тернарный оператор подойдёт? или есть ещё другое решение //TODO если ответ да, надо стереть коммент
+    //Метод для задания 11
     public static int numberSumm(int num) {
         return (num > 0) ? num + numberSumm(num - 1) : 0;
     }
@@ -204,6 +218,8 @@ public class HomeWork11 {
     }
 
     public static void main(String[] args) {
+        //переменная индекса для массивов
+        int zeroIndex = 0;
 
         //1) Написать метод, который возвращает факториал заданного числа.
         System.out.println("Задание 1. Вывод:");
@@ -223,38 +239,37 @@ public class HomeWork11 {
         System.out.println("Задание 3. Вывод:");
         int[] arr3 = randomArray(10, 101);
         printArray(arr3);
-        System.out.println("Сумма элементов массива равна: " + arraySumm(arr3)); //TODO попробовать проход рекурсией?
+        System.out.println("Сумма элементов массива равна: " + arraySumm(arr3, zeroIndex));
         System.out.println();
 
         //4) Написать метод, который возвращает произведение элементов массива.
         System.out.println("Задание 4. Вывод:");
-        int[] arr4 = randomArray(10, 101);
+        int[] arr4 = randomArray(10, 11);
         printArray(arr4);
-        System.out.println("Произведение элементов массива равно: " + arrayMultiply(arr4)); //TODO попробовать рекурсию?
+        System.out.println("Произведение элементов массива равно: " + arrayMultiply(arr4, zeroIndex));
         System.out.println();
 
         //5) Написать метод, который возвращает наибольшее число из массива.
         System.out.println("Задание 5. Вывод:");
         int[] arr5 = randomArray(10, 101);
         printArray(arr5);
-        System.out.println("Максимальное значение в массиве равно: " + arrayMax(arr5)); //TODO попробовать рекурсию?
+        System.out.println("Максимальное значение в массиве равно: " + arrayMax(arr5));
         System.out.println();
 
         //6) Написать метод, который возвращает наименьшее число из массива.
         System.out.println("Задание 6. Вывод:");
         int[] arr6 = randomArray(10, 101);
         printArray(arr6);
-        System.out.println("Минимальное значение в массиве равно: " + arrayMin(arr6)); //TODO попробовать рекурсию?
+        System.out.println("Минимальное значение в массиве равно: " + arrayMin(arr6));
         System.out.println();
 
         //7) Написать метод, который возвращает разницу между максимальным и минимальным элементом массива.
         System.out.println("Задание 7. Вывод:");
         int[] arr7 = randomArray(10, 101);
         printArray(arr7);
-        //ТУТ ДУМАЮ МОЖНО ИСПОЛЬЗОВАТЬ МЕТОДЫ НАХОЖДЕНИЯ МИНИМАЛЬНОГО И МАКСИМАЛЬНОГО ЗНАЧЕНИЯ
         int result7 = arrayMaxMinSubstraction(arr7);
         System.out.println("Разница между максимальным (" + arrayMax(arr7) + ") и минимальным значением (" +
-                arrayMin(arr7) + ") в массиве равно: " + result7); //TODO попробовать рекурсию?
+                arrayMin(arr7) + ") в массиве равно: " + result7);
         System.out.println();
 
         //8) Написать метод, который возвращает сумму квадратов элементов массива.
@@ -262,7 +277,7 @@ public class HomeWork11 {
         int[] arr8 = randomArray(10, 101);
         printArray(arr8);
         int result8 = arrayPowSumm(arr8);
-        System.out.println("Сумма квадратов элементов массива равна: " + result8); //TODO попробовать рекурсию?
+        System.out.println("Сумма квадратов элементов массива равна: " + result8);
         System.out.println();
 
         //9) Написать метод, который находит объем цилиндра по радиусу и высоте.
@@ -290,7 +305,6 @@ public class HomeWork11 {
         int num11 = 10;
         int sum11 = numberSumm(num11);
         System.out.println("Сумма цифр от 1 до " + num11 + " равна: " + sum11);
-        //TODO достаточно ли тернарного оператора в этом задании?
         System.out.println();
 
         //12) Написать метод, который проверяет, является ли число степенью двойки.
@@ -306,7 +320,7 @@ public class HomeWork11 {
         int last13 = 10;
         int result13 = sumOfThreeFive(first13, last13);
         System.out.println("Сумма чисел, кратных 3 или 5 из диапазона от " +
-                first13 + " до " + last13 + " равна: " + result13); //TODO попробовать рекурсию?
+                first13 + " до " + last13 + " равна: " + result13);
         System.out.println();
 
         //14) Написать метод, который возвращает сумму цифр числа.
