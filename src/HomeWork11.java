@@ -334,7 +334,7 @@ public class HomeWork11 {
         System.out.println("Задание 15. Вывод:");
         int number15 = 657;
         int result15 = numberMultiply(number15);
-        System.out.println("Произведение цифр числа " + number15 + " равно:" + result15);
+        System.out.println("Произведение цифр числа " + number15 + " равно: " + result15);
         System.out.println();
 
         //16) Написать метод, который возвращает количество цифр в числе.
