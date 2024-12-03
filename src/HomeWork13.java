@@ -76,7 +76,7 @@ public class HomeWork13 {
     //Метод для задания 4
     public static String myEquals(char[] arr1, char[] arr2) {
         if (arr1.length != arr2.length) {
-            return "Строки не равны";
+            return "Строки не равны по размеру";
         } else {
             for (int i = 0; i < arr1.length; i++) {
                 if (arr1[i] != arr2[i]) {
@@ -97,6 +97,7 @@ public class HomeWork13 {
         }
         return false;
     }
+
     //Метод для задания 6
 //    public static char[] myReplace (String fromFull, String fromString, String toFull, String toString){
 //        char [] fromFullString = fromFull.toCharArray();
@@ -110,14 +111,100 @@ public class HomeWork13 {
 //        return finalchar;
 //    }
     //Метод для задания 7
+    public static String myEqualsIgnoreCase(char[] arr1, char[] arr2) {
+        if (arr1.length != arr2.length) {
+            return "Строки не одинаковы по размеру";
+        }
+        for (int i = 0; i < arr1.length; i++) {
+            char first = (arr1[i] >= 'A' && arr1[i] <= 'Z') ? (char) (arr1[i] + 32) : arr1[i];
+            char second = (arr2[i] >= 'A' && arr2[i] <= 'Z') ? (char) (arr2[i] + 32) : arr2[i];
+            if (first != second) {
+                return "Строки не одинаковы";
+            }
+        }
+        return "Строки одинаковы";
+    }
+
     //Метод для задания 8
+    public static String myConcat(String str1, String str2) {
+        return str1 + str2;
+    }
+
     //Метод для задания 9
+    public static boolean myEndsWith(String text, char[] arr) {
+        char[] textChar = text.toCharArray();
+        for (int i = arr.length - textChar.length, j = 0; i < arr.length; i++, j++) {
+            if (textChar[j] == arr[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     //Метод для задания 10
+    public static char[] mySubstring(String text, int firstIndex, int lastIndex) {
+        char[] charText = text.toCharArray();
+        int size = lastIndex - firstIndex;
+        char[] result = new char[size];
+        for (int i = firstIndex, j = 0; i < lastIndex; i++, j++) {
+            result[j] = charText[i];
+        }
+        return result;
+    }
+
     //Метод для задания 11
+    public static char[] myToCharArray(String text) { //TODO это конечно не то что нужно
+        char[] result = text.toCharArray();
+        return result;
+    }
+
     //Метод для задания 12
+    public static int myIndexOf(char[] arr, char ch) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == ch) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     //Метод для задания 13
+    public static int myIndexOf(char[] arr, char ch, int fromIndex) {
+        for (int i = fromIndex; i < arr.length; i++) {
+            if (arr[i] == ch) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     //Метод для задания 14
+    public static int myLastIndexOf(char[] arr, char ch) {
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (arr[i] == ch) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     //Метод для задания 15
+    public static int myLastIndexOf(char[] arr, char ch, int fromIndex) {
+        if (arr.length < fromIndex) {
+            for (int i = arr.length-1; i >= 0; i--) {
+                if (arr[i] == ch) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = fromIndex; i >= 0; i--) {
+                if (arr[i] == ch) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
     //Метод для задания 16
     //Метод для задания 17
     //Метод для задания 18
@@ -155,8 +242,8 @@ public class HomeWork13 {
         myPrintArray(charray3);
         System.out.print("Измененная строка: ");
         myPrintArray(result3);
-        System.out.print("Проверочный метод: ");
-        System.out.println(str3.trim());
+        System.out.print("Проверочный метод: " + str3.trim());
+
         System.out.println();
 
         //4) equals - метод сравнивает строки с учетом регистра
@@ -169,7 +256,7 @@ public class HomeWork13 {
         System.out.println("Сравниваем строки с учетом регистра:\nПервая строка: \"" + str4_1.concat("\"\nВторая строка: \"" + str4_2 + "\""));
         System.out.println("Ответ: " + result4);
         System.out.print("Проверочный метод: ");
-        result4 = str4_1.equals(str4_2) ? "Строки равны" : "Строки не равны"; //поставить сначала result 4 = моему методу, потом присвоить проверочный
+        result4 = str4_1.equals(str4_2) ? "Строки равны" : "Строки не равны";
         System.out.println(result4);
         System.out.println();
 
@@ -188,7 +275,8 @@ public class HomeWork13 {
         //6) replace - метод заменяет старую строку на новую
         System.out.println("Задание 6. Вывод:");
         String str6 = "Aria";
-
+        System.out.println("Было: " + str6);
+        // System.out.println("Стало: " + str6.replace("Aria", "Kipelov"));
         System.out.println("Проверочный метод:");
         System.out.println("Было: " + str6);
         System.out.println("Стало: " + str6.replace("Aria", "Kipelov"));
@@ -198,40 +286,57 @@ public class HomeWork13 {
         System.out.println("Задание 7. Вывод:");
         String str7_1 = "Papa ROACH";
         String str7_2 = "papa roach";
-
-        System.out.println("Проверочный метод:");
-        System.out.println(str7_1.equalsIgnoreCase(str7_2) ? "Строки одинаковы" : "Строки не одинаковы");
+        char[] charray7_1 = str7_1.toCharArray();
+        char[] charray7_2 = str7_2.toCharArray();
+        String result7 = myEqualsIgnoreCase(charray7_1, charray7_2);
+        System.out.println("Сравниваем строки без учета регистра:\nПервая строка: \"" +
+                str7_1.concat("\"\nВторая строка: \"" + str7_2 + "\""));
+        System.out.println("Ответ: " + result7);
+        System.out.println("Проверочный метод: " + (str7_1.equalsIgnoreCase(str7_2) ?
+                "Строки одинаковы" : "Строки не одинаковы"));
+        System.out.println();
         System.out.println();
 
         //8) concat - метод, который добавляет к текущей строке новую строку
         System.out.println("Задание 8. Вывод:");
         String str8_1 = "Nine Inch"; // Nails
         String str8_2 = " Nails";
-
-        System.out.println("Проверочный метод:");
-        System.out.println(str8_1.concat(str8_2));
+        String result8 = myConcat(str8_1, str8_2);
+        System.out.println("Исходная первая строка: \"" + str8_1 + "\" Исходная вторая строка: \"" + str8_2 + "\"");
+        System.out.println("Склеиваем и получаем: \"" + result8 + "\"");
+        System.out.println("Проверочный метод: \"" + str8_1.concat(str8_2) + "\"");
         System.out.println();
 
         //9) endsWith - метод проверяет, заканчивается ли строка на указанную строку
         System.out.println("Задание 9. Вывод:");
         String str9 = "Justin Timberlake"; // lake
-
-        System.out.println("Проверочный метод:");
-        System.out.println(str9.endsWith("lake"));
+        String taskText9 = "lake";
+        char[] charray9 = str9.toCharArray();
+        boolean result9 = myEndsWith(taskText9, charray9);
+        System.out.println(str9);
+        System.out.println("Строка заканчивается на " + "\"" + taskText9 + "\"" + "? Ответ: " + (result9 ? "Да" : "Нет"));
+        System.out.println("Проверочный метод: \nСтрока заканчивается на " + "\"" + taskText9 + "\"" + "? Ответ: " +
+                (str9.endsWith(taskText9) ? "Да" : "Нет"));
         System.out.println();
 
         //10) substring - метод извлекается подстроку из текущей строки
         System.out.println("Задание 10. Вывод:");
         String str10 = "Fatboy Slim";
-
-        System.out.println("Проверочный метод:");
-        System.out.println(str10.substring(3, 6));
+        int index10_1 = 3;
+        int index10_2 = 6;
+        char[] result10 = mySubstring(str10, index10_1, index10_2);
+        System.out.println("Исходная строка: " + str10);
+        System.out.print("Выводим строку между индексом " + index10_1 + " и индексом " + index10_2 + " : ");
+        myPrintArray(result10);
+        System.out.println("Проверочный метод: " + str10.substring(index10_1, index10_2));
         System.out.println();
 
         //11) toCharArray - метод, который конвертирует строку в массив char //TODO ну тут придётся подумать
         System.out.println("Задание 11. Вывод:");
         String str11 = "Bring Me The Horizon";
-
+        char[] result11 = myToCharArray(str11);
+        System.out.println("Преобразовываем строку \"" + str11 + "\" в массив: ");
+        myPrintArray(result11);
         System.out.println("Проверочный метод:");
         char[] chars11 = str11.toCharArray();
         myPrintArray(chars11);
@@ -240,33 +345,51 @@ public class HomeWork13 {
         //12) indexOf(char a) - метод возвращает индекс данного символа
         System.out.println("Задание 12. Вывод:");
         String str12 = "Green Day";
-
+        char[] charray12 = str12.toCharArray();
+        char taskChar12 = 'e';
+        myPrintArray(charray12);
+        int result12 = myIndexOf(charray12, taskChar12);
+        System.out.println("Символ \"" + taskChar12 + "\" находится в индексе " + result12);
         System.out.println("Проверочный метод:");
-        System.out.println(str12.indexOf('e'));
+        System.out.println("Символ \"" + taskChar12 + "\" находится в индексе " + str12.indexOf(taskChar12));
         System.out.println();
 
         //13) indexOf(char a , int fromIndex) - метод возвращает индекс данного СИМВОЛА?, если оно есть и начинается с указанного индекса, иначе = -1
         System.out.println("Задание 13. Вывод:");
         String str13 = "Red Hot Chili Peppers";
-
+        char[] charray13 = str13.toCharArray();
+        char taskChar13 = 'i';
+        int fromIndex13 = 5;
+        myPrintArray(charray13);
+        int result13 = myIndexOf(charray13, taskChar13, fromIndex13);
+        System.out.println("Символ \"" + taskChar13 + "\" находится в индексе " + result13);
         System.out.println("Проверочный метод:");
-        System.out.println(str13.indexOf('i'));
+        System.out.println("Символ \"" + taskChar13 + "\" находится в индексе " + str13.indexOf(taskChar13, fromIndex13));
         System.out.println();
 
         //14) lastIndexOf(char a) - метод возвращает индекс данного символа с конца строки, иначе = -1
         System.out.println("Задание 14. Вывод:");
         String str14 = "Blue Foundation";
-
+        char[] charray14 = str14.toCharArray();
+        char taskChar14 = 'u';
+        myPrintArray(charray14);
+        int result14 = myLastIndexOf(charray14, taskChar14);
+        System.out.println("Последний индекс символа \"" + taskChar14 + "\" равен: " + result14);
         System.out.println("Проверочный метод:");
-        System.out.println(str14.lastIndexOf('u'));
+        System.out.println("Последний индекс символа \"" + taskChar14 + "\" равен: " + str14.lastIndexOf(taskChar14));
         System.out.println();
 
         //15) lastIndexOf(char a , int fromIndex) - метод возвращает индекс данного СИМВОЛА? с конца строки, если оно есть начиная с индекса, иначе = -1
         System.out.println("Задание 15. Вывод:");
         String str15 = "Bullet for my Valentine";
-
+        char[] charray15 = str15.toCharArray();
+        char taskChar15 = 'e';
+        int fromIndex15 = 100;
+        myPrintArray(charray15);
+        int result15 = myLastIndexOf(charray15, taskChar15, fromIndex15);
+        System.out.println("Последний индекс символа \"" + taskChar15 + "\" равен: " + result15);
         System.out.println("Проверочный метод:");
-        System.out.println(str15.lastIndexOf('e', 100));
+        System.out.println("Последний индекс символа \"" + taskChar15 + "\" равен: " + str15.lastIndexOf(taskChar15, fromIndex15));
         System.out.println();
 
         //16) lastIndexOf(char[] a) - метод возвращает индекс данного слова с конца строки, если оно есть, иначе = -1
@@ -277,7 +400,7 @@ public class HomeWork13 {
         System.out.println(str16.lastIndexOf("kel"));
         System.out.println();
 
-        //17) indexOf(char[] a) - метод возвращает индекс данного слово если оно есть, иначе = -1
+        //17) indexOf(char[] a) - метод возвращает индекс данного слова если оно есть, иначе = -1
         System.out.println("Задание 17. Вывод:");
         String str17 = "Alien Ant Farm";
 
