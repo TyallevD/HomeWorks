@@ -98,17 +98,25 @@ public class HomeWork13 {
         return false;
     }
 
-    //Метод для задания 6
-//    public static char[] myReplace (String fromFull, String fromString, String toFull, String toString){
-//        char [] fromFullString = fromFull.toCharArray();
-//        char [] toFullString = toFull.toCharArray();
-//        int count=0;
+    //Метод для задания 6 //TODO надо выполнить
+//      Передаём строку, значение которое хотим поменять (или всю строку), значение на что хотим поменять (или полную строку). Просто (просто?)
+//       Меняем на другое значение, возвращаем его
+//    public static char[] myReplace (String fromString, String toSring){
+//        char [] fromChar = fromString.toCharArray();
+//        char [] toChar = toSring.toCharArray();
+//        if (fromChar.length>=toChar.length){
+//            for (int i = 0; i < toChar.length; i++) {
+//                toChar[i]=fromChar[i];
+//            }
+//        } else {
+//            for (int i = 0; i < fromChar.length; i++) {
+//                toChar[i]=fromChar[i];
+//            }
+//        }
 //
-//        Передаём строку, значение которое хотим поменять (или всю строку), значение на что хотим поменять (или полную строку). Просто (просто?)
-//        Меняем на другое значение, возвращаем его
 //
-//        char [] finalchar;
-//        return finalchar;
+//        //char [] finalchar;
+//        return toChar;
 //    }
     //Метод для задания 7
     public static String myEqualsIgnoreCase(char[] arr1, char[] arr2) {
@@ -153,8 +161,11 @@ public class HomeWork13 {
     }
 
     //Метод для задания 11
-    public static char[] myToCharArray(String text) { //TODO это конечно не то что нужно
-        char[] result = text.toCharArray();
+    public static char[] myToCharArray(String text) {
+        char[] result = new char[text.length()];
+        for (int i = 0; i < text.length(); i++) {
+            result[i]=text.charAt(i);
+        }
         return result;
     }
 
@@ -191,7 +202,7 @@ public class HomeWork13 {
     //Метод для задания 15
     public static int myLastIndexOf(char[] arr, char ch, int fromIndex) {
         if (arr.length < fromIndex) {
-            for (int i = arr.length-1; i >= 0; i--) {
+            for (int i = arr.length - 1; i >= 0; i--) {
                 if (arr[i] == ch) {
                     return i;
                 }
@@ -205,7 +216,20 @@ public class HomeWork13 {
         }
         return -1;
     }
+
     //Метод для задания 16
+    public static int myLastIndexOf(char[] arr, String text) {//todo не готово
+        char[] taskText = text.toCharArray();
+        if (arr.length>taskText.length) {
+            for (int i = 0; i < arr.length; i++) {
+                for (int j = 0; j < taskText.length; j++) {
+
+                }
+
+            }
+        }
+        return -1;
+    }
     //Метод для задания 17
     //Метод для задания 18
     //Метод для задания 19
@@ -272,14 +296,17 @@ public class HomeWork13 {
                 (str5.startsWith(taskText5) ? "Да" : "Нет"));
         System.out.println();
 
-        //6) replace - метод заменяет старую строку на новую
+        //6) replace - метод заменяет старую строку на новую //TODO не готово
         System.out.println("Задание 6. Вывод:");
-        String str6 = "Aria";
-        System.out.println("Было: " + str6);
+        String str6_1 = "Aria";
+        String str6_2 = "Kipelov";
+        System.out.println("Было: " + str6_1);
+       // char [] result6 = myReplace(str6_1,str6_2);
+      //  System.out.println(result6);
         // System.out.println("Стало: " + str6.replace("Aria", "Kipelov"));
         System.out.println("Проверочный метод:");
-        System.out.println("Было: " + str6);
-        System.out.println("Стало: " + str6.replace("Aria", "Kipelov"));
+        System.out.println("Было: " + str6_1);
+        System.out.println("Стало: " + str6_1.replace("Aria", "Kipelov"));
         System.out.println();
 
         //7) equalsIgnoreCase - метод сравнивает строки без учета регистра
@@ -331,7 +358,7 @@ public class HomeWork13 {
         System.out.println("Проверочный метод: " + str10.substring(index10_1, index10_2));
         System.out.println();
 
-        //11) toCharArray - метод, который конвертирует строку в массив char //TODO ну тут придётся подумать
+        //11) toCharArray - метод, который конвертирует строку в массив char
         System.out.println("Задание 11. Вывод:");
         String str11 = "Bring Me The Horizon";
         char[] result11 = myToCharArray(str11);
@@ -392,12 +419,16 @@ public class HomeWork13 {
         System.out.println("Последний индекс символа \"" + taskChar15 + "\" равен: " + str15.lastIndexOf(taskChar15, fromIndex15));
         System.out.println();
 
-        //16) lastIndexOf(char[] a) - метод возвращает индекс данного слова с конца строки, если оно есть, иначе = -1
+        //16) lastIndexOf(char[] a) - метод возвращает индекс данного слова с конца строки, если оно есть, иначе = -1 //TODO не готово
         System.out.println("Задание 16. Вывод:");
         String str16 = "Nickelback"; //back
-
+        char[] charray16 = str16.toCharArray();
+        String taskText16 = "kel";
+        myPrintArray(charray16);
+        int result16 = myLastIndexOf(charray16, taskText16);
+        System.out.println("Последний индекс слова " + taskText16 + " равен: " + result16);
         System.out.println("Проверочный метод:");
-        System.out.println(str16.lastIndexOf("kel"));
+        System.out.println(str16.lastIndexOf(taskText16));
         System.out.println();
 
         //17) indexOf(char[] a) - метод возвращает индекс данного слова если оно есть, иначе = -1
@@ -437,7 +468,7 @@ public class HomeWork13 {
         String str21 = "Thomas Bergersen, Two Steps From Hell";
 
         System.out.println("Проверочный метод:");
-        String[] result21 = str21.split("\\, ");
+        String[] result21 = str21.split(", ");
         myPrintArray(result21);
         System.out.println();
 
