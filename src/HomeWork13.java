@@ -13,6 +13,8 @@ public class HomeWork13 {
         }
         System.out.println();
     }
+    //====================================================
+
 
     //Метод для задания 1
     public static char[] myLeftTrim(char[] arr) {
@@ -74,28 +76,27 @@ public class HomeWork13 {
     }
 
     //Метод для задания 4
-    public static String myEquals(char[] arr1, char[] arr2) {
+    public static boolean myEquals(char[] arr1, char[] arr2) {
         if (arr1.length != arr2.length) {
-            return "Строки не равны по размеру";
+            return false;
         } else {
             for (int i = 0; i < arr1.length; i++) {
                 if (arr1[i] != arr2[i]) {
-                    return "Строки не равны";
+                    return false;
                 }
             }
         }
-        return "Строки равны";
+        return true;
     }
 
     //Метод для задания 5
-    public static boolean myStartsWith(String text, char[] arr) {
-        char[] textchar = text.toCharArray();
-        for (int i = 0; i < textchar.length; i++) {
-            if (textchar[i] == arr[i]) {
-                return true;
+    public static boolean myStartsWith(char[] text, char[] arr) {
+        for (int i = 0; i < text.length; i++) {
+            if (text[i] != arr[i]) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     //Метод для задания 6 //TODO надо выполнить
@@ -119,30 +120,36 @@ public class HomeWork13 {
 //        return toChar;
 //    }
     //Метод для задания 7
-    public static String myEqualsIgnoreCase(char[] arr1, char[] arr2) {
+    public static boolean myEqualsIgnoreCase(char[] arr1, char[] arr2) {
         if (arr1.length != arr2.length) {
-            return "Строки не одинаковы по размеру";
+            return false;
         }
         for (int i = 0; i < arr1.length; i++) {
             char first = (arr1[i] >= 'A' && arr1[i] <= 'Z') ? (char) (arr1[i] + 32) : arr1[i];
             char second = (arr2[i] >= 'A' && arr2[i] <= 'Z') ? (char) (arr2[i] + 32) : arr2[i];
             if (first != second) {
-                return "Строки не одинаковы";
+                return false;
             }
         }
-        return "Строки одинаковы";
+        return true;
     }
 
     //Метод для задания 8
-    public static String myConcat(String str1, String str2) {
-        return str1 + str2;
+    public static char[] myConcat(char[] str1, char[] str2) {
+        char[] concatedChar = new char[str1.length + str2.length];
+        for (int i = 0; i < str1.length; i++) {
+            concatedChar[i] = str1[i];
+        }
+        for (int i = str1.length, j = 0; i < concatedChar.length; i++, j++) {
+            concatedChar[i] = str2[j];
+        }
+        return concatedChar;
     }
 
     //Метод для задания 9
-    public static boolean myEndsWith(String text, char[] arr) {
-        char[] textChar = text.toCharArray();
-        for (int i = arr.length - textChar.length, j = 0; i < arr.length; i++, j++) {
-            if (textChar[j] == arr[i]) {
+    public static boolean myEndsWith(char[] text, char[] arr) {
+        for (int i = arr.length - text.length, j = 0; i < arr.length; i++, j++) {
+            if (text[j] == arr[i]) {
                 return true;
             }
         }
@@ -150,12 +157,11 @@ public class HomeWork13 {
     }
 
     //Метод для задания 10
-    public static char[] mySubstring(String text, int firstIndex, int lastIndex) {
-        char[] charText = text.toCharArray();
+    public static char[] mySubstring(char[] text, int firstIndex, int lastIndex) {
         int size = lastIndex - firstIndex;
         char[] result = new char[size];
         for (int i = firstIndex, j = 0; i < lastIndex; i++, j++) {
-            result[j] = charText[i];
+            result[j] = text[i];
         }
         return result;
     }
@@ -164,7 +170,7 @@ public class HomeWork13 {
     public static char[] myToCharArray(String text) {
         char[] result = new char[text.length()];
         for (int i = 0; i < text.length(); i++) {
-            result[i]=text.charAt(i);
+            result[i] = text.charAt(i);
         }
         return result;
     }
@@ -218,13 +224,10 @@ public class HomeWork13 {
     }
 
     //Метод для задания 16
-    public static int myLastIndexOf(char[] arr, String text) {//todo не готово
-        char[] taskText = text.toCharArray();
-        if (arr.length>taskText.length) {
-            for (int i = 0; i < arr.length; i++) {
-                for (int j = 0; j < taskText.length; j++) {
+    public static int myLastIndexOf(char[] arr, char[] text) {//todo не готово + нужно переделать на char[]
 
-                }
+        if (arr.length > text.length) {
+            for (int i = 0; i < arr.length; i++) {
 
             }
         }
@@ -266,7 +269,7 @@ public class HomeWork13 {
         myPrintArray(charray3);
         System.out.print("Измененная строка: ");
         myPrintArray(result3);
-        System.out.print("Проверочный метод: " + str3.trim());
+        System.out.println("Проверочный метод: " + str3.trim());
 
         System.out.println();
 
@@ -276,20 +279,21 @@ public class HomeWork13 {
         String str4_2 = "a perfect circle";
         char[] charray4_1 = str4_1.toCharArray();
         char[] charray4_2 = str4_2.toCharArray();
-        String result4 = myEquals(charray4_1, charray4_2);
-        System.out.println("Сравниваем строки с учетом регистра:\nПервая строка: \"" + str4_1.concat("\"\nВторая строка: \"" + str4_2 + "\""));
-        System.out.println("Ответ: " + result4);
+        boolean result4 = myEquals(charray4_1, charray4_2);
+        System.out.println("Сравниваем строки с учетом регистра:\nПервая строка: \"" +
+                str4_1.concat("\"\nВторая строка: \"" + str4_2 + "\""));
+        System.out.println("Ответ: " + (result4 ? "Строки одинаковы" : "Строки не одинаковы"));
         System.out.print("Проверочный метод: ");
-        result4 = str4_1.equals(str4_2) ? "Строки равны" : "Строки не равны";
-        System.out.println(result4);
+        System.out.println(str4_1.equals(str4_2) ? "Строки одинаковы" : "Строки не одинаковы");
         System.out.println();
 
         //5) startsWith - метод проверяет, начинается ли строка с указанной строки
         System.out.println("Задание 5. Вывод:");
         String str5 = "The animal in me";
-        String taskText5 = "The";
+        String taskText5 = "the";
         char[] charray5 = str5.toCharArray();
-        boolean result5 = myStartsWith(taskText5, charray5);
+        char[] taskTextChar5 = taskText5.toCharArray();
+        boolean result5 = myStartsWith(taskTextChar5, charray5);
         System.out.println(str5);
         System.out.println("Строка начинается с " + "\"" + taskText5 + "\"" + "? Ответ: " + (result5 ? "Да" : "Нет"));
         System.out.println("Проверочный метод:\nСтрока начинается с " + "\"" + taskText5 + "\"" + "? Ответ: " +
@@ -301,8 +305,8 @@ public class HomeWork13 {
         String str6_1 = "Aria";
         String str6_2 = "Kipelov";
         System.out.println("Было: " + str6_1);
-       // char [] result6 = myReplace(str6_1,str6_2);
-      //  System.out.println(result6);
+        // char [] result6 = myReplace(str6_1,str6_2);
+        //  System.out.println(result6);
         // System.out.println("Стало: " + str6.replace("Aria", "Kipelov"));
         System.out.println("Проверочный метод:");
         System.out.println("Было: " + str6_1);
@@ -315,10 +319,10 @@ public class HomeWork13 {
         String str7_2 = "papa roach";
         char[] charray7_1 = str7_1.toCharArray();
         char[] charray7_2 = str7_2.toCharArray();
-        String result7 = myEqualsIgnoreCase(charray7_1, charray7_2);
+        boolean result7 = myEqualsIgnoreCase(charray7_1, charray7_2);
         System.out.println("Сравниваем строки без учета регистра:\nПервая строка: \"" +
                 str7_1.concat("\"\nВторая строка: \"" + str7_2 + "\""));
-        System.out.println("Ответ: " + result7);
+        System.out.println("Ответ: " + (result7 ? "Строки одинаковы" : "Строки не одинаковы"));
         System.out.println("Проверочный метод: " + (str7_1.equalsIgnoreCase(str7_2) ?
                 "Строки одинаковы" : "Строки не одинаковы"));
         System.out.println();
@@ -328,10 +332,13 @@ public class HomeWork13 {
         System.out.println("Задание 8. Вывод:");
         String str8_1 = "Nine Inch"; // Nails
         String str8_2 = " Nails";
-        String result8 = myConcat(str8_1, str8_2);
-        System.out.println("Исходная первая строка: \"" + str8_1 + "\" Исходная вторая строка: \"" + str8_2 + "\"");
-        System.out.println("Склеиваем и получаем: \"" + result8 + "\"");
-        System.out.println("Проверочный метод: \"" + str8_1.concat(str8_2) + "\"");
+        char[] charray8_1 = str8_1.toCharArray();
+        char[] charray8_2 = str8_2.toCharArray();
+        char[] result8 =  myConcat(charray8_1, charray8_2);
+        System.out.println("Исходная первая строка: \"" + str8_1 + "\"\nИсходная вторая строка: \"" + str8_2 + "\"");
+        System.out.print("Склеиваем и получаем: ");
+        myPrintArray(result8);
+        System.out.println("Проверочный метод: "+ str8_1.concat(str8_2));
         System.out.println();
 
         //9) endsWith - метод проверяет, заканчивается ли строка на указанную строку
@@ -339,7 +346,8 @@ public class HomeWork13 {
         String str9 = "Justin Timberlake"; // lake
         String taskText9 = "lake";
         char[] charray9 = str9.toCharArray();
-        boolean result9 = myEndsWith(taskText9, charray9);
+        char[] taskTextChar9 = taskText9.toCharArray();
+        boolean result9 = myEndsWith(taskTextChar9, charray9);
         System.out.println(str9);
         System.out.println("Строка заканчивается на " + "\"" + taskText9 + "\"" + "? Ответ: " + (result9 ? "Да" : "Нет"));
         System.out.println("Проверочный метод: \nСтрока заканчивается на " + "\"" + taskText9 + "\"" + "? Ответ: " +
@@ -351,7 +359,8 @@ public class HomeWork13 {
         String str10 = "Fatboy Slim";
         int index10_1 = 3;
         int index10_2 = 6;
-        char[] result10 = mySubstring(str10, index10_1, index10_2);
+        char[] charray10 = str10.toCharArray();
+        char[] result10 = mySubstring(charray10, index10_1, index10_2);
         System.out.println("Исходная строка: " + str10);
         System.out.print("Выводим строку между индексом " + index10_1 + " и индексом " + index10_2 + " : ");
         myPrintArray(result10);
@@ -422,28 +431,32 @@ public class HomeWork13 {
         //16) lastIndexOf(char[] a) - метод возвращает индекс данного слова с конца строки, если оно есть, иначе = -1 //TODO не готово
         System.out.println("Задание 16. Вывод:");
         String str16 = "Nickelback"; //back
-        char[] charray16 = str16.toCharArray();
         String taskText16 = "kel";
+        char[] charray16 = str16.toCharArray();
+        char[] taskTextChar16 = taskText16.toCharArray();
         myPrintArray(charray16);
-        int result16 = myLastIndexOf(charray16, taskText16);
+        int result16 = myLastIndexOf(charray16, taskTextChar16);
         System.out.println("Последний индекс слова " + taskText16 + " равен: " + result16);
-        System.out.println("Проверочный метод:");
+        System.out.print("Проверочный метод: ");
         System.out.println(str16.lastIndexOf(taskText16));
         System.out.println();
 
         //17) indexOf(char[] a) - метод возвращает индекс данного слова если оно есть, иначе = -1
         System.out.println("Задание 17. Вывод:");
         String str17 = "Alien Ant Farm";
+        String taskText17 = "Ant";
+        char[] charray17 = str17.toCharArray();
+        char[] taskTextChar17 = taskText17.toCharArray();
 
-        System.out.println("Проверочный метод:");
-        System.out.println(str17.indexOf("Ant"));
+        System.out.print("Проверочный метод: ");
+        System.out.println(str17.indexOf(taskText17));
         System.out.println();
 
         //18) indexOf(char[] a , int fromIndex) - метод возвращает индекс данного слова, если оно есть и начинается с указанного индекса, иначе =-1
         System.out.println("Задание 18. Вывод:");
         String str18 = "God Is An Astronaut";
 
-        System.out.println("Проверочный метод:");
+        System.out.print("Проверочный метод: ");
         System.out.println(str18.indexOf("Is", 3));
         System.out.println();
 
@@ -451,7 +464,7 @@ public class HomeWork13 {
         System.out.println("Задание 19. Вывод:");
         String str19 = "Creedence Clearwater Revival";
 
-        System.out.println("Проверочный метод:");
+        System.out.print("Проверочный метод: ");
         System.out.println(str19.lastIndexOf("Clear", 30));
         System.out.println();
 
@@ -459,7 +472,7 @@ public class HomeWork13 {
         System.out.println("Задание 20. Вывод:");
         String str20 = "Thirty Seconds to Mars";
 
-        System.out.println("Проверочный метод:");
+        System.out.print("Проверочный метод: ");
         System.out.println(str20.contains("Seconds"));
         System.out.println();
 
