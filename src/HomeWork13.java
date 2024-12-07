@@ -149,11 +149,11 @@ public class HomeWork13 {
     //Метод для задания 9
     public static boolean myEndsWith(char[] text, char[] arr) {
         for (int i = arr.length - text.length, j = 0; i < arr.length; i++, j++) {
-            if (text[j] == arr[i]) {
-                return true;
+            if (text[j] != arr[i]) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     //Метод для задания 10
