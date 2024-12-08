@@ -99,23 +99,57 @@ public class HomeWork13 {
         return true;
     }
 
-    //Метод для задания 6 //TODO надо выполнить
-//      Передаём строку, значение которое хотим поменять (или всю строку), значение на что хотим поменять (или полную строку). Просто (просто?)
-//       Меняем на другое значение, возвращаем его
-    public static char[] myReplace(char[] fromChar, char[] toChar) {
+    //Метод для задания 6
+    public static char[] myReplace(char[] original, char[] oldStr, char[] newStr) {
+        //Находим сколько раз старая подстрока есть в оригинальной строке
+        int countEnter = myCountContains(original, oldStr);
+        //если старой подстроки не найдено, возвращаем оригинал
+        if (countEnter == 0) {
+            return original;
+        }
+        //Находим размер нового массива. Вычитаем из общей длины старой строки длину старой подстроки и
+        // прибавляем длину новой подстроки. Создаем массив.
+        int newSize = original.length - (oldStr.length * countEnter) + (newStr.length * countEnter);
 
-        if (fromChar.length >= toChar.length) {
-            for (int i = 0; i < toChar.length; i++) {
-                toChar[i] = fromChar[i];
-            }
-        } else {
-            for (int i = 0; i < fromChar.length; i++) {
-                toChar[i] = fromChar[i];
+        char[] result = new char[newSize];
+
+        int startIndex = 0; //индекс прохода по старому массиву
+        int findIndex = 0; //индекс вхождения старой подстроки
+        int resultIndex = 0; //индекс прохода по новому массиву
+
+        //пока индекс вхождения старой строки не -1 - работает цикл заполнения нового массива
+        while ((findIndex = myIndexOf(original, oldStr, startIndex)) != -1) {
+
+            result = arrayCopy(original, startIndex, result, resultIndex, findIndex - startIndex);
+            resultIndex += findIndex - startIndex;
+
+            result = arrayCopy(newStr, 0, result, resultIndex, newStr.length);
+            resultIndex += newStr.length;
+
+            startIndex = findIndex + oldStr.length;
+
+        }
+        result = arrayCopy(original, startIndex, result, resultIndex, original.length - startIndex);
+
+        return result;
+    }
+
+    public static char[] arrayCopy(char[] original, int index, char[] dest, int destIndex, int length) {
+        for (int i = 0; i < length; i++) {
+            dest[destIndex + i] = original[index + i];
+        }
+        return dest;
+    }
+
+    public static int myCountContains(char[] arr, char[] text) {
+        int count = 0;
+        for (int i = 0; i <= arr.length - text.length; i++) {
+            if (myContains(arr, text, i)) {
+                i += text.length;
+                count++;
             }
         }
-
-
-        return toChar;
+        return count;
     }
 
     //Метод для задания 7
@@ -222,7 +256,7 @@ public class HomeWork13 {
         return -1;
     }
 
-    //Метод для задания 16 //TODO переделать
+    //Метод для задания 16
     public static int myLastIndexOf(char[] arr, char[] text) {
         if (arr.length >= text.length) {
             for (int i = arr.length - text.length; i >= 0; i--) {
@@ -234,7 +268,7 @@ public class HomeWork13 {
         return -1;
     }
 
-    //Метод для задания 17 //TODO переделать
+    //Метод для задания 17
     public static int myIndexOf(char[] arr, char[] text) {
         if (arr.length >= text.length) {
             for (int i = 0; i <= arr.length - text.length; i++) {
@@ -299,7 +333,8 @@ public class HomeWork13 {
         return false;
     }
 
-    public static boolean myContains(char[] arr, char[] text, int fromIndex) { //Метод используется для заданий 16, 17, 18 и 19
+    public static boolean myContains(char[] arr, char[] text, int fromIndex) {
+        //Метод используется для заданий 6, 16, 17, 18 и 19
         if (text.length + fromIndex > arr.length) {
             return false;
         }
@@ -388,20 +423,24 @@ public class HomeWork13 {
                 (str5.startsWith(taskText5) ? "Да" : "Нет"));
         System.out.println();
 
-        //6) replace - метод заменяет старую строку на новую //TODO не готово
+        //6) replace - метод заменяет старую строку на новую
         System.out.println("Задание 6. Вывод:");
-        String str6_1 = "Aria";
-        String str6_2 = "Kipelov";
-        char[] charray6_1 = str6_1.toCharArray();
-        char[] charray6_2 = str6_2.toCharArray();
+        String strOriginal6 = "Aria";
+        String strChange6 = "Aria";
+        String strDestination6 = "Kipelov";
+        char[] charrayOriginal6 = strOriginal6.toCharArray();
+        char[] charrayChange6 = strChange6.toCharArray();
+        char[] charrayDestination6 = strDestination6.toCharArray();
 
-        System.out.println("Было: " + str6_1);
+        char[] result6 = myReplace(charrayOriginal6, charrayChange6, charrayDestination6);
+
+        System.out.println("Было: " + strOriginal6);
         System.out.print("Стало: ");
-        System.out.println(myReplace(charray6_1, charray6_2));
+        System.out.println(result6);
 
         System.out.println("Проверочный метод:");
-        System.out.println("Было: " + str6_1);
-        System.out.println("Стало: " + str6_1.replace("Aria", "Kipelov"));
+        System.out.println("Было: " + strOriginal6);
+        System.out.println("Стало: " + strOriginal6.replace("Aria", "Kipelov"));
         System.out.println();
 
         //7) equalsIgnoreCase - метод сравнивает строки без учета регистра
@@ -483,7 +522,7 @@ public class HomeWork13 {
         String str12 = "Green Day";
         char[] charray12 = str12.toCharArray();
         char taskChar12 = 'e';
-        myPrintArray(charray12);
+        System.out.println(str12);
 
         int result12 = myIndexOf(charray12, taskChar12);
 
@@ -498,7 +537,7 @@ public class HomeWork13 {
         char[] charray13 = str13.toCharArray();
         char taskChar13 = 'i';
         int fromIndex13 = 5;
-        myPrintArray(charray13);
+        System.out.println(str13);
 
         int result13 = myIndexOf(charray13, taskChar13, fromIndex13);
 
@@ -512,7 +551,7 @@ public class HomeWork13 {
         String str14 = "Blue Foundation";
         char[] charray14 = str14.toCharArray();
         char taskChar14 = 'u';
-        myPrintArray(charray14);
+        System.out.println(str14);
 
         int result14 = myLastIndexOf(charray14, taskChar14);
 
@@ -527,7 +566,7 @@ public class HomeWork13 {
         char[] charray15 = str15.toCharArray();
         char taskChar15 = 'e';
         int fromIndex15 = 23;
-        myPrintArray(charray15);
+        System.out.println(str15);
 
         int result15 = myLastIndexOf(charray15, taskChar15, fromIndex15);
 
@@ -539,10 +578,10 @@ public class HomeWork13 {
         //16) lastIndexOf(char[] a) - метод возвращает индекс данного слова с конца строки, если оно есть, иначе = -1
         System.out.println("Задание 16. Вывод:");
         String str16 = "Nickelback";
-        String taskText16 = "back";
+        String taskText16 = "Nickelback";
         char[] charray16 = str16.toCharArray();
         char[] taskTextChar16 = taskText16.toCharArray();
-        myPrintArray(charray16);
+        System.out.println(str16);
 
         int result16 = myLastIndexOf(charray16, taskTextChar16);
 
@@ -550,13 +589,13 @@ public class HomeWork13 {
         System.out.println("Проверочный метод: Последний индекс слова \"" + taskText16 + "\" равен: " + str16.lastIndexOf(taskText16));
         System.out.println();
 
-        //17) indexOf(char[] a) - метод возвращает индекс данного слова если оно есть, иначе = -1 //TODO используется разобранный на уроке myContains (без индекса)
+        //17) indexOf(char[] a) - метод возвращает индекс данного слова если оно есть, иначе = -1
         System.out.println("Задание 17. Вывод:");
         String str17 = "Alien Ant Farm";
         String taskText17 = "Ant";
         char[] charray17 = str17.toCharArray();
         char[] taskTextChar17 = taskText17.toCharArray();
-        myPrintArray(charray17);
+        System.out.println(str17);
 
         int result17 = myIndexOf(charray17, taskTextChar17);
 
@@ -564,7 +603,7 @@ public class HomeWork13 {
         System.out.println("Проверочный метод: Индекс строки \"" + taskText17 + "\" => " + str17.indexOf(taskText17));
         System.out.println();
 
-        //18) indexOf(char[] a , int fromIndex) - метод возвращает индекс данного слова, если оно есть и начинается с указанного индекса, иначе =-1 //TODO используется разобранный на уроке myContains
+        //18) indexOf(char[] a , int fromIndex) - метод возвращает индекс данного слова, если оно есть и начинается с указанного индекса, иначе =-1
         System.out.println("Задание 18. Вывод:");
         String str18 = "God Is An Astronaut";
         String taskText18 = "Is An";
@@ -576,10 +615,12 @@ public class HomeWork13 {
         int result18 = myIndexOf(charray18, taskTextChar18, index18);
 
         System.out.println("Индекс строки \"" + taskText18 + "\" => " + result18);
-        System.out.println("Проверочный метод: Индекс строки \"" + taskText18 + "\" => " + str18.indexOf(taskText18, index18));
+        System.out.println("Проверочный метод: Индекс строки \"" + taskText18 + "\" => " +
+                str18.indexOf(taskText18, index18));
         System.out.println();
 
-        //19) lastIndexOf(char[] a , int fromIndex) - метод возвращает индекс данного слова с конца строки, если оно есть и начинается с индекса, иначе =-1 //TODO используется разобранный на уроке myContains
+        //19) lastIndexOf(char[] a , int fromIndex) - метод возвращает индекс данного
+        // слова с конца строки, если оно есть и начинается с индекса, иначе =-1
         System.out.println("Задание 19. Вывод:");
         String str19 = "Creedence Clearwater Revival";
         String taskText19 = "Clear";
@@ -591,7 +632,8 @@ public class HomeWork13 {
         int result19 = myLastIndexOf(charray19, taskTextChar19, index19);
 
         System.out.println("Последний индекс строки \"" + taskText19 + "\" => " + result19);
-        System.out.println("Проверочный метод: Последний индекс строки \"" + taskText19 + "\" => " + str19.lastIndexOf(taskText19, index19));
+        System.out.println("Проверочный метод: Последний индекс строки \"" + taskText19 + "\" => " +
+                str19.lastIndexOf(taskText19, index19));
         System.out.println();
 
         //20) contains - метод проверяет, содержит ли строка указанную строку
@@ -611,20 +653,21 @@ public class HomeWork13 {
 
         //21) split - метод разделяет строку на подстроку
         System.out.println("Задание 21. Вывод:");
-        String str21 = "Thomas Bergersen, Two Steps From Hell, Hello";
-        String split21 =", ";
+        String str21 = "Thomas Bergersen, Two Steps From Hell";
+        String split21 = ", ";
         char[] charray21 = str21.toCharArray();
         char[] splitChar21 = split21.toCharArray();
         System.out.println(str21);
 
-        char[]result21 = mySplit(charray21, splitChar21);
+        char[] result21 = mySplit(charray21, splitChar21);
 
-
+        System.out.println("Результат: ");
+        System.out.println(result21);
         System.out.println("Проверочный метод:");
-        String[] checkResult21 = str21.split(", ");
+        String[] checkResult21 = str21.split(split21);
         myPrintArray(checkResult21);
         System.out.println();
 
-//TODO не готовы задания 6, 16, 17, 21
+//TODO не готово задание 21
     }
 }
