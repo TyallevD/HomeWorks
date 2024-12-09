@@ -346,10 +346,40 @@ public class HomeWork13 {
         return true;
     }
 
-    //Метод для задания 21 //TODO
-    public static char[] mySplit(char[] arr, char[] split) {
+    //Метод для задания 21
+    public static char[][] mySplit(char[] arr, char[] split) {
+        int arraysCount = myCountContains(arr, split) + 1; //количество строк, на которое будет разбиваться массив
+        char[][] result = new char[arraysCount][];
+        if (arraysCount == 1) { //возвращаем оригинал, если ожидается одна строка
+            result[0] = arr;
+            return result;
+        }
+        int findIndex = 0; //индекс вхождения строки split
+        int startIndex = 0; //индекс начала прохода по оригинальной строке (массиву)
+        int resultStartIndex = 0; //индекс начала прохода по заполняемому массиву
 
-        return arr;
+        int i = 0; //счетчик внешнего массива
+        while ((findIndex = myIndexOf(arr, split, startIndex)) != -1) { //Цикл заполняет двумерные массивы, исключая последний
+            char[] tempArr = new char[findIndex - startIndex];
+            result[i] = arrayCopy(arr, startIndex, tempArr, resultStartIndex, findIndex - startIndex);
+
+            startIndex = findIndex + split.length;
+            i++;
+        }
+        //заполняем последний массив
+        char[] tempArr = new char[arr.length - startIndex];
+        result[i] = arrayCopy(arr, startIndex, tempArr, resultStartIndex, arr.length - startIndex);
+
+        return result;
+    }
+
+    public static void myPrintManyArrays(char[][] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                System.out.print(arr[i][j]);
+            }
+            System.out.println();
+        }
     }
 
     public static void main(String[] args) {
@@ -659,15 +689,14 @@ public class HomeWork13 {
         char[] splitChar21 = split21.toCharArray();
         System.out.println(str21);
 
-        char[] result21 = mySplit(charray21, splitChar21);
+        char[][] result21 = mySplit(charray21, splitChar21);
 
         System.out.println("Результат: ");
-        System.out.println(result21);
+        myPrintManyArrays(result21);
+
+        System.out.println();
         System.out.println("Проверочный метод:");
         String[] checkResult21 = str21.split(split21);
         myPrintArray(checkResult21);
-        System.out.println();
-
-//TODO не готово задание 21
     }
 }
