@@ -1,6 +1,23 @@
 public class HomeWork15 {
     public static int[] concat(int[] one, int[] two) {
+        //{-2,-1,0,4,7,10,12};
+        //{-10,1,1,1,2,3,6,7,10,100,1000};
         int[] result = new int[one.length + two.length];
+        int min1 = 0;
+        int min2 = 0;
+        //int temp = 0;
+
+        for (int i = 0; i < result.length; i++) {
+            if (one[min1] > two[min2]) { //&& min1 < one.length
+                result[i] = two[min2];
+                min2++;
+            } else if (one[min1] <= two[min2]) {
+                result[i] = one[min1];
+                min1++;
+            }
+            // result[i] = temp;
+        }
+    //TODO Заполнение происходит частично, далее упираюсь в размер первого массива. А что если первый массив больше второго? Или равны?
 
         return result;
     }
