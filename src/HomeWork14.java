@@ -3,30 +3,36 @@ public class HomeWork14 {
         if (text.length + fromIndex > arr.length) {
             return false;
         }
-        for (int i = 0; i < text.length; i++) {
+        int i = 0;
+        while (i < text.length) {
             if (arr[i + fromIndex] != text[i]) {
                 return false;
             }
+            i++;
         }
         return true;
     }
 
 
     public static int myIndexOf(char[] arr, char[] text, int fromIndex) {
-        for (int i = fromIndex; i <= arr.length - text.length; i++) {
+        int i = fromIndex;
+        while (i <= arr.length - text.length) {
             if (myContains(arr, text, i)) {
                 return i;
             }
+            i++;
         }
         return -1;
     }
 
     public static int myCountContains(char[] arr, char[] text) {
         int count = 0;
-        for (int i = 0; i <= arr.length - text.length; i++) {
+        int i = 0;
+        while (i <= arr.length - text.length) {
             if (myContains(arr, text, i)) {
                 i += text.length;
                 count++;
+                i++;
             }
         }
         return count;
@@ -63,12 +69,14 @@ public class HomeWork14 {
     }
 
     public static char[] arrayCopy(char[] original, int index, char[] dest, int destIndex, int leng) {
-        for (int i = 0; i < leng; i++) {
+        int i = 0;
+        while (i < leng) {
             dest[destIndex + i] = original[index + i];
-
+            i++;
         }
         return dest;
     }
+
     public static void main(String[] args) {
         // public static char[] replaceAll(char[] original,char[] oldStr,char[] newStr)
         //реализовать этот метод используя ( либо while ) (либо   do while)
@@ -82,8 +90,11 @@ public class HomeWork14 {
         char[] replacingChar = replacing.toCharArray();
 
         char[] result = myReplaceAll(search, oldChar, replacingChar);
-        for (int i = 0; i < result.length; i++) {
+
+        int i = 0;
+        while (i < result.length) {
             System.out.print(result[i]);
+            i++;
         }
     }
 }

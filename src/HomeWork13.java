@@ -470,7 +470,7 @@ public class HomeWork13 {
 
         System.out.println("Проверочный метод:");
         System.out.println("Было: " + strOriginal6);
-        System.out.println("Стало: " + strOriginal6.replace("Aria", "Kipelov"));
+        System.out.println("Стало: " + strOriginal6.replace(strOriginal6, strDestination6));
         System.out.println();
 
         //7) equalsIgnoreCase - метод сравнивает строки без учета регистра
