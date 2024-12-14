@@ -145,7 +145,7 @@ public class HomeWork13 {
         int count = 0;
         for (int i = 0; i <= arr.length - text.length; i++) {
             if (myContains(arr, text, i)) {
-                i += text.length;
+                i += text.length-1;
                 count++;
             }
         }

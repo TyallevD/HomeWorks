@@ -30,7 +30,7 @@ public class HomeWork14 {
         int i = 0;
         while (i <= arr.length - text.length) {
             if (myContains(arr, text, i)) {
-                i += text.length;
+                i += text.length-1;
                 count++;
                 i++;
             }
