@@ -74,12 +74,12 @@ public class HomeWork17 {
         //Конструктор для установки координат точки.
         //Метод move(int dx, int dy), который изменяет координаты точки на заданное смещение.
         System.out.println("Задание 6. Вывод:");
-        Point point = new Point(0,0);
-        System.out.println(point.x +" "+ point.y);
-        point.move(1,2);
-        System.out.println(point.x +" "+ point.y);
-        point.move(-1,2);
-        System.out.println(point.x +" "+ point.y);
+        Point point = new Point(0, 0);
+        System.out.println(point.x + " " + point.y);
+        point.move(1, 2);
+        System.out.println(point.x + " " + point.y);
+        point.move(-1, 2);
+        System.out.println(point.x + " " + point.y);
         System.out.println();
 
         //Задание 7
@@ -87,28 +87,55 @@ public class HomeWork17 {
         //Поля firstName и lastName (оба типа String).
         //Конструктор для установки имени и фамилии.
         //Метод getFullName(), который возвращает полное имя человека.
+        System.out.println("Задание 7. Вывод:");
 
+        Person person = new Person("Дмитрий", "Тяллев");
+        System.out.println("Имя: " + person.firstName);
+        System.out.println("Фамилия: " + person.lastName);
+        System.out.println("Получаем полное имя: " + person.getFullName());
+
+        System.out.println();
 
         //Задание 8
         //Создайте класс Temperature, который имеет:
         //Поле celsius (тип double).
         //Конструктор для установки температуры в градусах Цельсия.
         //Методы toFahrenheit() и toKelvin(), которые возвращают температуру в Фаренгейтах и Кельвинах соответственно.
+        System.out.println("Задание 8. Вывод:");
+        Temperature temperature = new Temperature(40);
+        System.out.println("Текущая температура по Цельсию: " + temperature.celsius);
+        System.out.println("Переводим температуру в Фаренгейты: " + temperature.toFahrenheit());
+        System.out.println("Переводим температуру в Кельвины: " + temperature.toKelvin());
+        System.out.println();
 
-
-        //Задание 9
+        //Задание 9 //todo дооформить
         //Создайте класс Counter, который имеет:
         //Поле count (тип int), изначально равное 0.
         //Метод increment(), который увеличивает значение поля на 1.
         //Метод decrement(), который уменьшает значение поля на 1.
         //Метод getCount(), который возвращает текущее значение счетчика.
+        System.out.println("Задание 9. Вывод:");
+        Counter counter = new Counter();
+        System.out.println(counter.count);
+        counter.decrement();
+        System.out.println(counter.count);
+        counter.increment();
+        System.out.println(counter.count);
+        counter.increment();
+        System.out.println(counter.count);
 
+        System.out.println();
 
-        //Задание 10
+        //Задание 10 //todo доделать
         //Создайте класс Time, который имеет:
         //Поля hours и minutes (оба типа int).
         //Конструктор для установки времени.
         //Метод addMinutes(int minutes), который добавляет заданное количество минут к времени и корректно обновляет часы.
+        System.out.println("Задание 10. Вывод:");
+        Time time = new Time(0, 0);
+        time.addMinutes(60);
+        System.out.println(time.hours + " " + time.minutes);
+        System.out.println();
     }
 }
 
@@ -185,6 +212,7 @@ class Book {
     }
 }
 
+//Класс для задания 6
 class Point {
     int x;
     int y;
@@ -193,8 +221,79 @@ class Point {
         this.x = x;
         this.y = y;
     }
-    public void move(int dx, int dy){
+
+    public void move(int dx, int dy) {
         x += dx;
         y += dy;
     }
+}
+
+//Класс для задания 7
+class Person {
+    String firstName;
+    String lastName;
+
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return firstName.concat(" " + lastName);
+    }
+}
+
+//Класс для задания 8
+class Temperature {
+    double celsius;
+
+    public Temperature(double celsius) {
+        this.celsius = celsius;
+    }
+
+    public double toFahrenheit() {
+        return (celsius * 9 / 5) + 32;
+    }
+
+    public double toKelvin() {
+        return celsius + 273.15;
+    }
+}
+
+//Класс для задания 9
+class Counter {
+    int count = 0;
+
+    public int increment() {
+        return count++;
+    }
+
+    public int decrement() {
+        return count--;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}
+
+//Класс для задания 10
+class Time {
+    int hours;
+    int minutes;
+
+    public Time(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public Time(int hours, int minutes) {
+        this.hours = hours;
+        this.minutes = minutes;
+    }
+
+    public int addMinutes(int minutes) {
+
+        return this.minutes += minutes;
+    }
+
 }
