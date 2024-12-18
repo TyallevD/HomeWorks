@@ -12,6 +12,21 @@ public class HomeWork16 {
         return a / b;
     }
 
+    //Метод для задания 2
+    public static int checkWrongFormat() throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        int a = 0;
+        System.out.print("Введите число: ");
+        try {
+            a = scanner.nextInt();
+
+        } catch (Exception ex) {
+            throw new Exception("Ошибка. Введенное значение не является числом");
+        }
+
+        return a;
+    }
+
     //Метод для задания 3
     public static int[] arrayRandomFill(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
@@ -95,13 +110,22 @@ public class HomeWork16 {
 //        //2. Неверный формат числа
 //        //Запросите у пользователя ввод числа. Если пользователь ввёл строку, не являющуюся числом,
 //        //выбросьте исключение и выведите сообщение об ошибке.
-//        System.out.println("Задание 2. Вывод");
+//        System.out.println("Задание 2. Вывод:");
+//        System.out.println("Вариант без метода");
 //        try {
 //            System.out.print("Введите число: ");
 //            int a2 = scanner.nextInt();
-//            System.out.println("Вы ввели " + a2);
+//            System.out.println("Вы ввели: \"" + a2 + "\"");
 //        } catch (InputMismatchException ex) {
 //            System.out.println("Ошибка. Введенное значение не является числом");
+//        }
+//        System.out.println();
+//
+//        System.out.println("Вариант с методом");
+//        try {
+//            System.out.println("Вы ввели: \"" + checkWrongFormat()+"\"");
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
 //        }
 //        System.out.println();
 
