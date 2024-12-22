@@ -133,7 +133,8 @@ public class HomeWork17 {
         //Метод addMinutes(int minutes), который добавляет заданное количество минут к времени и корректно обновляет часы.
         System.out.println("Задание 10. Вывод:");
         Time time = new Time(0, 0);
-        time.addMinutes(60);
+        System.out.println(time.hours + " " + time.minutes);
+        time.addMinutes(100);
         System.out.println(time.hours + " " + time.minutes);
         System.out.println();
     }
@@ -282,18 +283,17 @@ class Time {
     int hours;
     int minutes;
 
-    public Time(int minutes) {
-        this.minutes = minutes;
-    }
-
     public Time(int hours, int minutes) {
         this.hours = hours;
         this.minutes = minutes;
     }
 
     public int addMinutes(int minutes) {
-
+        int hour = 0;
+        if (minutes>=60){
+            this.hours= hour++;
+            return this.minutes= 60 - minutes;
+        }
         return this.minutes += minutes;
     }
-
 }
