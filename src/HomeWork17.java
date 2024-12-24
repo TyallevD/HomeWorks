@@ -68,18 +68,18 @@ public class HomeWork17 {
 
         System.out.println();
 
-        //Задание 6 //TODO дооформить
+        //Задание 6
         //Создайте класс Point, который имеет:
         //Поля x и y (оба типа int).
         //Конструктор для установки координат точки.
         //Метод move(int dx, int dy), который изменяет координаты точки на заданное смещение.
         System.out.println("Задание 6. Вывод:");
         Point point = new Point(0, 0);
-        System.out.println(point.x + " " + point.y);
+        System.out.println("Стартовая точка х = "+point.x + "; y =" + point.y);
         point.move(1, 2);
-        System.out.println(point.x + " " + point.y);
+        System.out.println("Перемещаемся на координаты х = "+point.x + "; y = " + point.y);
         point.move(-1, 2);
-        System.out.println(point.x + " " + point.y);
+        System.out.println("Перемещаемся на координаты х = "+point.x + "; y = " + point.y);
         System.out.println();
 
         //Задание 7
@@ -108,7 +108,7 @@ public class HomeWork17 {
         System.out.println("Переводим температуру в Кельвины: " + temperature.toKelvin());
         System.out.println();
 
-        //Задание 9 //todo дооформить
+        //Задание 9
         //Создайте класс Counter, который имеет:
         //Поле count (тип int), изначально равное 0.
         //Метод increment(), который увеличивает значение поля на 1.
@@ -116,26 +116,32 @@ public class HomeWork17 {
         //Метод getCount(), который возвращает текущее значение счетчика.
         System.out.println("Задание 9. Вывод:");
         Counter counter = new Counter();
-        System.out.println(counter.count);
-        counter.decrement();
-        System.out.println(counter.count);
-        counter.increment();
-        System.out.println(counter.count);
-        counter.increment();
-        System.out.println(counter.count);
-
+        System.out.println("Стартовое значение = " + counter.getCount());
         System.out.println();
 
-        //Задание 10 //todo доделать
+        counter.decrement();
+        System.out.println("Измененное значение = " + counter.getCount());
+        System.out.println();
+
+        counter.increment();
+        System.out.println("Измененное значение = " + counter.getCount());
+        System.out.println();
+
+        counter.increment();
+        System.out.println("Измененное значение = " + counter.getCount());
+        System.out.println();
+
+        //Задание 10
         //Создайте класс Time, который имеет:
         //Поля hours и minutes (оба типа int).
         //Конструктор для установки времени.
         //Метод addMinutes(int minutes), который добавляет заданное количество минут к времени и корректно обновляет часы.
         System.out.println("Задание 10. Вывод:");
         Time time = new Time(0, 0);
-        System.out.println(time.hours + " " + time.minutes);
-        time.addMinutes(100);
-        System.out.println(time.hours + " " + time.minutes);
+        System.out.println("Стартовое время");
+        System.out.println(time.hours + ":" + time.minutes);
+        time.addMinutes(3660);
+        System.out.println(time.hours + ":" + time.minutes);
         System.out.println();
     }
 }
@@ -266,10 +272,12 @@ class Counter {
     int count = 0;
 
     public int increment() {
+        System.out.println("Увеличиваем счетчик");
         return count++;
     }
 
     public int decrement() {
+        System.out.println("Уменьшаем счетчик");
         return count--;
     }
 
@@ -288,12 +296,12 @@ class Time {
         this.minutes = minutes;
     }
 
-    public int addMinutes(int minutes) {
-        int hour = 0;
-        if (minutes>=60){
-            this.hours= hour++;
-            return this.minutes= 60 - minutes;
-        }
-        return this.minutes += minutes;
+    public void addMinutes(int minutes) {
+        System.out.println("Добавляем минуты: " + minutes);
+        this.minutes += minutes;
+        this.hours += this.minutes / 60;
+        this.hours %= 24;
+        this.minutes %= 60;
+
     }
 }
