@@ -98,7 +98,7 @@ markdown
     public static void gameTableStart(char[] field) {
         System.out.println("Стартовое состояние игрового поля:");
         for (int i = 0; i < field.length; i++) {
-            field[i] = '-';
+            field[i] = ' ';
         }
         for (int i = 0; i < field.length; i += 3) {
             System.out.println(" " + field[i] + " | " + field[i + 1] + " | " + field[i + 2]);
@@ -125,7 +125,7 @@ markdown
         while (true) {
             System.out.print("Ходит игрок Х. Введите номер ячейки: ");
             int index = scanner.nextInt();
-            if (index <= 0 || index > field.length || field[index - 1] != '-') {
+            if (index <= 0 || index > field.length || field[index - 1] != ' ') { //todo доделать корректно проверку на заполнение поля. Разделить проверку на выход из поля и на заполнение
                 System.out.println("Вы вышли за пределы поля");
             }
 //            if (field[index - 1] != '-') {
@@ -144,7 +144,7 @@ markdown
         while (true) {
             System.out.print("Ходит игрок O. Введите номер ячейки: ");
             int index = scanner.nextInt();
-            if (index <= 0 || index > field.length || field[index - 1] != '-') {
+            if (index <= 0 || index > field.length || field[index - 1] != ' ') {
                 System.out.println("Вы вышли за пределы поля");
             }
 //            if (field[index - 1] != '-') {
@@ -157,7 +157,7 @@ markdown
         }
         return field;
     }
-
+    //TODO додумать проверку на победу и написать проверку на ничью
     public static boolean isXWin(char[] field) {
         for (int i = 0; i < 7; i += 3) {
             if (field[i] == field[i + 1] && field[i] == field[i + 2] && field[i] == 'x') {
