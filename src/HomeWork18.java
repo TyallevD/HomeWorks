@@ -125,13 +125,11 @@ markdown
         while (true) {
             System.out.print("Ходит игрок Х. Введите номер ячейки: ");
             int index = scanner.nextInt();
-            if (index <= 0 || index > field.length || field[index - 1] != ' ') { //todo доделать корректно проверку на заполнение поля. Разделить проверку на выход из поля и на заполнение
+            if (index <= 0 || index > field.length) {
                 System.out.println("Вы вышли за пределы поля");
-            }
-//            if (field[index - 1] != '-') {
-//                System.out.println("Ячейка занята, попробуйте снова");
-//            }
-            else {
+            } else if (field[index - 1] != ' ') {
+                System.out.println("Ячейка занята, попробуйте снова");
+            } else {
                 field[index - 1] = 'x';
                 break;
             }
@@ -144,20 +142,19 @@ markdown
         while (true) {
             System.out.print("Ходит игрок O. Введите номер ячейки: ");
             int index = scanner.nextInt();
-            if (index <= 0 || index > field.length || field[index - 1] != ' ') {
+            if (index <= 0 || index > field.length) {
                 System.out.println("Вы вышли за пределы поля");
-            }
-//            if (field[index - 1] != '-') {
-//                System.out.println("Ячейка занята, попробуйте снова");
-//            }
-            else {
+            } else if (field[index - 1] != ' ') {
+                System.out.println("Ячейка занята, попробуйте снова");
+            } else {
                 field[index - 1] = 'o';
                 break;
             }
         }
         return field;
     }
-    //TODO додумать проверку на победу и написать проверку на ничью
+
+    //TODO додумать проверку на победу и написать проверку на ничью.
     public static boolean isXWin(char[] field) {
         for (int i = 0; i < 7; i += 3) {
             if (field[i] == field[i + 1] && field[i] == field[i + 2] && field[i] == 'x') {
