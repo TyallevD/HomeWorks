@@ -64,16 +64,16 @@ markdown
 
         //ход первого игрока
         //отображение результата действий игрока
-        while (!isXWin(field) || !isOWin(field)) {
+        while (!isXWin(field) || !isOWin(field) || !isDraw(field)) {
             xTurn(field);
             gameTable(field);
-            if (isXWin(field)) {
+            if (isXWin(field)||isDraw(field)) {
                 break;
             }
 
             oTurn(field);
             gameTable(field);
-            if (isOWin(field)) {
+            if (isOWin(field)|| isDraw(field)) {
                 break;
             }
         }
@@ -154,20 +154,57 @@ markdown
         return field;
     }
 
-    //TODO додумать проверку на победу и написать проверку на ничью.
+    //TODO упростить проверку на победу
     public static boolean isXWin(char[] field) {
-        for (int i = 0; i < 7; i += 3) {
-            if (field[i] == field[i + 1] && field[i] == field[i + 2] && field[i] == 'x') {
-                System.out.println("Игрок Х побеждает!");
-                return true;
-            }
+        if (field[0] == field[1] && field[0] == field[2] && field[0] == 'x') {
+            System.out.println("Игрок Х побеждает!");
+            return true;
         }
-        for (int i = 0; i < 3; i++) {
-            if (field[i] == field[i + 4] && field[i] == field[i + 6] && field[i] == 'x') {
-                System.out.println("Игрок Х побеждает!");
-                return true;
-            }
+        if (field[3] == field[4] && field[3] == field[5] && field[3] == 'x') {
+            System.out.println("Игрок Х побеждает!");
+            return true;
         }
+        if (field[6] == field[7] && field[6] == field[8] && field[6] == 'x') {
+            System.out.println("Игрок Х побеждает!");
+            return true;
+        }
+        if (field[0] == field[3] && field[0] == field[6] && field[0] == 'x') {
+            System.out.println("Игрок Х побеждает!");
+            return true;
+        }
+        if (field[1] == field[4] && field[1] == field[7] && field[1] == 'x') {
+            System.out.println("Игрок Х побеждает!");
+            return true;
+        }
+        if (field[2] == field[5] && field[2] == field[8] && field[2] == 'x') {
+            System.out.println("Игрок Х побеждает!");
+            return true;
+        }
+        if (field[0] == field[4] && field[0] == field[8] && field[0] == 'x') {
+            System.out.println("Игрок Х побеждает!");
+            return true;
+        }
+        if (field[2] == field[4] && field[2] == field[6] && field[2] == 'x') {
+            System.out.println("Игрок Х побеждает!");
+            return true;
+        }
+        // 0 | 1 | 2
+        //-----------
+        // 3 | 4 | 5
+        //-----------
+        // 6 | 7 | 8
+//        for (int i = 0; i < 7; i += 3) {
+//            if (field[i] == field[i + 1] && field[i] == field[i + 2] && field[i] == 'x') {
+//                System.out.println("Игрок Х побеждает!");
+//                return true;
+//            }
+//        }
+//        for (int i = 0; i < 3; i++) {
+//            if (field[i] == field[i + 4] && field[i] == field[i + 6] && field[i] == 'x') {
+//                System.out.println("Игрок Х побеждает!");
+//                return true;
+//            }
+//        }
 //        for (int i = 0; i <= 3; i += 3) {
 //            if (field[i] == field[4] && field[i] == field[field.length - i] && field[i] == 'x') {
 //                System.out.println("Игрок Х побеждает!");
@@ -178,7 +215,48 @@ markdown
     }
 
     public static boolean isOWin(char[] field) {
-
+        if (field[0] == field[1] && field[0] == field[2] && field[0] == 'o') {
+            System.out.println("Игрок O побеждает!");
+            return true;
+        }
+        if (field[3] == field[4] && field[3] == field[5] && field[3] == 'o') {
+            System.out.println("Игрок O побеждает!");
+            return true;
+        }
+        if (field[6] == field[7] && field[6] == field[8] && field[6] == 'o') {
+            System.out.println("Игрок O побеждает!");
+            return true;
+        }
+        if (field[0] == field[3] && field[0] == field[6] && field[0] == 'o') {
+            System.out.println("Игрок O побеждает!");
+            return true;
+        }
+        if (field[1] == field[4] && field[1] == field[7] && field[1] == 'o') {
+            System.out.println("Игрок O побеждает!");
+            return true;
+        }
+        if (field[2] == field[5] && field[2] == field[8] && field[2] == 'o') {
+            System.out.println("Игрок O побеждает!");
+            return true;
+        }
+        if (field[0] == field[4] && field[0] == field[8] && field[0] == 'o') {
+            System.out.println("Игрок O побеждает!");
+            return true;
+        }
+        if (field[2] == field[4] && field[2] == field[6] && field[2] == 'o') {
+            System.out.println("Игрок O побеждает!");
+            return true;
+        }
         return false;
+    }
+
+    public static boolean isDraw(char[] field) { //TODO доделать условие ничьи
+        int count = 0;
+        for (int i = 0; i < field.length; i++) {
+            if (field[i] != ' ') {
+                count++;
+            }
+        }
+        return count == 9;
     }
 }
