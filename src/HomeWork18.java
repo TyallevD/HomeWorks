@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class HomeWork18 {
@@ -49,39 +50,62 @@ markdown
 ---------
 7 | 8 | 9
 Программа должна проверять ввод пользователя на корректность (например, не позволять ставить символ в занятую клетку или вводить некорректные координаты).
-
-        Распишем реализацию:
-        1) нужно создать поле для отображения справки (отдельный метод)
-        2) создать поле для отображения результата действий игроков (отдельный метод)
-        3) создать запрос хода с вводом данных (проверка на корректность символов и вместимости массива)
-        4) создать проверку на ввод в уже заполненное поле (нужно запросить заново ввод)
-        5) создать проверку на победу первого или второго игрока
-        * */
+* */
         System.out.println("Начинаем игру");
         template();
+
+        //выбрал вариант с одномерным массивом для реализации заданий
         char[] field = new char[9];
         gameTableStart(field);
 
-        //ход первого игрока
-        //отображение результата действий игрока
-        while (!isXWin(field) || !isOWin(field) || !isDraw(field)) {
-            xTurn(field);
-            gameTable(field);
-            if (isXWin(field)||isDraw(field)) {
-                break;
-            }
+        //Добавил возможность выбора варианта игры, с игроком (задание 1) или с компьютером (задание2)
+        System.out.print("Выбор режима игры. Хотите играть с игроком (1) или компьютером (2)? :");
+        int answer = new Scanner(System.in).nextInt();
 
-            oTurn(field);
-            gameTable(field);
-            if (isOWin(field)|| isDraw(field)) {
-                break;
+        if (answer == 1) { //выбираем игру с игроком
+            while (!isXWin(field) || !isOWin(field) || !isDraw(field)) {
+                xTurn(field);
+                gameTable(field);
+                if (isXWin(field) || isDraw(field)) {
+                    break;
+                }
+
+                oTurn(field);
+                gameTable(field);
+                if (isOWin(field) || isDraw(field)) {
+                    break;
+                }
             }
         }
-        //проверка на победу
-        //ход второго игрока
-        //отображение результата действий игрока
-        //проверка на победу
+
+        //2. Человек против компьютера
+        //Реализуйте логику игрового поля так же, как в первом варианте.
+        //Добавьте возможность игры против компьютера:
+        //Игрок делает ход первым (за X).
+        //После хода игрока компьютер выбирает случайную свободную клетку для своего хода (за O).
+        //После каждого хода:
+        //Проверяйте условия победы.
+        //Если поле заполнено, игра заканчивается ничьей.
+        //Убедитесь, что компьютер не делает ход в занятую клетку.
+
+        else if (answer == 2) { //выбираем игру с компьютером
+            while (!isXWin(field) || !isComputerWin(field) || !isDraw(field)) {
+                xTurn(field);
+                gameTable(field);
+                if (isXWin(field) || isDraw(field)) {
+                    break;
+                }
+
+                computerTurn(field);
+                gameTable(field);
+                if (isComputerWin(field) || isDraw(field)) {
+                    break;
+                }
+            }
+        }
+        System.out.println("Игра завершена");
     }
+
 
     public static void template() {
         System.out.println("Справочная информация:");
@@ -154,91 +178,51 @@ markdown
         return field;
     }
 
-    //TODO упростить проверку на победу
     public static boolean isXWin(char[] field) {
-        if (field[0] == field[1] && field[0] == field[2] && field[0] == 'x') {
-            System.out.println("Игрок Х побеждает!");
-            return true;
+        //Строки
+        for (int i = 0; i < 7; i += 3) {
+            if (field[i] == field[i + 1] && field[i] == field[i + 2] && field[i] == 'x') {
+                System.out.println("Игрок X побеждает!");
+                return true;
+            }
         }
-        if (field[3] == field[4] && field[3] == field[5] && field[3] == 'x') {
-            System.out.println("Игрок Х побеждает!");
-            return true;
+        //Столбцы
+        for (int i = 0; i < 3; i++) {
+            if (field[i] == field[i + 3] && field[i] == field[i + 6] && field[i] == 'x') {
+                System.out.println("Игрок X побеждает!");
+                return true;
+            }
         }
-        if (field[6] == field[7] && field[6] == field[8] && field[6] == 'x') {
-            System.out.println("Игрок Х побеждает!");
-            return true;
-        }
-        if (field[0] == field[3] && field[0] == field[6] && field[0] == 'x') {
-            System.out.println("Игрок Х побеждает!");
-            return true;
-        }
-        if (field[1] == field[4] && field[1] == field[7] && field[1] == 'x') {
-            System.out.println("Игрок Х побеждает!");
-            return true;
-        }
-        if (field[2] == field[5] && field[2] == field[8] && field[2] == 'x') {
-            System.out.println("Игрок Х побеждает!");
-            return true;
-        }
+
+        //Диагонали
         if (field[0] == field[4] && field[0] == field[8] && field[0] == 'x') {
-            System.out.println("Игрок Х побеждает!");
+            System.out.println("Игрок X побеждает!");
             return true;
         }
         if (field[2] == field[4] && field[2] == field[6] && field[2] == 'x') {
-            System.out.println("Игрок Х побеждает!");
+            System.out.println("Игрок X побеждает!");
             return true;
         }
-        // 0 | 1 | 2
-        //-----------
-        // 3 | 4 | 5
-        //-----------
-        // 6 | 7 | 8
-//        for (int i = 0; i < 7; i += 3) {
-//            if (field[i] == field[i + 1] && field[i] == field[i + 2] && field[i] == 'x') {
-//                System.out.println("Игрок Х побеждает!");
-//                return true;
-//            }
-//        }
-//        for (int i = 0; i < 3; i++) {
-//            if (field[i] == field[i + 4] && field[i] == field[i + 6] && field[i] == 'x') {
-//                System.out.println("Игрок Х побеждает!");
-//                return true;
-//            }
-//        }
-//        for (int i = 0; i <= 3; i += 3) {
-//            if (field[i] == field[4] && field[i] == field[field.length - i] && field[i] == 'x') {
-//                System.out.println("Игрок Х побеждает!");
-//                return true;
-//            }
-//        }
         return false;
     }
 
     public static boolean isOWin(char[] field) {
-        if (field[0] == field[1] && field[0] == field[2] && field[0] == 'o') {
-            System.out.println("Игрок O побеждает!");
-            return true;
+        //Строки
+        for (int i = 0; i < 7; i += 3) {
+            if (field[i] == field[i + 1] && field[i] == field[i + 2] && field[i] == 'o') {
+                System.out.println("Игрок O побеждает!");
+                return true;
+            }
         }
-        if (field[3] == field[4] && field[3] == field[5] && field[3] == 'o') {
-            System.out.println("Игрок O побеждает!");
-            return true;
+        //Столбцы
+        for (int i = 0; i < 3; i++) {
+            if (field[i] == field[i + 3] && field[i] == field[i + 6] && field[i] == 'o') {
+                System.out.println("Игрок O побеждает!");
+                return true;
+            }
         }
-        if (field[6] == field[7] && field[6] == field[8] && field[6] == 'o') {
-            System.out.println("Игрок O побеждает!");
-            return true;
-        }
-        if (field[0] == field[3] && field[0] == field[6] && field[0] == 'o') {
-            System.out.println("Игрок O побеждает!");
-            return true;
-        }
-        if (field[1] == field[4] && field[1] == field[7] && field[1] == 'o') {
-            System.out.println("Игрок O побеждает!");
-            return true;
-        }
-        if (field[2] == field[5] && field[2] == field[8] && field[2] == 'o') {
-            System.out.println("Игрок O побеждает!");
-            return true;
-        }
+
+        //Диагонали
         if (field[0] == field[4] && field[0] == field[8] && field[0] == 'o') {
             System.out.println("Игрок O побеждает!");
             return true;
@@ -250,13 +234,52 @@ markdown
         return false;
     }
 
-    public static boolean isDraw(char[] field) { //TODO доделать условие ничьи
-        int count = 0;
-        for (int i = 0; i < field.length; i++) {
-            if (field[i] != ' ') {
-                count++;
+    public static boolean isDraw(char[] field) {
+        for (int i = 0; i < 9; i++) {
+            if (field[i] == ' ') {
+                return false;
             }
         }
-        return count == 9;
+        System.out.println("Ничья!");
+        return true;
+    }
+
+    public static void computerTurn(char[] field) {
+        Random random = new Random();
+        while (true) {
+            int fieldPlace = random.nextInt(9);
+            if (field[fieldPlace] == ' ') {
+                field[fieldPlace] = 'o';
+                return;
+            }
+        }
+    }
+
+    public static boolean isComputerWin(char[] field) {
+        //Строки
+        for (int i = 0; i < 7; i += 3) {
+            if (field[i] == field[i + 1] && field[i] == field[i + 2] && field[i] == 'o') {
+                System.out.println("Игрок O побеждает!");
+                return true;
+            }
+        }
+        //Столбцы
+        for (int i = 0; i < 3; i++) {
+            if (field[i] == field[i + 3] && field[i] == field[i + 6] && field[i] == 'o') {
+                System.out.println("Игрок O побеждает!");
+                return true;
+            }
+        }
+
+        //Диагонали
+        if (field[0] == field[4] && field[0] == field[8] && field[0] == 'o') {
+            System.out.println("Игрок O побеждает!");
+            return true;
+        }
+        if (field[2] == field[4] && field[2] == field[6] && field[2] == 'o') {
+            System.out.println("Игрок O побеждает!");
+            return true;
+        }
+        return false;
     }
 }
