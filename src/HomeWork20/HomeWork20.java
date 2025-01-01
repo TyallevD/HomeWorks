@@ -1,3 +1,5 @@
+package HomeWork20;
+
 public class HomeWork20 {
     //TODO Нужны уточнения по поводу использования геттеров и сеттеров в классах, где не задано явно, что необходимо их использовать
     public static void main(String[] args) {

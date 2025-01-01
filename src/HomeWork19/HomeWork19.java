@@ -1,3 +1,5 @@
+package HomeWork19;
+
 public class HomeWork19 {
     //Задание: Работа с модификаторами доступа в Java
     //
@@ -23,16 +25,16 @@ public class HomeWork19 {
 
 class Main {
     public static void main(String[] args) {
-        Person19 person19 = new Person19("Дмитрий", 34, "Dodge2510@mail.ru", "+79605161073");
-        person19.displayInfo();
-//        System.out.println(person19.getName()); // т.к. геттер имеет модификатор private, то он недоступен в классе Main
-        System.out.println(person19.getAge());
-        System.out.println(person19.getPhone());
-        System.out.println(person19.getEmail());
+        Person person = new Person("Дмитрий", 34, "Dodge2510@mail.ru", "+79605161073");
+        person.displayInfo();
+//        System.out.println(person.getName()); // т.к. геттер имеет модификатор private, то он недоступен в классе Main
+        System.out.println(person.getAge());
+        System.out.println(person.getPhone());
+        System.out.println(person.getEmail());
         System.out.println();
-        System.out.println(person19.age);
-        System.out.println(person19.phone);
-        System.out.println(person19.email);
+        System.out.println(person.age);
+        System.out.println(person.phone);
+        System.out.println(person.email);
         System.out.println();
 
         Employee employee = new Employee("Константин", 35, "konstantin@mail.ru", "+79605161074");
@@ -49,13 +51,13 @@ class Main {
     }
 }
 
-class Person19 {
+class Person {
     private String name;
     int age;
     public String email;
     protected String phone;
 
-    public Person19(String name, int age, String email, String phone) {
+    public Person(String name, int age, String email, String phone) {
         this.name = name;
         this.age = age;
         this.email = email;
@@ -83,7 +85,7 @@ class Person19 {
     }
 }
 
-class Employee extends Person19 {
+class Employee extends Person {
     public Employee(String name, int age, String email, String phone) {
         super(name, age, email, phone);
     }
