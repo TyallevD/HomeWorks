@@ -1,4 +1,4 @@
-public class Main {
+public class HomeWork1 {
     public static void main(String[] args) {
         // запуск программы
         // нажатие на иконку play
