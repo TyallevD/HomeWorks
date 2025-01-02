@@ -7,27 +7,27 @@ public class HomeWork20 {
         //Создайте базовый класс Animal с атрибутом name. Создайте дочерний класс Dog,
         // унаследуйте от Animal, и создайте объект класса Dog, передав ему имя.
         System.out.println("Задание 1. Вывод:");
-        Dog20_1 dog1 = new Dog20_1("Шарик");
-        System.out.println(dog1.getName());
-        Dog20_1 dog2 = new Dog20_1();
-        dog2.setName("Тузик");
-        System.out.println(dog2.getName());
+        Dog20_1 dog20_1 = new Dog20_1("Шарик");
+        System.out.println(dog20_1.getName());
+        Dog20_1 dog20_2 = new Dog20_1();
+        dog20_2.setName("Тузик");
+        System.out.println(dog20_2.getName());
         System.out.println();
 
         //2. Добавление нового атрибута
         //Создайте класс Vehicle с атрибутом brand. Создайте класс Car, который наследует Vehicle,
         // и добавьте атрибут model. Создайте объект Car и установите оба атрибута.
         System.out.println("Задание 2. Вывод");
-        Car20 car20 = new Car20("Мерседес", "S-класс");
-        System.out.println(car20.getBrand() + " " + car20.getModel());
+        Car car = new Car("Мерседес", "S-класс");
+        System.out.println(car.getBrand() + " " + car.getModel());
         System.out.println();
 
         //3. Наследование с использованием метода базового класса
         //Создайте класс Person с методом introduce(), который выводит строку "I am a person".
         //Создайте класс Student, который наследует Person, и создайте объект Student. Вызовите метод introduce().
         System.out.println("Задание 3. Вывод:");
-        Student20 student20 = new Student20();
-        student20.introduce();
+        Student student = new Student();
+        student.introduce();
         System.out.println();
 
         //4. Добавление метода в дочерний класс
@@ -43,8 +43,8 @@ public class HomeWork20 {
         //Создайте класс Shape с атрибутом color, который задается через конструктор. Создайте класс Rectangle,
         // который наследует Shape, и создайте объект Rectangle с указанием цвета.
         System.out.println("Задание 5. Вывод:");
-        Rectangle20 rectangle20 = new Rectangle20("Красный");
-        System.out.println(rectangle20.color);
+        Rectangle rectangle = new Rectangle("Красный");
+        System.out.println(rectangle.color);
         System.out.println();
 
         //6. Создание нескольких дочерних классов
@@ -133,10 +133,10 @@ class Vehicle {
     }
 }
 
-class Car20 extends Vehicle {
+class Car extends Vehicle {
     private String model;
 
-    public Car20(String brand, String model) {
+    public Car(String brand, String model) {
         super(brand);
         this.model = model;
     }
@@ -147,13 +147,13 @@ class Car20 extends Vehicle {
 }
 
 //Классы для задания 3
-class Person20 {
+class Person {
     public void introduce() {
         System.out.println("I am a person");
     }
 }
 
-class Student20 extends Person20 {
+class Student extends Person {
 
 }
 
@@ -181,9 +181,9 @@ class Shape {
     }
 }
 
-class Rectangle20 extends Shape {
+class Rectangle extends Shape {
 
-    public Rectangle20(String color) {
+    public Rectangle(String color) {
         super(color);
     }
 }
