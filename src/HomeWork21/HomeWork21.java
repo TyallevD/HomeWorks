@@ -45,6 +45,12 @@ public class HomeWork21 {
         //Car (наследует Vehicle)
         //Plane (наследует Vehicle и реализует Flyable).
         System.out.println("Задание 3. Вывод:");
+        Car car = new Car("Мерседес");
+        car.startEngine();
+
+        Plane plane = new Plane("Боинг");
+        plane.startEngine();
+        plane.fly();
         System.out.println();
 
         //4. Список сотрудников
@@ -54,6 +60,14 @@ public class HomeWork21 {
         //Developer
         //Каждый класс должен возвращать свою зарплату и роль.
         System.out.println("Задание 4. Вывод:");
+        Manager manager = new Manager();
+        manager.setName("Вадим");
+        System.out.println(manager.getRole());
+        manager.getSalary();
+
+        Developer developer = new Developer("Роман");
+        System.out.println(developer.getRole());
+        developer.getSalary();
         System.out.println();
 
         //5. Управление устройствами
@@ -63,6 +77,23 @@ public class HomeWork21 {
         //Fan
         //Каждый класс должен менять свое состояние (включено/выключено).
         System.out.println("Задание 5. Вывод:");
+        LightBulb lightBulb1 = new LightBulb();
+        lightBulb1.setType("Диодная лампочка");
+        lightBulb1.turnOn();
+        lightBulb1.turnOff();
+
+        LightBulb lightBulb2 = new LightBulb("Лампа накаливания");
+        lightBulb2.turnOn();
+        lightBulb2.turnOff();
+
+        Fan fan1 = new Fan();
+        fan1.setType("Напольный вентилятор");
+        fan1.turnOn();
+        fan1.turnOff();
+
+        Fan fan2 = new Fan("Настольный вентилятор");
+        fan2.turnOn();
+        fan2.turnOff();
         System.out.println();
 
         //6. Геометрические фигуры
@@ -72,6 +103,11 @@ public class HomeWork21 {
         //Square
         //Метод draw() должен выводить текстовое описание фигуры (например, "Рисуем круг").
         System.out.println("Задание 6. Вывод:");
+        Circle6 circle6 = new Circle6();
+        circle6.draw();
+
+        Square square = new Square();
+        square.draw();
         System.out.println();
 
         //7. Работа с базой данных
@@ -85,9 +121,17 @@ public class HomeWork21 {
         //PostgreSQLDatabase
         //Каждый класс должен выводить сообщения о подключении и отключении.
         System.out.println("Задание 7. Вывод:");
+        MySQLDatabase mySQLDatabase = new MySQLDatabase(8.4);
+        mySQLDatabase.connect();
+        mySQLDatabase.disconnect();
+
+        PostgreSQLDatabase postgreSQLDatabase = new PostgreSQLDatabase();
+        postgreSQLDatabase.setVersion(15.2);
+        postgreSQLDatabase.connect();
+        postgreSQLDatabase.disconnect();
         System.out.println();
 
-        //8. Спортивные соревнования
+        //8. Спортивные соревнования //TODO нужно создать каждому классу по одному методу? Или можно имплементировать оба метода, но реализовать только нужный?
         //Создайте интерфейс Athlete с методами:
         //
         //run()
@@ -98,6 +142,14 @@ public class HomeWork21 {
         //Jumper
         //Каждый класс должен реализовать соответствующие методы.
         System.out.println("Задание 8. Вывод:");
+        Runner runner = new Runner("Усейн Болт");
+        runner.run();
+        runner.jump(); //убрать?
+
+        Jumper jumper = new Jumper();
+        jumper.setName("Хавьер Сотомайор");
+        jumper.run();
+        jumper.jump();
         System.out.println();
 
         //9. Магазин
@@ -237,11 +289,6 @@ class Bird implements Animal {
 }
 
 //Классы и интерфейсы для задания 3
-//3. Абстрактный класс + интерфейс
-//Создайте абстрактный класс Vehicle с методом startEngine(). Добавьте интерфейс Flyable с методом fly(). Реализуйте два класса:
-//
-//Car (наследует Vehicle)
-//Plane (наследует Vehicle и реализует Flyable).
 interface Flyable {
     void fly();
 }
@@ -251,29 +298,386 @@ abstract class Vehicle {
 }
 
 class Car extends Vehicle {
+    private String model;
+
+    public Car(String model) {
+        this.model = model;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
 
     @Override
     void startEngine() {
-        System.out.println("Двигатель запускается");
+        System.out.println(this.model + " : Двигатель запускается");
     }
 }
 
 class Plane extends Vehicle implements Flyable {
+    private String model;
+
+    public Plane(String model) {
+        this.model = model;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
 
     @Override
     public void fly() {
-        System.out.println("Взлетаем");
+        System.out.println(this.model + " : Взлетает");
     }
 
     @Override
     void startEngine() {
-        System.out.println("Двигатель запускается");
+        System.out.println(this.model + " : Двигатель запускается");
     }
 }
+
 //Классы и интерфейсы для задания 4
+abstract class Employee {
+    abstract void getSalary();
+
+    abstract String getRole();
+}
+
+class Manager extends Employee {
+    private String name;
+
+    public Manager() {
+    }
+
+    public Manager(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    void getSalary() {
+        System.out.println("Зарплата руководителя " + this.name + " : 300 000 тыс рублей");
+    }
+
+    @Override
+    String getRole() {
+        return this.name + ": Руководитель";
+    }
+}
+
+class Developer extends Employee {
+    private String name;
+
+    public Developer() {
+    }
+
+    public Developer(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    void getSalary() {
+        System.out.println("Зарплата разработчика " + this.name + " : 180 000 тыс рублей");
+    }
+
+    @Override
+    String getRole() {
+        return this.name + " : Разработчик";
+    }
+}
+
 //Классы и интерфейсы для задания 5
+interface Switchable {
+    void turnOn();
+
+    void turnOff();
+}
+
+class LightBulb implements Switchable {
+    private String type;
+
+    public LightBulb() {
+    }
+
+    public LightBulb(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public void turnOn() {
+        System.out.println(this.type + " включена");
+    }
+
+    @Override
+    public void turnOff() {
+        System.out.println(this.type + " выключена");
+    }
+}
+
+class Fan implements Switchable {
+    private String type;
+
+    public Fan() {
+    }
+
+    public Fan(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public void turnOn() {
+        System.out.println(this.type + " включен");
+    }
+
+    @Override
+    public void turnOff() {
+        System.out.println(this.type + " выключен");
+    }
+}
+
 //Классы и интерфейсы для задания 6
+interface Drawable {
+    void draw();
+}
+
+class Circle6 implements Drawable {
+
+    @Override
+    public void draw() {
+        System.out.println("Рисуем круг");
+    }
+}
+
+class Square implements Drawable {
+
+    @Override
+    public void draw() {
+        System.out.println("Рисуем квадрат");
+    }
+}
+
 //Классы и интерфейсы для задания 7
+interface Database {
+    void connect();
+
+    void disconnect();
+}
+
+class MySQLDatabase implements Database {
+    private double version;
+
+    public MySQLDatabase() {
+    }
+
+    public MySQLDatabase(double version) {
+        this.version = version;
+    }
+
+    public double getVersion() {
+        return version;
+    }
+
+    public void setVersion(double version) {
+        this.version = version;
+    }
+
+    @Override
+    public void connect() {
+        System.out.println("Подключение к MySQL v" + this.version + "...");
+        System.out.println("Подключено");
+    }
+
+    @Override
+    public void disconnect() {
+        System.out.println("Отключение от MySQL v" + this.version + "...");
+        System.out.println("Отключено");
+    }
+}
+
+class PostgreSQLDatabase implements Database {
+    private double version;
+
+    public PostgreSQLDatabase() {
+    }
+
+    public PostgreSQLDatabase(double version) {
+        this.version = version;
+    }
+
+    public double getVersion() {
+        return version;
+    }
+
+    public void setVersion(double version) {
+        this.version = version;
+    }
+
+    @Override
+    public void connect() {
+        System.out.println("Подключение к PostgreSQL v" + this.version + "...");
+        System.out.println("Подключено");
+    }
+
+    @Override
+    public void disconnect() {
+        System.out.println("Отключение от PostgreSQL v" + this.version + "...");
+        System.out.println("Отключено");
+    }
+}
+
 //Классы и интерфейсы для задания 8
+//Создайте интерфейс Athlete с методами:
+//
+//run()
+//jump()
+//Реализуйте классы:
+//
+//Runner
+//Jumper
+//Каждый класс должен реализовать соответствующие методы.
+interface Athlete {
+    void run();
+
+    void jump();
+}
+
+class Runner implements Athlete {
+    private String name;
+
+    public Runner() {
+    }
+
+    public Runner(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Бегун " + this.name + " бежит");
+    }
+
+    @Override
+    public void jump() {
+        System.out.println("Бегун " + this.name + " прыгает");
+    }
+}
+
+class Jumper implements Athlete {
+    private String name;
+
+    public Jumper() {
+    }
+
+    public Jumper(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Прыгун " + this.name + " бежит");
+    }
+
+    @Override
+    public void jump() {
+        System.out.println("Прыгун " + this.name + " прыгает");
+    }
+}
 //Классы и интерфейсы для задания 9
+//Создайте абстрактный класс Product с методами:
+//
+//getPrice()
+//getName()
+//Создайте классы Electronics и Clothing, которые наследуют Product и реализуют методы.
+abstract class Product{
+    abstract void getPrice();
+    abstract void getName();
+}
+class Electronics extends Product{
+
+    @Override
+    void getPrice() {
+
+    }
+
+    @Override
+    void getName() {
+
+    }
+}
+class Clothing extends Product{
+
+    @Override
+    void getPrice() {
+
+    }
+
+    @Override
+    void getName() {
+
+    }
+}
 //Классы и интерфейсы для задания 10
+//Создайте абстрактный класс Animal с методами:
+//
+//eat()
+//sleep()
+//Добавьте интерфейс SoundMaker с методом makeSound(). Реализуйте классы:
+//
+//Lion
+//Elephant
+//Каждое животное должно реализовать свои звуки, приемы пищи и сон.
