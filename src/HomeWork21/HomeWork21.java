@@ -144,7 +144,7 @@ public class HomeWork21 {
         System.out.println("Задание 8. Вывод:");
         Runner runner = new Runner("Усейн Болт");
         runner.run();
-        runner.jump(); //убрать?
+        runner.jump();
 
         Jumper jumper = new Jumper();
         jumper.setName("Хавьер Сотомайор");
@@ -159,6 +159,15 @@ public class HomeWork21 {
         //getName()
         //Создайте классы Electronics и Clothing, которые наследуют Product и реализуют методы.
         System.out.println("Задание 9. Вывод:");
+        Electronics electronics = new Electronics();
+        electronics.setName("Электронная зубная щетка");
+        electronics.setPrice(2500.00);
+        electronics.getName();
+        electronics.getPrice();
+
+        Clothing clothing = new Clothing("Платье вечернее", 6000.00);
+        clothing.getName();
+        clothing.getPrice();
         System.out.println();
 
         //10. Зоопарк
@@ -172,6 +181,16 @@ public class HomeWork21 {
         //Elephant
         //Каждое животное должно реализовать свои звуки, приемы пищи и сон.
         System.out.println("Задание 10. Вывод:");
+        Lion lion = new Lion("Шерхан");
+        lion.eat();
+        lion.makeSound();
+        lion.sleep();
+
+        Elephant elephant = new Elephant();
+        elephant.setName("Дамбо");
+        elephant.makeSound();
+        elephant.eat();
+        elephant.sleep();
         System.out.println();
     }
 }
@@ -565,15 +584,6 @@ class PostgreSQLDatabase implements Database {
 }
 
 //Классы и интерфейсы для задания 8
-//Создайте интерфейс Athlete с методами:
-//
-//run()
-//jump()
-//Реализуйте классы:
-//
-//Runner
-//Jumper
-//Каждый класс должен реализовать соответствующие методы.
 interface Athlete {
     void run();
 
@@ -637,88 +647,152 @@ class Jumper implements Athlete {
         System.out.println("Прыгун " + this.name + " прыгает");
     }
 }
+
 //Классы и интерфейсы для задания 9
-//Создайте абстрактный класс Product с методами:
-//
-//getPrice()
-//getName()
-//Создайте классы Electronics и Clothing, которые наследуют Product и реализуют методы.
-abstract class Product{
+abstract class Product {
+
     abstract void getPrice();
+
     abstract void getName();
 }
-class Electronics extends Product{
+
+class Electronics extends Product {
+    private String name;
+    private double price;
+
+    public Electronics() {
+    }
+
+    public Electronics(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     @Override
     void getPrice() {
-
+        System.out.printf("Цена электроники \"%s\" в рублях => %-10.2f%n", this.name, this.price);
     }
 
     @Override
     void getName() {
-
+        System.out.printf("Электротовар: \"%s\"%n", this.name);
     }
 }
-class Clothing extends Product{
+
+class Clothing extends Product {
+    private String name;
+    private double price;
+
+    public Clothing() {
+    }
+
+    public Clothing(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     @Override
     void getPrice() {
-
+        System.out.printf("Цена одежды \"%s\" в рублях => %-10.2f%n", this.name, this.price);
     }
 
     @Override
     void getName() {
-
+        System.out.printf("Одежда: \"%s\"%n", this.name);
     }
 }
+
 //Классы и интерфейсы для задания 10
-//Создайте абстрактный класс Animal с методами:
-//
-//eat()
-//sleep()
-//Добавьте интерфейс SoundMaker с методом makeSound(). Реализуйте классы:
-//
-//Lion
-//Elephant
-//Каждое животное должно реализовать свои звуки, приемы пищи и сон.
 abstract class Animal10 {
     abstract void eat();
+
     abstract void sleep();
 }
-interface SoundMaker{
+
+interface SoundMaker {
     void makeSound();
 }
-class Lion extends Animal10 implements SoundMaker{
+
+class Lion extends Animal10 implements SoundMaker {
+    private String name;
+
+    public Lion() {
+    }
+
+    public Lion(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     void eat() {
-
+        System.out.printf("Лев %s ест мясо%n", this.name);
     }
 
     @Override
     void sleep() {
-
+        System.out.printf("Лев %s прилёг поспать ZzZzZzZz%n", this.name);
     }
 
     @Override
     public void makeSound() {
-
+        System.out.printf("Лев %s рычит%n", this.name);
     }
 }
-class Elephant extends Animal10 implements SoundMaker{
+
+class Elephant extends Animal10 implements SoundMaker {
+    private String name;
+
+    public Elephant() {
+    }
+
+    public Elephant(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     void eat() {
-
+        System.out.printf("Слон %s предпочитает пощипать траву%n", this.name);
     }
 
     @Override
     void sleep() {
-
+        System.out.printf("Слон %s заснул стоя в тени дерева%n", this.name);
     }
 
     @Override
     public void makeSound() {
-
+        System.out.printf("Слон %s звучно трубит%n", this.name);
     }
 }
