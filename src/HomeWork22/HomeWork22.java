@@ -1,5 +1,7 @@
 package HomeWork22;
 
+import java.util.Scanner;
+
 //enum для задания 1
 enum Day {
     MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
@@ -37,6 +39,21 @@ enum Direction {
 //Напишите программу, которая принимает строку из консоли и преобразует её в значение перечисления с помощью valueOf.
 enum Status {
     START, PROCESSING, FINISHED;
+
+    public static void printStatusNumber() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print("Введите статус (START, PROCESSING, FINISHED): ");
+            String line = scanner.nextLine();
+            try {
+                Status status = Status.valueOf(line.toUpperCase());
+                System.out.println("Введен статус " + status);
+                break;
+            } catch (IllegalArgumentException exception) {
+                System.out.println("Неверное значение. Попробуйте снова");
+            }
+        }
+    }
 }
 
 //enum для задания 6
@@ -150,10 +167,11 @@ public class HomeWork22 {
         System.out.println(direction.whereToGo(Direction.WEST));
         System.out.println();
 
-        //5. Использование метода valueOf://todo не понятно что принимать в консоль
+        //5. Использование метода valueOf:
         // Создайте enum Status с константами START, PROCESSING, FINISHED.
         //Напишите программу, которая принимает строку из консоли и преобразует её в значение перечисления с помощью valueOf.
         System.out.println("Задание 5. Вывод:");
+        Status.printStatusNumber();
         System.out.println();
 
         //6. Работа с ordinal:
