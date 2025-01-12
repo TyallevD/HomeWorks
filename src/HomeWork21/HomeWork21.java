@@ -131,7 +131,7 @@ public class HomeWork21 {
         postgreSQLDatabase.disconnect();
         System.out.println();
 
-        //8. Спортивные соревнования //TODO нужно создать каждому классу по одному методу? Или можно имплементировать оба метода, но реализовать только нужный?
+        //8. Спортивные соревнования
         //Создайте интерфейс Athlete с методами:
         //
         //run()
@@ -376,7 +376,7 @@ class Manager extends Employee {
 
     @Override
     String getRole() {
-        return this.name + ": Руководитель";
+        return this.name + " : Руководитель";
     }
 }
 
@@ -681,3 +681,44 @@ class Clothing extends Product{
 //Lion
 //Elephant
 //Каждое животное должно реализовать свои звуки, приемы пищи и сон.
+abstract class Animal10 {
+    abstract void eat();
+    abstract void sleep();
+}
+interface SoundMaker{
+    void makeSound();
+}
+class Lion extends Animal10 implements SoundMaker{
+
+    @Override
+    void eat() {
+
+    }
+
+    @Override
+    void sleep() {
+
+    }
+
+    @Override
+    public void makeSound() {
+
+    }
+}
+class Elephant extends Animal10 implements SoundMaker{
+
+    @Override
+    void eat() {
+
+    }
+
+    @Override
+    void sleep() {
+
+    }
+
+    @Override
+    public void makeSound() {
+
+    }
+}
