@@ -34,7 +34,7 @@ enum Direction {
     }
 }
 
-//enum для задания 5 //todo какую строку из консоли принимать?
+//enum для задания 5
 // Создайте enum Status с константами START, PROCESSING, FINISHED.
 //Напишите программу, которая принимает строку из консоли и преобразует её в значение перечисления с помощью valueOf.
 enum Status {
@@ -110,7 +110,8 @@ enum ProductCategory {
 
 //enum для задания 10
 enum Day10 {
-    MONDAY(true), TUESDAY(true), WEDNESDAY(true), THURSDAY(true), FRIDAY(true), SATURDAY(false), SUNDAY(false);
+    MONDAY(true), TUESDAY(true), WEDNESDAY(true),
+    THURSDAY(true), FRIDAY(true), SATURDAY(false), SUNDAY(false);
     private final boolean isWorkingDay;
 
     Day10(boolean isWorkingDay) {
@@ -133,6 +134,7 @@ public class HomeWork22 {
         day.todayIsADay(day);
         day.todayIsADay(Day.WEDNESDAY);
         System.out.println();
+
         //2. Создание enum для времён года:
         //Создайте перечисление Season с константами WINTER, SPRING, SUMMER, FALL.
         //Напишите метод, который принимает сезон и возвращает логическое значение: true, если это лето.
