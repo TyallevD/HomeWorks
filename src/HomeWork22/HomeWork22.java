@@ -35,8 +35,6 @@ enum Direction {
 }
 
 //enum для задания 5
-// Создайте enum Status с константами START, PROCESSING, FINISHED.
-//Напишите программу, которая принимает строку из консоли и преобразует её в значение перечисления с помощью valueOf.
 enum Status {
     START, PROCESSING, FINISHED;
 
