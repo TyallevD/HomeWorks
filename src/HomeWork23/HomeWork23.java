@@ -47,12 +47,16 @@ public class HomeWork23 {
         //Напишите метод reverseArray, который принимает массив любого типа (T[]) и возвращает новый массив с элементами в обратном порядке.
         System.out.println("Задание 5. Вывод:");
         Integer[] array1 = new Integer[]{1, 2, 3, 4, 5};
+        System.out.print("Исходный массив: ");
         System.out.println(Arrays.toString(array1));
+        System.out.print("Измененный массив: ");
         System.out.println(Arrays.toString(reverseArray(array1)));
         System.out.println();
 
         String[] strings = new String[]{"раз", "два", "три", "четыре", "пять"};
+        System.out.print("Исходный массив: ");
         System.out.println(Arrays.toString(strings));
+        System.out.print("Измененный массив: ");
         System.out.println(Arrays.toString(reverseArray(strings)));
         System.out.println();
 
@@ -98,7 +102,7 @@ public class HomeWork23 {
         System.out.println("Значение элемента \"" + element7 + "\" в индексе: " + findIndex(chars7, element7));
         System.out.println();
 
-        //8. Обобщённый метод для создания списка.
+        //8. Обобщённый метод для создания списка. //todo мельком посмотрел учебные материалы, но возможно стоит уточнить на занятии верно ли подобное решение
         //Реализуйте метод toList, который принимает массив любого типа (T[]) и возвращает список (List<T>), содержащий те же элементы.
         System.out.println("Задание 8. Вывод:");
         Integer[] ints8 = new Integer[]{23, 52, 11, 63, 13};
@@ -115,7 +119,7 @@ public class HomeWork23 {
         System.out.println(toList(strings8));
         System.out.println();
 
-        //9. Метод для копирования массива.
+        //9. Метод для копирования массива. //todo достаточно ли обычного копирования массива через или нужно по другому реализовать?
         //Напишите метод copyArray, который принимает массив любого типа (T[]) и возвращает его копию.
         System.out.println("Задание 9. Вывод:");
         Character[] chars9 = new Character[]{'a', 'b', 'c', 'd', 'e', 'f'};
