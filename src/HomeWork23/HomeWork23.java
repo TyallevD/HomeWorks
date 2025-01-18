@@ -231,6 +231,7 @@ class Pair<T1, T2> {
     }
 }
 
+// класс для задания 10
 class Triple<T1, T2, T3> {
     private T1 first;
     private T2 second;
