@@ -102,7 +102,7 @@ public class HomeWork23 {
         System.out.println("Значение элемента \"" + element7 + "\" в индексе: " + findIndex(chars7, element7));
         System.out.println();
 
-        //8. Обобщённый метод для создания списка. //todo мельком посмотрел учебные материалы, но возможно стоит уточнить на занятии верно ли подобное решение
+        //8. Обобщённый метод для создания списка.
         //Реализуйте метод toList, который принимает массив любого типа (T[]) и возвращает список (List<T>), содержащий те же элементы.
         System.out.println("Задание 8. Вывод:");
         Integer[] ints8 = new Integer[]{23, 52, 11, 63, 13};
@@ -119,7 +119,7 @@ public class HomeWork23 {
         System.out.println(toList(strings8));
         System.out.println();
 
-        //9. Метод для копирования массива. //todo достаточно ли обычного копирования массива через или нужно по другому реализовать?
+        //9. Метод для копирования массива.
         //Напишите метод copyArray, который принимает массив любого типа (T[]) и возвращает его копию.
         System.out.println("Задание 9. Вывод:");
         Character[] chars9 = new Character[]{'a', 'b', 'c', 'd', 'e', 'f'};
@@ -187,9 +187,12 @@ public class HomeWork23 {
 
     //метод для задания 8
     private static <T> List<T> toList(T[] array) {
-        List list = new ArrayList<>();
-        for (int i = 0; i < array.length; i++) {
-            list.add(i, array[i]);
+        List<T> list = new ArrayList<>();
+//        for (int i = 0; i < array.length; i++) {
+//            list.add(i, array[i]);
+//        }
+        for (T values : array) {
+            list.add(values);
         }
         return list;
     }
