@@ -17,7 +17,7 @@ class MyList<T> {
         arr = tmp;
     }
 
-    //метод для задания 2
+    //метод для задания 2 //todo надо обработать ошибку выхода из массива
     public void add(T value, int index) {
         T[] tmp = (T[]) new Object[arr.length + 1];
         for (int i = 0, j = 0; i < arr.length; i++, j++) {
@@ -30,12 +30,12 @@ class MyList<T> {
     }
 
     //метод для задания 3
-    public void size() {
+    public int size() {
         int count = 0;
         for (int i = 0; i < arr.length; i++) {
             count++;
         }
-        System.out.println(count);
+        return count;
     }
 
     //метод для задания 4 //todo стоит добавить проверку на выход из массива?
@@ -51,7 +51,44 @@ class MyList<T> {
     }
 
     //метод для задания 6
+    public boolean removeValue(T value) {
+        int index = -1;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equals(value)) {
+                index = i;
+                break;
+            }
+        }
+        if (index != -1) {
+            T[] tmp = (T[]) new Object[arr.length - 1];
+            for (int i = 0, j = 0; i < tmp.length; j++) {
+                if (j != index) {
+                    tmp[i] = arr[j];
+                    i++;
+                }
+            }
+            arr = tmp;
+            return true;
+        }
+        return false;
+    }
+
     //метод для задания 7
+    public boolean remove(int index) {
+        if (index >= 0 && index < arr.length) {
+            T[] tmp = (T[]) new Object[arr.length - 1];
+            for (int i = 0, j = 0; i < tmp.length; j++) {
+                if (j != index) {
+                    tmp[i] = arr[j];
+                    i++;
+                }
+            }
+            arr = tmp;
+            return true;
+        }
+        return false;
+    }
+
     //вспомогательный метод для печати массива
     public void print() {
         for (T t : arr) {
@@ -63,7 +100,7 @@ class MyList<T> {
 
 public class HomeWork24 {
     public static void main(String[] args) {
-        //Realizovat Dynamic Array
+        //Реализовать динамический массив
         //1 add(T value)
         System.out.println("Задание 1. Вывод:");
         MyList myStringList = new MyList<>();
@@ -95,12 +132,11 @@ public class HomeWork24 {
         myList2.add(1, 1);
         myList2.add(4, 2);
         myList2.add(5, 3);
-//        myList2.add(5, 5); если есть разрыв в индексах - то будет выход за пределы создаваемого массива, надо по идее заполнять нулями или null значениями добавляемые индексы?
+//        myList2.add(5, 5); //todo если есть разрыв в индексах - то будет выход за пределы создаваемого массива, надо по идее заполнять нулями или null значениями добавляемые индексы?
         myList2.print();
         System.out.println();
 
-        // -  3 size()
-        //реализовать следующим образом - берём массив и считаем количество элементов через count++ - по идее возвращаем значение
+        //3 size()
         System.out.println("Задание 3. Вывод:");
         myList2.size();
         myIntList.size();
@@ -108,30 +144,53 @@ public class HomeWork24 {
         myStringList.size();
         System.out.println();
 
-        // -  4 get(int index)
-        //реализовать следующим образом - находим значение в индексе и возвращаем его на консоль (можно через void по идее)
+        //4 get(int index) //todo
         System.out.println("Задание 4. Вывод:");
         myList2.get(1);
+//        myList2.get(15); //надо обрабатывать выход за пределы массива
+
         System.out.println();
 
-        // -  5 clear()//todo надо б посмотреть как реализован оригинал и переделать соответственно
-        //реализовать следующим образом - надо обнулить массив
+        //5 clear()
         System.out.println("Задание 5. Вывод:");
         myCharList.print();
         myCharList.clear();
-//        myCharList.print();
+        myCharList.print();
         myCharList.add('1');
         myCharList.print();
         System.out.println();
 
-        // +  6 remove(T value)
-        // создаётся новый массив, при нахождении первого вхождения значения - оно просто не записывается в новый
+        //6 remove(T value)
         System.out.println("Задание 6. Вывод:");
+        MyList myList6 = new MyList<>();
+        myList6.add(1);
+        myList6.add(2);
+        myList6.add(3);
+        myList6.add(4);
+        myList6.add(1);
+        System.out.println("Изначальный массив:");
+        myList6.print();
+        myList6.removeValue(1);
+        System.out.println("Изменённый массив:");
+        myList6.print();
         System.out.println();
 
-        // -  7 remove(int index)
-        // создаётся новый массив, при нахождении индекса - он не записывается в новый массив
+        //7 remove(int index)
         System.out.println("Задание 7. Вывод:");
+        MyList myList7 = new MyList<>();
+        myList7.add('A');
+        myList7.add('B');
+        myList7.add('C');
+        myList7.add('D');
+        myList7.add('E');
+        myList7.add('F');
+        System.out.println("Изначальный массив:");
+        myList7.print();
+
+        myList7.remove(1);
+        myList7.remove(18);
+        System.out.println("Изменённый массив:");
+        myList7.print();
 
     }
 }
