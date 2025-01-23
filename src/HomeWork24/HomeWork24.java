@@ -42,13 +42,11 @@ class MyList<T> {
 //    public void get(int index) {
 //        System.out.println("Значение в индексе \"" + index + "\" равно: " + arr[index]);
 //    }
-    //метод для задания 4 //todo стоит добавить проверку на выход из массива?
+    //метод для задания 4
     public T get(int index) {
         if (index < 0 || index >= arr.length) {
             return (T) ("Индекс \"" + index + "\" за пределами массива");
         } else {
-//            System.out.println("Значение в индексе \"" + index + "\" равно: " + arr[index]);
-//            return arr[index];
             return (T) ("Значение в индексе \"" + index + "\" равно: " + arr[index]);
         }
     }
@@ -116,14 +114,19 @@ public class HomeWork24 {
         MyList myStringList = new MyList<>();
         myStringList.add("string");
         myStringList.print();
+        System.out.println();
+
         myStringList.add("string2");
         myStringList.print();
         System.out.println();
+
         MyList myIntList = new MyList<>();
         myIntList.add(1);
         myIntList.add(2);
         myIntList.add(3);
         myIntList.print();
+        System.out.println();
+
         MyList myCharList = new MyList<>();
         myCharList.add('A');
         myCharList.add('B');
@@ -142,7 +145,7 @@ public class HomeWork24 {
         myList2.add(1, 1);
         myList2.add(4, 2);
         myList2.add(5, 3);
-//        myList2.add(5, 5); //todo если есть разрыв в индексах - то будет выход за пределы создаваемого массива, надо по идее заполнять нулями или null значениями добавляемые индексы?
+//        myList2.add(5, 5); //todo если есть разрыв в индексах - то будет выход за пределы создаваемого массива
         myList2.print();
         System.out.println();
 
