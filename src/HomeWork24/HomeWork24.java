@@ -17,7 +17,7 @@ class MyList<T> {
         arr = tmp;
     }
 
-    //метод для задания 2 //todo надо обработать ошибку выхода из массива
+    //метод для задания 2 //todo надо обработать ошибку выхода из массива?
     public void add(T value, int index) {
         T[] tmp = (T[]) new Object[arr.length + 1];
         for (int i = 0, j = 0; i < arr.length; i++, j++) {
@@ -38,9 +38,19 @@ class MyList<T> {
         return count;
     }
 
+    //    //метод для задания 4 //todo стоит добавить проверку на выход из массива?
+//    public void get(int index) {
+//        System.out.println("Значение в индексе \"" + index + "\" равно: " + arr[index]);
+//    }
     //метод для задания 4 //todo стоит добавить проверку на выход из массива?
-    public void get(int index) {
-        System.out.println("Значение в индексе \"" + index + "\" равно: " + arr[index]);
+    public T get(int index) {
+        if (index < 0 || index >= arr.length) {
+            return (T) ("Индекс \"" + index + "\" за пределами массива");
+        } else {
+//            System.out.println("Значение в индексе \"" + index + "\" равно: " + arr[index]);
+//            return arr[index];
+            return (T) ("Значение в индексе \"" + index + "\" равно: " + arr[index]);
+        }
     }
 
     //метод для задания 5
@@ -138,17 +148,18 @@ public class HomeWork24 {
 
         //3 size()
         System.out.println("Задание 3. Вывод:");
-        myList2.size();
-        myIntList.size();
-        myCharList.size();
-        myStringList.size();
+        System.out.println(myList2.size());
+        System.out.println(myIntList.size());
+        System.out.println(myCharList.size());
+        System.out.println(myStringList.size());
         System.out.println();
 
         //4 get(int index) //todo
         System.out.println("Задание 4. Вывод:");
-        myList2.get(1);
+//        myList2.get(1);
+        System.out.println(myList2.get(1));
 //        myList2.get(15); //надо обрабатывать выход за пределы массива
-
+        System.out.println(myList2.get(15));
         System.out.println();
 
         //5 clear()
