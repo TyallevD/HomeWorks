@@ -38,10 +38,6 @@ class MyList<T> {
         return count;
     }
 
-    //    //метод для задания 4 //todo стоит добавить проверку на выход из массива?
-//    public void get(int index) {
-//        System.out.println("Значение в индексе \"" + index + "\" равно: " + arr[index]);
-//    }
     //метод для задания 4
     public T get(int index) {
         if (index < 0 || index >= arr.length) {
@@ -134,7 +130,7 @@ public class HomeWork24 {
         myCharList.print();
         System.out.println();
 
-        //2 add(int index , T value)
+        //2 add(int index , T value) //todo
         //реализовать следующим образом:
         //нулевой индекс - создаётся tmp массив с +1 размером, все значения смещаются на +1 индекс, в нулевой вставляется значение
         //индекс не ноль и не последний - создаётся tmp массив с +1 размером, все значения начиная с указанного индекса смещаются вправо, в индекс вставляется значение
@@ -157,12 +153,11 @@ public class HomeWork24 {
         System.out.println(myStringList.size());
         System.out.println();
 
-        //4 get(int index) //todo
+        //4 get(int index)
         System.out.println("Задание 4. Вывод:");
-//        myList2.get(1);
         System.out.println(myList2.get(1));
-//        myList2.get(15); //надо обрабатывать выход за пределы массива
         System.out.println(myList2.get(15));
+        System.out.println(myCharList.get(0));
         System.out.println();
 
         //5 clear()
@@ -205,6 +200,5 @@ public class HomeWork24 {
         myList7.remove(18);
         System.out.println("Изменённый массив:");
         myList7.print();
-
     }
 }
