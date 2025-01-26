@@ -1,14 +1,14 @@
 package HomeWork25;
 
-class MyList {//todo возможно сделать через дженерик
-    private int[] arr;
+class MyList<T> {
+    private T[] arr;
     private int size;
     private int capacity;
 
     {
         capacity = 10;
         size = 0;
-        arr = new int[capacity];
+        arr = (T[]) new Object[capacity];
     }
 
     public int size() {
@@ -24,7 +24,7 @@ class MyList {//todo возможно сделать через дженерик
             System.out.print("Массив был пересоздан, ёмкость до: " + capacity);
             capacity = capacity * 2 + 2;
             System.out.println(", после: " + capacity);
-            int[] tmp = new int[capacity];
+            T[] tmp = (T[]) new Object[capacity];
             for (int i = 0; i < size; i++) {
                 tmp[i] = arr[i];
             }
@@ -32,7 +32,7 @@ class MyList {//todo возможно сделать через дженерик
         }
     }
 
-    public void add(int value) {
+    public void add(T value) {
         increaseArray();
         arr[size] = value;
         size++;
@@ -46,17 +46,34 @@ class MyList {//todo возможно сделать через дженерик
     }
 
     //метод для задания 1
-    public void removeByValue(int value) {
-
+    public void removeByValue(T value) {
+        for (int i = 0, j = 0; i < size; i++, j++) {
+            if (value.equals(arr[i])) {
+                j++;
+            }
+            arr[i] = arr[j];
+        }
+        size--;
     }
 
     //метод для задания 2
     public void removeByIndex(int index) {
-
+        for (int i = 0, j = 0; i < size; i++, j++) {
+            if (index == i) {
+                j++;
+            }
+            arr[i] = arr[j];
+        }
+        size--;
     }
 
     //метод для задания 3
-    public boolean isHasValue(int value) {
+    public boolean isHasValue(T value) {
+        for (T values : arr) {
+            if (value.equals(values)) {
+                return true;
+            }
+        }
         return false;
     }
 }
@@ -69,10 +86,11 @@ public class HomeWork25 {
         myList1.add(1);
         myList1.add(2);
         myList1.add(3);
+        myList1.add(1);
         System.out.print("Исходный массив: ");
         myList1.printInfo();
 
-        myList1.removeByValue(2); //todo реализовать удаление по значению
+        myList1.removeByValue(1);
         System.out.print("Измененный массив: ");
         myList1.printInfo();
         System.out.println();
@@ -87,7 +105,7 @@ public class HomeWork25 {
         System.out.print("Исходный массив: ");
         myList2.printInfo();
 
-        myList2.removeByIndex(1); //todo реализовать удаление по индексу
+        myList2.removeByIndex(1);
         System.out.print("Измененный массив: ");
         myList2.printInfo();
         System.out.println();
@@ -102,7 +120,7 @@ public class HomeWork25 {
         System.out.print("Исходный массив: ");
         myList3.printInfo();
 
-        String answer = myList3.isHasValue(3) ? "да" : "нет"; //todo реализовать ответ на вопрос есть или нет значение в массиве
-        System.out.println(answer);
+        System.out.println("Значение есть в массиве? Ответ: " + (myList3.isHasValue(3) ? "да" : "нет"));
+        System.out.println("Значение есть в массиве? Ответ: " + (myList3.isHasValue(15) ? "да" : "нет"));
     }
 }
