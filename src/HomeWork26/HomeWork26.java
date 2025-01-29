@@ -81,6 +81,7 @@ class MyList<T> {
             arr[i] = arr[j];
         }
         size--;
+        decreaseArr();
     }
 
     //метод для задания 5
@@ -92,6 +93,7 @@ class MyList<T> {
             arr[i] = arr[j];
         }
         size--;
+        decreaseArr();
     }
 
     //метод для задания 6
@@ -108,7 +110,22 @@ class MyList<T> {
 
     //метод для задания 8
     public void decreaseArr() {
+        if (size < (capacity - 2) / 2) {
+            System.out.print("Массив был пересоздан, ёмкость до: " + capacity);
+            capacity = (capacity - 2) / 2;
+            System.out.println(", после: " + capacity);
+            T[] tmp = (T[]) new Object[capacity];
+            for (int i = 0; i < size; i++) {
+                tmp[i] = arr[i];
+            }
+            arr = tmp;
+        }
+    }
 
+    //вспомогательный метод для задания 8
+    public void removeLast() {
+        size--;
+        decreaseArr();
     }
 }
 
@@ -211,8 +228,20 @@ public class HomeWork26 {
 
         System.out.println();
 
-//   8   public void decreaseArr() //todo уменьшить capacity в зависимости от size
+//   8   public void decreaseArr()
         System.out.println("Задание 8. Вывод:");
+        MyList myList8 = new MyList();
+        System.out.println("Сначала заполняем и смотрим что получилось:");
+        for (int i = 1; i <= 50; i++) {
+            myList8.add(i);
+        }
+        myList8.printInfo();
+        System.out.println();
 
+        System.out.println("Затем удаляем и смотрим, что получается");
+        for (int i = 0; i < 48; i++) {
+            myList8.removeLast();
+        }
+        myList8.printInfo();
     }
 }
