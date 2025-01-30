@@ -123,7 +123,11 @@ class MyList<T> {
     }
 
     //вспомогательный метод для задания 8
-    public void removeLast() {
+    public void removeLast() { //todo - размер меняется, но в массиве есть на самом деле пустые ячейки?
+        if (size <= 0) {
+            System.out.println("Лист очищен полностью");
+            return;
+        }
         size--;
         decreaseArr();
     }
