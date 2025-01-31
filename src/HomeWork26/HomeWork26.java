@@ -74,6 +74,14 @@ class MyList<T> {
 
     //метод для задания 4
     public void removeByIndex(int index) {
+        if (index < 0 || index >= size) {
+            System.out.println("Индекс вне диапазона");
+            return;
+        }
+        if (size <= 0) {
+            System.out.println("Лист очищен полностью");
+            return;
+        }
         for (int i = 0, j = 0; i < size; i++, j++) {
             if (index == i) {
                 j++;
@@ -86,6 +94,10 @@ class MyList<T> {
 
     //метод для задания 5
     public void removeByValue(T value) {
+        if (size <= 0) {
+            System.out.println("Лист очищен полностью");
+            return;
+        }
         for (int i = 0, j = 0; i < size; i++, j++) {
             if (value.equals(arr[i])) {
                 j++;
@@ -105,7 +117,15 @@ class MyList<T> {
 
     //метод для задания 7
     public void removeAllDuplicate() {
-
+        for (int i = 0; i < size; i++) {
+            for (int j = i + 1; j < size; ) {
+                if (arr[i].equals(arr[j])) {
+                    removeByIndex(j);
+                } else {
+                    j++;
+                }
+            }
+        }
     }
 
     //метод для задания 8
@@ -123,10 +143,13 @@ class MyList<T> {
     }
 
     //вспомогательный метод для задания 8
-    public void removeLast() { //todo - размер меняется, но в массиве есть на самом деле пустые ячейки?
+    public void removeLast() {
         if (size <= 0) {
             System.out.println("Лист очищен полностью");
             return;
+        }
+        for (int i = 0, j = 0; j < size - 1; i++, j++) {
+            arr[i] = arr[j];
         }
         size--;
         decreaseArr();
@@ -191,6 +214,8 @@ public class HomeWork26 {
         myList4.printInfo();
 
         myList4.removeByIndex(3);
+        myList4.removeByIndex(-5); //вернёт сообщение, что индекс вне диапазона
+        myList4.removeByIndex(15); //аналогично вернёт сообщение, что индекс вне диапазона
         System.out.println("Измененный список:");
         myList4.printInfo();
         System.out.println();
@@ -227,9 +252,22 @@ public class HomeWork26 {
         myList2.printInfo();
         System.out.println();
 
-//   7   public void removeAllDuplicate() //todo найти все значения и удалить лишние
+//   7   public void removeAllDuplicate()
         System.out.println("Задание 7. Вывод:");
+        MyList myList7 = new MyList();
+        myList7.add("one");
+        myList7.add("two");
+        myList7.add("three");
+        myList7.add("one");
+        myList7.add("four");
+        myList7.add("one");
+        myList7.add("five");
+        System.out.println("Исходный список:");
+        myList7.printInfo();
 
+        myList7.removeAllDuplicate();
+        System.out.println("Измененный список:");
+        myList7.printInfo();
         System.out.println();
 
 //   8   public void decreaseArr()
@@ -243,8 +281,8 @@ public class HomeWork26 {
         System.out.println();
 
         System.out.println("Затем удаляем и смотрим, что получается");
-        for (int i = 0; i < 48; i++) {
-            myList8.removeLast();
+        for (int i = 0; i < 51; i++) {
+            myList8.removeLast(); //вспомогательный метод, который удаляет последнее значение в списке
         }
         myList8.printInfo();
     }
