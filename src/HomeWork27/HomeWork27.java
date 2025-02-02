@@ -45,7 +45,13 @@ class MyLinkedList<T> {
 
     //метод для задания 1
     public int size() {
-        return -1;
+        Node tmp = head;
+        int size = 0;
+        while (tmp != null) {
+            size++;
+            tmp = tmp.next;
+        }
+        return size;
     }
 
     //метод для задания 2
@@ -55,6 +61,15 @@ class MyLinkedList<T> {
 
     //метод для задания 3
     public int indexOf(T value) {
+        Node tmp = head;
+        int index = 0;
+        while (tmp != null) {
+            if (tmp.value.equals(value)) {
+                return index;
+            }
+            tmp = tmp.next;
+            index++;
+        }
         return -1;
     }
 
@@ -64,8 +79,25 @@ class MyLinkedList<T> {
 //    }
 
     //метод для задания 5
-    public void add(int index, T value) {
+    public void add(int index, T value) throws Exception {
+        int size = size();
+        if (index < 0 || index > size) {
+            throw new Exception("Индекс вне пределов листа");
+        }
+        if (index == 0) {
+            addFirst(value);
+        }
+        if (index == size) {
+            addLast(value);
+        }
 
+        Node tmp = head;
+        for (int i = 0; i < index - 1; i++) {
+            tmp = tmp.next;
+        }
+        Node node = new Node(value);
+        node.next = tmp.next;
+        tmp.next = node;
     }
 }
 
