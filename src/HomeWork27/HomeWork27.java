@@ -55,7 +55,14 @@ class MyLinkedList<T> {
     }
 
     //метод для задания 2
-    public boolean contains() {
+    public boolean contains(T value) {
+        Node tmp = head;
+        while (tmp != null) {
+            if (tmp.value.equals(value)) {
+                return true;
+            }
+            tmp = tmp.next;
+        }
         return false;
     }
 
@@ -74,11 +81,25 @@ class MyLinkedList<T> {
     }
 
     //метод для задания 4
-    //    public T get(int index) {
-//        return value;
-//    }
+    public T get(int index) throws Exception {
+        int size = size();
+        if (index < 0 || index >= size) {
+            throw new Exception("Индекс вне пределов листа");
+        }
+        if (index == 0) {
+            return (T) head.value;
+        } else {
+            Node tmp = head;
+            int tmpindex = 0;
+            while (tmpindex != index && tmp != null) {
+                tmp = tmp.next;
+                tmpindex++;
+            }
+            return (T) tmp.value;
+        }
+    }
 
-    //метод для задания 5
+    //метод для задания 5 //todo чет не так с добавлением первого и последнего - надо подумать
     public void add(int index, T value) throws Exception {
         int size = size();
         if (index < 0 || index > size) {
@@ -103,20 +124,82 @@ class MyLinkedList<T> {
 
 public class HomeWork27 {
     public static void main(String[] args) {
-        //  -  public int size(); VERNI RAZMER (SKOLKO NODE)
+        //1  -  public int size(); VERNI RAZMER (SKOLKO NODE)
         System.out.println("Задание 1. Вывод:");
+        MyLinkedList myLinkedList1 = new MyLinkedList();
+        myLinkedList1.addLast(1);
+        myLinkedList1.addLast("два");
+        myLinkedList1.addLast('3');
+        myLinkedList1.addLast(4.5);
+        myLinkedList1.print();
+
+        System.out.println("Размер листа: " + myLinkedList1.size());
         System.out.println();
-        //  -  public boolean contains(String value); // ESLI EST VERNET TRUE ESLI NET FALSE
+
+        //2  -  public boolean contains(String value); // ESLI EST VERNET TRUE ESLI NET FALSE
         System.out.println("Задание 2. Вывод:");
+        MyLinkedList myLinkedList2 = new MyLinkedList();
+        myLinkedList2.addLast("Зима");
+        myLinkedList2.addLast("Весна");
+        myLinkedList2.addLast("Лето");
+        myLinkedList2.addLast("Осень");
+        myLinkedList2.print();
+
+        System.out.println("Лист содержит значение? Ответ: " + (myLinkedList2.contains("Осень") ? "Да" : "Нет"));
         System.out.println();
-        //  -  public int indexOf(String value);  VOZVRAWAET INDEX DANNOQO ELEMENTA ELSI NETU -1
+
+        //3  -  public int indexOf(String value);  VOZVRAWAET INDEX DANNOQO ELEMENTA ELSI NETU -1
         System.out.println("Задание 3. Вывод:");
+        MyLinkedList myLinkedList3 = new MyLinkedList();
+        myLinkedList3.addLast("Дима");
+        myLinkedList3.addLast(34);
+        myLinkedList3.addLast('м');
+        myLinkedList3.print();
+
+        System.out.println("Индекс возраста: " + myLinkedList3.indexOf(34));
+        System.out.println("Индекс возраста: " + myLinkedList3.indexOf(25));
         System.out.println();
-        //  -  public String get(int index); VOZVRAWAET SAM ELEMENT  ELSI NETU THROW NEW EXCEPTION(VI VISLI ZA RAZMER)
+
+        //4  -  public String get(int index); VOZVRAWAET SAM ELEMENT  ELSI NETU THROW NEW EXCEPTION(VI VISLI ZA RAZMER)
         System.out.println("Задание 4. Вывод:");
+        MyLinkedList myLinkedList4 = new MyLinkedList();
+        myLinkedList4.addLast(1);
+        myLinkedList4.addLast(2);
+        myLinkedList4.addLast(3);
+        myLinkedList4.addLast(4);
+        myLinkedList4.addLast(5);
+        myLinkedList4.print();
+        System.out.println(myLinkedList4.size());
+        try {
+            System.out.println("Индекс -1 -> Значение: " + myLinkedList4.get(-1));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+
+            System.out.println("Индекс 0 -> Значение: " + myLinkedList4.get(0));
+            System.out.println("Индекс 1 -> Значение: " + myLinkedList4.get(1));
+            System.out.println("Индекс 2 -> Значение: " + myLinkedList4.get(2));
+            System.out.println("Индекс 3 -> Значение: " + myLinkedList4.get(3));
+            System.out.println("Индекс 4 -> Значение: " + myLinkedList4.get(4));
+            System.out.println("Индекс 5 -> Значение: " + myLinkedList4.get(5));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println();
-        //  -  public void add(int index , String value);// DOBAVIT NODE V UKAZANNIY INDEX
+
+        //5  -  public void add(int index , String value);// DOBAVIT NODE V UKAZANNIY INDEX //todo первый элемент добавляется трижды
         System.out.println("Задание 5. Вывод:");
+        MyLinkedList myLinkedList5 = new MyLinkedList();
+        try {
+            myLinkedList5.add(0, "Один");
+            myLinkedList5.add(1, 2);
+            myLinkedList5.add(2, '3');
+            myLinkedList5.add(3, 4f);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        myLinkedList5.print();
 
     }
 }
