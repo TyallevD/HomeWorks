@@ -99,7 +99,7 @@ class MyLinkedList<T> {
         }
     }
 
-    //метод для задания 5 //todo чет не так с добавлением первого и последнего - надо подумать
+    //метод для задания 5
     public void add(int index, T value) throws Exception {
         int size = size();
         if (index < 0 || index > size) {
@@ -107,9 +107,11 @@ class MyLinkedList<T> {
         }
         if (index == 0) {
             addFirst(value);
+            return;
         }
         if (index == size) {
             addLast(value);
+            return;
         }
 
         Node tmp = head;
@@ -169,7 +171,6 @@ public class HomeWork27 {
         myLinkedList4.addLast(4);
         myLinkedList4.addLast(5);
         myLinkedList4.print();
-        System.out.println(myLinkedList4.size());
         try {
             System.out.println("Индекс -1 -> Значение: " + myLinkedList4.get(-1));
         } catch (Exception e) {
@@ -188,9 +189,15 @@ public class HomeWork27 {
         }
         System.out.println();
 
-        //5  -  public void add(int index , String value);// DOBAVIT NODE V UKAZANNIY INDEX //todo первый элемент добавляется трижды
+        //5  -  public void add(int index , String value);// DOBAVIT NODE V UKAZANNIY INDEX
         System.out.println("Задание 5. Вывод:");
         MyLinkedList myLinkedList5 = new MyLinkedList();
+        try {
+            myLinkedList5.add(-1, -1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         try {
             myLinkedList5.add(0, "Один");
             myLinkedList5.add(1, 2);
