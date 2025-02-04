@@ -156,11 +156,17 @@ class MyLinkedList<T> {
 
     //метод для задания 5
     public T getFirst() {
+        if (head == null) {
+            return null;
+        }
         return (T) head.value;
     }
 
     //метод для задания 6
     public T getLast() {
+        if (head == null) {
+            return null;
+        }
         Node tmp = head;
         while (tmp.next != null) {
             tmp = tmp.next;
@@ -168,16 +174,30 @@ class MyLinkedList<T> {
         return (T) tmp.value;
     }
 
-    //метод для задания 7 //todo доделать
-//    public T removeByIndex(int index) {
-//        if (head == null) {
-//            return null;
-//        }
-//        if (index < 0 || index > size()) {
-//            return null;
-//        }
-//
-//    }
+    //метод для задания 7
+    public T removeByIndex(Integer index) {
+        if (head == null) {
+            return null;
+        }
+        if (index < 0 || index > size() - 1) {
+            return null;
+        }
+        if (index == 0) {
+            return removeFirst();
+        }
+        if (index == size() - 1) {
+            return removeLast();
+        }
+        int tmpindex = 1;
+        Node tmp = head;
+        while (tmp.next != null && tmpindex < index) {
+            tmp = tmp.next;
+            tmpindex++;
+        }
+        T deletedValue = (T) tmp.next.value;
+        tmp.next = tmp.next.next;
+        return deletedValue;
+    }
 
     //метод для задания 8
     public T remove(T value) {
@@ -201,9 +221,26 @@ class MyLinkedList<T> {
     }
 
     //метод для задания 9
-    public void set(int index, String value) {
-
+    public void set(int index, T value) {
+        if (head == null) {
+            System.out.println("Лист пуст, нечего обновлять");
+            return;
+        }
+        if (index < 0 || index > size() - 1) {
+            System.out.println("Выход за пределы листа");
+            return;
+        }
+        int tmpindex = 0;
+        Node tmp = head;
+        while (tmp != null && tmpindex != index) {
+            tmp = tmp.next;
+            tmpindex++;
+        }
+        tmp.value = value;
     }
+
+    //метод для задания 10
+    //метод для задания 11
 }
 
 public class HomeWork28 {
@@ -260,17 +297,49 @@ public class HomeWork28 {
 
 //5  -  public String getFirst();                   vernut perviy element
         System.out.println("Задание 5. Вывод:");
-        System.out.println(myLinkedList4.getFirst());//todo дооформить
+        MyLinkedList myLinkedList5 = new MyLinkedList();
+        myLinkedList5.addLast(1);
+        myLinkedList5.addLast(2);
+        myLinkedList5.addLast(3);
+        myLinkedList5.addLast(4);
+        myLinkedList5.addLast(5);
+        myLinkedList5.print();
+
+        System.out.println("Первый элемент листа -> " + myLinkedList5.getFirst());
+
+        MyLinkedList myLinkedList5_1 = new MyLinkedList();
+        System.out.println("Первый элемент пустого листа -> " + myLinkedList5_1.getFirst());
         System.out.println();
 
 //6  -  public String getLast();                    vernut posledniy element
         System.out.println("Задание 6. Вывод:");
-        System.out.println(myLinkedList4.getLast());//todo дооформить
+        MyLinkedList myLinkedList6 = new MyLinkedList();
+        myLinkedList6.addLast('1');
+        myLinkedList6.addLast('2');
+        myLinkedList6.addLast('3');
+        myLinkedList6.addLast('4');
+        myLinkedList6.addLast('5');
+        myLinkedList6.print();
+
+        System.out.println("Последний элемент листа -> " + myLinkedList6.getLast());
+
+        MyLinkedList myLinkedList6_1 = new MyLinkedList();
+        System.out.println("Последний элемент пустого листа -> " + myLinkedList6_1.getLast());
         System.out.println();
 
 //7  -  public String remove(int index);            udalyayet po indeksu i vozvrasaet udalyayemiy obyekt
         System.out.println("Задание 7. Вывод:");
+        MyLinkedList myLinkedList7 = new MyLinkedList();
+        myLinkedList7.addLast("Ноль");
+        myLinkedList7.addLast("Один");
+        myLinkedList7.addLast("Два");
+        myLinkedList7.addLast("Три");
+        myLinkedList7.addLast("Четыре");
+        myLinkedList7.addLast("Пять");
+        myLinkedList7.print();
 
+        System.out.println("Удаляем значение \"" + myLinkedList7.removeByIndex(2) + "\" по индексу");
+        myLinkedList7.print();
         System.out.println();
 
 //8  -  public String remove(String value);         udalyayet po znaceniyu i vozvrasaet udalyayemiy obyekt
@@ -289,7 +358,29 @@ public class HomeWork28 {
 
 //9  -  public void set(int index,String value);    zameni znacenie ukazannoqo index na value
         System.out.println("Задание 9. Вывод:");
+        MyLinkedList myLinkedList9 = new MyLinkedList();
+        myLinkedList9.addLast("Один");
+        myLinkedList9.addLast("Два");
+        myLinkedList9.addLast("Три");
+        myLinkedList9.addLast("Четыре");
+        myLinkedList9.addLast("Пять");
+        System.out.println("Исходный лист:");
+        myLinkedList9.print();
 
+        myLinkedList9.set(-1, 0); //выходим за пределы листа
+        myLinkedList9.set(0, 1);
+        myLinkedList9.set(1, 2);
+        myLinkedList9.set(2, 3);
+        myLinkedList9.set(3, 4);
+        myLinkedList9.set(4, 5);
+        myLinkedList9.set(5, 6); //выходим за пределы листа
+        myLinkedList9.set(150, '0'); //выходим за пределы листа
+
+        System.out.println("Измененный лист:");
+        myLinkedList9.print();
+
+        MyLinkedList myLinkedList9_1 = new MyLinkedList();
+        myLinkedList9_1.set(0, 1);
         System.out.println();
 
         //****  ---------------------------------------------------------------------------
