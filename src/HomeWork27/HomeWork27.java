@@ -113,7 +113,6 @@ class MyLinkedList<T> {
             addLast(value);
             return;
         }
-
         Node tmp = head;
         for (int i = 0; i < index - 1; i++) {
             tmp = tmp.next;
@@ -177,7 +176,6 @@ public class HomeWork27 {
             System.out.println(e.getMessage());
         }
         try {
-
             System.out.println("Индекс 0 -> Значение: " + myLinkedList4.get(0));
             System.out.println("Индекс 1 -> Значение: " + myLinkedList4.get(1));
             System.out.println("Индекс 2 -> Значение: " + myLinkedList4.get(2));
@@ -197,7 +195,6 @@ public class HomeWork27 {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
         try {
             myLinkedList5.add(0, "Один");
             myLinkedList5.add(1, 2);
@@ -207,6 +204,5 @@ public class HomeWork27 {
             System.out.println(e.getMessage());
         }
         myLinkedList5.print();
-
     }
 }
