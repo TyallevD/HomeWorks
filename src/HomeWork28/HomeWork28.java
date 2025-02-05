@@ -240,7 +240,36 @@ class MyLinkedList<T> {
     }
 
     //метод для задания 10
+    public void sort() {//todo надо понять как сравнивать значения, чтобы менять их местами
+        Node tmp = head;
+        Node sort = null;
+        boolean isSorted = false;
+        while (tmp != null) {
+//            if (tmp.value>tmp.next.value){
+//
+//            }
+            tmp = tmp.next;
+        }
+    }
+
     //метод для задания 11
+    public void reverse() {//todo пока просто копируется лист, но без реверса, нужно подумать как реверсивно копировать его
+        Node tmpReversed = null;
+
+        for (int i = size() - 1; i >= 0; i--) {
+            Node tmpMain = head;
+            for (int j = 0; j < i; j++) {
+                tmpMain = tmpMain.next;
+            }
+            tmpReversed = tmpMain;
+        }
+//        System.out.println(tmpReversed);
+        while (tmpReversed != null) {
+            System.out.print(tmpReversed.value + " ");
+            tmpReversed = tmpReversed.next;
+        }
+        System.out.println();
+    }
 }
 
 public class HomeWork28 {
@@ -384,7 +413,32 @@ public class HomeWork28 {
         System.out.println();
 
         //****  ---------------------------------------------------------------------------
+
 //10  -  public void sort();                         sortiruet elementi po (vozrastaniyu / ubbivaniyu)
+        System.out.println("Задание 10. Вывод:");
+        MyLinkedList myLinkedList10 = new MyLinkedList();
+        myLinkedList10.addLast(2);
+        myLinkedList10.addLast(1);
+        myLinkedList10.addLast(3);
+        myLinkedList10.addLast(0);
+        System.out.println("Исходный лист:");
+        myLinkedList10.print();
+
+        myLinkedList10.sort();
+        System.out.println("Измененный лист:");
+        myLinkedList10.print();
+        System.out.println();
+
 //11  -  public void reverse();                      povoracivaet elementi naoborot
+        System.out.println("Задание 11. Вывод:");
+        MyLinkedList myLinkedList11 = new MyLinkedList();
+        myLinkedList11.addLast(1);
+        myLinkedList11.addLast(2);
+        myLinkedList11.addLast(3);
+        myLinkedList11.addLast(4);
+        myLinkedList11.print();
+
+        myLinkedList11.reverse();
+        myLinkedList11.print();
     }
 }
