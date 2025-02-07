@@ -271,22 +271,18 @@ class MyLinkedList<T> {
     }
 
     //метод для задания 11
-    public void reverse() {//todo пока просто копируется лист, но без реверса, нужно подумать как реверсивно копировать его
-        Node tmpReversed = null;
+    public void reverse() {
+        Node current = head;
+        Node previous=null;
+        Node next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = previous;
+            previous = current;
 
-        for (int i = size() - 1; i >= 0; i--) {
-            Node tmpMain = head;
-            for (int j = 0; j < i; j++) {
-                tmpMain = tmpMain.next;
-            }
-            tmpReversed = tmpMain;
+            current = next;
         }
-//        System.out.println(tmpReversed);
-        while (tmpReversed != null) {
-            System.out.print(tmpReversed.value + " ");
-            tmpReversed = tmpReversed.next;
-        }
-        System.out.println();
+        head = previous;
     }
 }
 
