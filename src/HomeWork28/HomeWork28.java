@@ -240,15 +240,33 @@ class MyLinkedList<T> {
     }
 
     //метод для задания 10
-    public void sort() {//todo надо понять как сравнивать значения, чтобы менять их местами
-        Node tmp = head;
-        Node sort = null;
-        boolean isSorted = false;
-        while (tmp != null) {
-//            if (tmp.value>tmp.next.value){
-//
-//            }
-            tmp = tmp.next;
+    public void sortAsc() {
+        int size = size();
+        for (int i = 0; i < size - 1; i++) {
+            Node tmp = head;
+            while (tmp != null && tmp.next != null) {
+                if (((Comparable<T>) tmp.value).compareTo((T) tmp.next.value) > 0) {//сравнение через compareTo, если первое больше второго, то вернёт значение больше 0
+                    T swap = (T) tmp.value;
+                    tmp.value = tmp.next.value;
+                    tmp.next.value = swap;
+                }
+                tmp = tmp.next;
+            }
+        }
+    }
+
+    public void sortDesc() {
+        int size = size();
+        for (int i = 0; i < size - 1; i++) {
+            Node tmp = head;
+            while (tmp != null && tmp.next != null) {
+                if (((Comparable<T>) tmp.value).compareTo((T) tmp.next.value) < 0) {//сравнение через compareTo, если первое меньше второго, то вернёт значение меньше 0
+                    T swap = (T) tmp.value;
+                    tmp.value = tmp.next.value;
+                    tmp.next.value = swap;
+                }
+                tmp = tmp.next;
+            }
         }
     }
 
@@ -416,17 +434,37 @@ public class HomeWork28 {
 
 //10  -  public void sort();                         sortiruet elementi po (vozrastaniyu / ubbivaniyu)
         System.out.println("Задание 10. Вывод:");
-        MyLinkedList myLinkedList10 = new MyLinkedList();
-        myLinkedList10.addLast(2);
-        myLinkedList10.addLast(1);
-        myLinkedList10.addLast(3);
-        myLinkedList10.addLast(0);
+        MyLinkedList myLinkedList10_1 = new MyLinkedList();
+        myLinkedList10_1.addLast(2);
+        myLinkedList10_1.addLast(1);
+        myLinkedList10_1.addLast(3);
+        myLinkedList10_1.addLast(0);
         System.out.println("Исходный лист:");
-        myLinkedList10.print();
+        myLinkedList10_1.print();
 
-        myLinkedList10.sort();
-        System.out.println("Измененный лист:");
-        myLinkedList10.print();
+        myLinkedList10_1.sortAsc();
+        System.out.println("Измененный лист по возрастанию:");
+        myLinkedList10_1.print();
+        myLinkedList10_1.sortDesc();
+        System.out.println("Измененный лист по убыванию:");
+        myLinkedList10_1.print();
+        System.out.println();
+
+        MyLinkedList myLinkedList10_2 = new MyLinkedList();
+        myLinkedList10_2.addLast("Дима");
+        myLinkedList10_2.addLast("Аня");
+        myLinkedList10_2.addLast("Миша");
+        myLinkedList10_2.addLast("Маша");
+        System.out.println("Исходный лист:");
+        myLinkedList10_2.print();
+
+        myLinkedList10_2.sortAsc();
+        System.out.println("Измененный лист по возрастанию:");
+        myLinkedList10_2.print();
+        myLinkedList10_2.sortDesc();
+        System.out.println("Измененный лист по убыванию:");
+        myLinkedList10_2.print();
+
         System.out.println();
 
 //11  -  public void reverse();                      povoracivaet elementi naoborot
