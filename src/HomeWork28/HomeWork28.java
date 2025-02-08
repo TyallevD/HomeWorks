@@ -273,7 +273,7 @@ class MyLinkedList<T> {
     //метод для задания 11
     public void reverse() {
         Node current = head;
-        Node previous=null;
+        Node previous = null;
         Node next = null;
         while (current != null) {
             next = current.next;
@@ -470,9 +470,11 @@ public class HomeWork28 {
         myLinkedList11.addLast(2);
         myLinkedList11.addLast(3);
         myLinkedList11.addLast(4);
+        System.out.println("Исходный лист:");
         myLinkedList11.print();
 
         myLinkedList11.reverse();
+        System.out.println("Измененный лист:");
         myLinkedList11.print();
     }
 }
