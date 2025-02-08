@@ -242,6 +242,10 @@ class MyLinkedList<T> {
     //метод для задания 10
     public void sortAsc() {
         int size = size();
+        if (size <= 1) {
+            System.out.println("Лист слишком мал (размер 1 или 0), сортировать нечего");
+            return;
+        }
         for (int i = 0; i < size - 1; i++) {
             Node tmp = head;
             while (tmp != null && tmp.next != null) {
@@ -257,6 +261,10 @@ class MyLinkedList<T> {
 
     public void sortDesc() {
         int size = size();
+        if (size <= 1) {
+            System.out.println("Лист слишком мал (размер 1 или 0), сортировать нечего");
+            return;
+        }
         for (int i = 0; i < size - 1; i++) {
             Node tmp = head;
             while (tmp != null && tmp.next != null) {
@@ -460,6 +468,21 @@ public class HomeWork28 {
         myLinkedList10_2.sortDesc();
         System.out.println("Измененный лист по убыванию:");
         myLinkedList10_2.print();
+        System.out.println();
+
+        MyLinkedList myLinkedList10_3 = new MyLinkedList();
+        myLinkedList10_3.addLast(1);
+        System.out.println("Исходный лист");
+        myLinkedList10_3.print();
+        myLinkedList10_3.sortAsc();
+        System.out.println("Измененный лист по убыванию");
+        myLinkedList10_3.print();
+        myLinkedList10_3.sortDesc();
+        System.out.println("Измененный лист по убыванию");
+        myLinkedList10_3.print();
+
+        MyLinkedList myLinkedList10_4 = new MyLinkedList();
+        myLinkedList10_4.sortAsc();
 
         System.out.println();
 
