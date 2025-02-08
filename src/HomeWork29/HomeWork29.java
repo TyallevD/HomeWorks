@@ -14,36 +14,48 @@ class MySet<E> {
     // 1. Добавляет элемент в множество, если его еще нет
     public boolean add(E e) {
         // TODO: Реализация
-        return false;
+        if (elements.contains(e)) {
+            return false;
+        } else {
+            elements.add(e);
+            return true;
+        }
     }
 
     // 2. Удаляет элемент из множества
     public boolean remove(Object o) {
         // TODO: Реализация
-        return false;
+        if (elements.contains(o)) {
+            elements.remove(o);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // 3. Проверяет, содержит ли множество указанный элемент
     public boolean contains(Object o) {
         // TODO: Реализация
-        return false;
+        return elements.contains(o);
     }
 
     // 4. Возвращает количество элементов в множестве
     public int size() {
         // TODO: Реализация
-        return 0;
+        return elements.size();
     }
 
     // 5. Проверяет, пусто ли множество
     public boolean isEmpty() {
         // TODO: Реализация
-        return false;
+        return elements.isEmpty();
     }
 
     // 6. Удаляет все элементы из множества
     public void clear() {
         // TODO: Реализация
+        elements.clear();
+        System.out.println("Множество очищено");
     }
 
     // 7. Добавляет все элементы из указанной коллекции в множество
@@ -72,7 +84,7 @@ class MySet<E> {
 
     @Override
     public String toString() {
-        return "{" + elements + '}';
+        return "" + elements;
     }
 }
 
@@ -82,6 +94,10 @@ public class HomeWork29 {
         System.out.println("Задание 1. Вывод:");
         MySet set1 = new MySet<>();
         set1.add(1);
+        set1.add("Строка 2");
+        set1.add(2);
+        set1.add(3);
+        set1.add(4);
         System.out.println(set1);
         System.out.println();
 
@@ -93,7 +109,9 @@ public class HomeWork29 {
         set2.add(3);
         System.out.println(set2);
 
-        set2.remove(2);
+        System.out.println("Удаляемое значение есть в списке? " + (set2.remove(2) ? "Да" : "Нет"));
+        System.out.println("Удаляемое значение есть в списке? " + (set2.remove(5) ? "Да" : "Нет"));
+        System.out.println(set2);
         System.out.println();
 
         // 3. Проверяет, содержит ли множество указанный элемент
@@ -105,7 +123,8 @@ public class HomeWork29 {
         set3.add(3);
         System.out.println(set3);
 
-        System.out.println("Содержится элемент? " + (set3.contains(2) ? "Да" : "Нет"));
+        System.out.println("Значение есть в списке? " + (set3.contains(2) ? "Да" : "Нет"));
+        System.out.println("Значение есть в списке? " + (set3.contains(5) ? "Да" : "Нет"));
         System.out.println();
 
         // 4. Возвращает количество элементов в множестве
@@ -124,14 +143,15 @@ public class HomeWork29 {
         // 5. Проверяет, пусто ли множество
         System.out.println("Задание 5. Вывод:");
         //todo isEmpty()
-        MySet set5 = new MySet<>();
-        set5.add(1);
-        set5.add(2);
-        set5.add(3);
-        set5.add(4);
-        System.out.println(set5);
-
-        System.out.println("Пустой? " + (set5.isEmpty() ? "Да" : "Нет"));
+        MySet set5_1 = new MySet<>();
+        set5_1.add(1);
+        set5_1.add(2);
+        set5_1.add(3);
+        set5_1.add(4);
+        System.out.println(set5_1);
+        MySet set5_2 = new MySet<>();
+        System.out.println("Пустой? " + (set5_1.isEmpty() ? "Да" : "Нет"));
+        System.out.println("Пустой? " + (set5_2.isEmpty() ? "Да" : "Нет"));
         System.out.println();
 
         // 6. Удаляет все элементы из множества
@@ -156,11 +176,13 @@ public class HomeWork29 {
         set7_1.add(2);
         set7_1.add(3);
         set7_1.add(4);
+        System.out.println(set7_1);
         MySet set7_2 = new MySet<>();
         set7_2.add(5);
         set7_2.add(6);
         set7_2.add(7);
         set7_2.add(8);
+        System.out.println(set7_2);
 
 //        set7_1.addAll((Collection) set7_2);
         System.out.println();
@@ -173,11 +195,13 @@ public class HomeWork29 {
         set8_1.add(2);
         set8_1.add(3);
         set8_1.add(4);
+        System.out.println(set8_1);
         MySet set8_2 = new MySet<>();
         set8_2.add(1);
         set8_2.add(2);
         set8_2.add(3);
         set8_2.add(4);
+        System.out.println(set8_2);
 
 //        set8_1.containsAll((Collection<?>) set8_2);
         System.out.println();
@@ -185,10 +209,31 @@ public class HomeWork29 {
         // 9. Удаляет из множества все элементы, которые есть в указанной коллекции
         System.out.println("Задание 9. Вывод:");
         //todo removeAll()
+        MySet set9_1 = new MySet<>();
+        set9_1.add(1);
+        set9_1.add(2);
+        set9_1.add(3);
+        set9_1.add(4);
+        set9_1.add(5);
+        System.out.println(set9_1);
+        MySet set9_2 = new MySet<>();
+        set9_2.add(2);
+        set9_2.add(5);
+        System.out.println(set9_2);
+
+//        set9_1.removeAll((Collection<?>) set9_2);
         System.out.println();
 
         // 10. Сохраняет только те элементы, которые есть в указанной коллекции
         System.out.println("Задание 10. Вывод:");
         //todo retainAll()
+        MySet set10 = new MySet<>();
+        set10.add(1);
+        set10.add(2);
+        set10.add(3);
+        set10.add(4);
+        set10.add(5);
+        System.out.println(set10);
+
     }
 }
