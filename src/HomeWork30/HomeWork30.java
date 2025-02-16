@@ -36,8 +36,7 @@ public class HomeWork30 {
 
             if (word.equals("cmd")) {
                 System.out.print("Введите команду (print, cls, size, letter, num, delete, update, exit): ");
-                word = scanner.nextLine();
-                word = word.toLowerCase();
+                word = scanner.nextLine().toLowerCase();
 
                 if (word.equals("print")) {
                     printDictionary(dictionary);
@@ -88,40 +87,11 @@ public class HomeWork30 {
                     }
                 }
             } else {
-                System.out.println("Данное слово отсутствует, не хотите ли его добавить?\n1 - Да\n2 - Нет");
-                int select = scanner.nextInt();
-
-                if (select == 1) {
-                    System.out.print("Введите перевод данного слова : ");
-                    scanner = new Scanner(System.in);
-
-                    String translate = scanner.nextLine();
-                    translate = translate.toLowerCase();
-                    if (
-                            dictionary.containsKey(word) || dictionary.containsValue(word) ||
-                                    dictionary.containsKey(translate) || dictionary.containsValue(translate)
-                    ) {
-                        System.out.println("Данное слово имеет перевод");
-                    } else {
-                        System.out.println("Данное слово было переведено с \n1 - en -> ru\n2 - ru -> en");
-                        select = scanner.nextInt();
-                        if (select == 1) {
-                            dictionary.put(word, translate);
-                        } else if (select == 2) {
-                            dictionary.put(translate, word);
-                        } else {
-                            System.out.println("Слово не было добавлено, вы выполнили неверный выбор");
-                        }
-                        System.out.println("Слово успешно добавлено");
-                    }
-                } else if (select == 2) {
-                    System.out.println("Отмена.");
-                } else {
-                    System.out.println("Вы сделали неверный выбор, выберете 1 или 2");
-                }
+                addWord(scanner, dictionary, word);
             }
         } while (true);
     }
+
 
     // Метод для задания 2
     private static void sizeCount(Map<String, String> dictionary) {
@@ -185,31 +155,94 @@ public class HomeWork30 {
     private static void updateDictionary(Scanner scanner, Map<String, String> dictionary) {
         System.out.print("Введите слово, которое хотите изменить: ");
         String updateWord = scanner.nextLine().toLowerCase();
-        //1 если пара с таким же key и value есть -> ошибка, что данная пара уже существует//todo
-        //2 если первое введенное слово совпадает с ключом -> обновит только значение
+
+        //6.2 если первое введенное слово совпадает с ключом -> обновит только значение
         if (dictionary.containsKey(updateWord)) {
-            System.out.print("Введите слово, на которое хотите изменить: ");
+            System.out.print("Введите слово, на которое хотите изменить (ru): ");
             String newWord = scanner.nextLine().toLowerCase();
-            //меняем значение на что-то новое, вводим значение и проверяем, нужно менять или нет (см1)
+            if (isPairExists(dictionary, updateWord, newWord)) {
+                System.out.println("В словаре уж есть подобный перевод слова");
+                return;
+            }
             dictionary.replace(updateWord, newWord);
+            System.out.println("Слово обновлено");
         }
-        //3 если первое введенное слово совпадает со значением -> обновит ключ
+
+        //6.3 если первое введенное слово совпадает со значением -> обновит ключ
         else if (dictionary.containsValue(updateWord)) {
-            //меняем ключ на что-то новое, вводим значение и проверяем, нужно менять или нет (см1)
-            System.out.print("Введите слово, на которое хотите изменить: ");
-            String newWord = scanner.nextLine().toLowerCase();
-            //меняем значение на что-то новое, вводим значение и проверяем, нужно менять или нет (см1)
-            dictionary.replace(newWord, updateWord);
+            String oldKey = null;
+            for (Map.Entry<String, String> entry : dictionary.entrySet()) {
+                if (entry.getValue().equals(updateWord)) {
+                    oldKey = entry.getKey();
+                    break;
+                }
+            }
+            if (oldKey != null) {
+                System.out.print("Введите слово, на которое хотите изменить (en): ");
+                String newWord = scanner.nextLine().toLowerCase();
+                if (isPairExists(dictionary, updateWord, newWord)) {
+                    System.out.println("В словаре уж есть подобный перевод слова");
+                    return;
+                }
+                if (dictionary.containsKey(newWord)) {
+                    System.out.println("Такое слово уже есть в словаре");
+                } else {
+                    String oldWord = dictionary.get(oldKey);
+                    dictionary.put(newWord, oldWord);
+                    dictionary.remove(oldKey);
+                    System.out.println("Слово обновлено");
+                }
+            }
         } else {
             System.out.println("Такого слова нет в словаре");
         }
     }
 
-    //Вспомогательный метод для печати словаря
+    //Метод для задания 6.1 (если пара с таким же key и value есть -> ошибка, что данная пара уже существует)
+    private static boolean isPairExists(Map<String, String> dictionary, String key, String value) {
+        return dictionary.containsKey(key) && dictionary.get(key).equals(value);
+    }
+
+    // Вынесенный метод для печати словаря
     private static void printDictionary(Map<String, String> dictionary) {
         System.out.println("\n-----------------------------------------\nПечать словаря\n");
         for (String key : dictionary.keySet()) {
             System.out.println(key + " (en) => " + dictionary.get(key) + " (ru)");
+        }
+    }
+
+    //Вынесенный метод для добавления новых слов
+    private static void addWord(Scanner scanner, Map<String, String> dictionary, String word) {
+        System.out.println("Данное слово отсутствует, не хотите ли его добавить?\n1 - Да\n2 - Нет");
+        int select = scanner.nextInt();
+
+        if (select == 1) {
+            System.out.print("Введите перевод данного слова : ");
+            scanner = new Scanner(System.in);
+
+            String translate = scanner.nextLine();
+            translate = translate.toLowerCase();
+            if (
+                    dictionary.containsKey(word) || dictionary.containsValue(word) ||
+                            dictionary.containsKey(translate) || dictionary.containsValue(translate)
+            ) {
+                System.out.println("Данное слово имеет перевод");
+            } else {
+                System.out.println("Данное слово было переведено с \n1 - en -> ru\n2 - ru -> en");
+                select = scanner.nextInt();
+                if (select == 1) {
+                    dictionary.put(word, translate);
+                } else if (select == 2) {
+                    dictionary.put(translate, word);
+                } else {
+                    System.out.println("Слово не было добавлено, вы выполнили неверный выбор");
+                }
+                System.out.println("Слово успешно добавлено");
+            }
+        } else if (select == 2) {
+            System.out.println("Отмена.");
+        } else {
+            System.out.println("Вы сделали неверный выбор, выберете 1 или 2");
         }
     }
 }
