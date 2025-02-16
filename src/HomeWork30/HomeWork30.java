@@ -29,22 +29,18 @@ public class HomeWork30 {
 
         do {
             System.out.println();
-            System.out.print("Введите слово для перевода или введите команду (command) : ");
+            System.out.print("Введите слово для перевода или введите команду (cmd) : ");
             Scanner scanner = new Scanner(System.in);
             String word = scanner.nextLine();
             word = word.toLowerCase();
 
-            if (word.equals("command")) {
+            if (word.equals("cmd")) {
                 System.out.print("Введите команду (print, cls, size, letter, num, delete, update, exit): ");
                 word = scanner.nextLine();
                 word = word.toLowerCase();
 
                 if (word.equals("print")) {
-//                    printDictionary(dictionary);
-                    System.out.println("\n-----------------------------------------\nПечать словаря\n");
-                    for (String key : dictionary.keySet()) {
-                        System.out.println(key + " (en) => " + dictionary.get(key) + " (ru)");
-                    }
+                    printDictionary(dictionary);
                 }
                 if (word.equals("exit")) {
                     System.out.println("Вы вышли из программы");
@@ -54,68 +50,32 @@ public class HomeWork30 {
                 //1) cls -> очищает весь словарь
                 if (word.equals("cls")) {
                     dictionary.clear();
+                    System.out.println("Словарь очищен");
                 }
 
                 //2) size -> печатает количество слов в словаре
                 if (word.equals("size")) {
-//                    sizeCount(dictionary);
-                    int count = 0;
-                    for (String key : dictionary.keySet()) {
-                        count++;
-                    }
-                    for (String value : dictionary.values()){
-                        count++;
-                    }
-                    System.out.println(count);
+                    sizeCount(dictionary);
                 }
 
                 //3) letter -> печатает количество символов в словаре
                 if (word.equals("letter")) {
-                    int letterCount = 0;
-                    for (Map.Entry<String, String> entry : dictionary.entrySet()) {
-                        letterCount += entry.getKey().length() + entry.getValue().length();
-//                        letterCount += entry.getValue().length();
-                    }
-                    System.out.println(letterCount);
-//                    int keyLetterCount = 0;
-//                    int valueLetterCount = 0;
-//                    for (String key : dictionary.keySet()) {
-//                        keyLetterCount += key.length();
-//                    }
-//                    for (String value : dictionary.values()) {
-//                        valueLetterCount += value.length();
-//                    }
-//                    System.out.println(keyLetterCount + valueLetterCount);
+                    countLetters(dictionary);
                 }
 
                 //4) num -> печатает сколько чисел в словаре
                 if (word.equals("num")) {
-
+                    countNums(dictionary);
                 }
 
                 //5) delete -> удаляет по ключу или по значению
                 if (word.equals("delete")) {
-                    System.out.print("Какое слово хотите удалить?: ");
-                    String delWord = scanner.nextLine().toLowerCase();
-
-                    if (dictionary.containsKey(delWord)) {
-                        dictionary.remove(delWord);
-                    } else if (dictionary.containsValue(delWord)) {
-                        for (String key : dictionary.keySet()) {
-                            if (dictionary.get(key).equals(delWord)) {
-                                System.out.println("Слово " + dictionary.get(key) + " было удалено");
-                                dictionary.remove(key);
-                                break;
-                            }
-                        }
-                    } else {
-                        System.out.println("Такого слова нет в словаре.");
-                    }
+                    deleteWord(scanner, dictionary);
                 }
 
                 //6) update -> изменит слово на что-то
                 if (word.equals("update")) {
-
+                    updateDictionary(scanner, dictionary);
                 }
 
             } else if (dictionary.containsKey(word)) {
@@ -163,14 +123,89 @@ public class HomeWork30 {
         } while (true);
     }
 
+    // Метод для задания 2
     private static void sizeCount(Map<String, String> dictionary) {
         int count = 0;
         for (String key : dictionary.keySet()) {
             count++;
         }
-        System.out.println(count);
+        //т.к. в словаре всегда есть ключ и значение, то если хотим проверить количество слов и в ключе и в значениях -
+        // умножаем подсчет на 2
+        System.out.println(count * 2);
     }
 
+    // Метод для задания 3
+    private static void countLetters(Map<String, String> dictionary) {
+        int letterCount = 0;
+        for (Map.Entry<String, String> entry : dictionary.entrySet()) {
+            letterCount += entry.getKey().length() + entry.getValue().length();
+        }
+        System.out.println(letterCount);
+    }
+
+    // Метод для задания 4
+    private static void countNums(Map<String, String> dictionary) {
+        int digitCount = 0;
+        for (Map.Entry<String, String> entry : dictionary.entrySet()) {
+            for (char c : entry.getKey().toCharArray()) {
+                if (Character.isDigit(c)) {
+                    digitCount++;
+                }
+            }
+            for (char c : entry.getValue().toCharArray()) {
+                if (Character.isDigit(c)) {
+                    digitCount++;
+                }
+            }
+        }
+        System.out.println(digitCount);
+    }
+
+    // Метод для задания 5
+    private static void deleteWord(Scanner scanner, Map<String, String> dictionary) {
+        System.out.print("Какое слово хотите удалить?: ");
+        String delWord = scanner.nextLine().toLowerCase();
+
+        if (dictionary.containsKey(delWord)) {
+            dictionary.remove(delWord);
+        } else if (dictionary.containsValue(delWord)) {
+            for (String key : dictionary.keySet()) {
+                if (dictionary.get(key).equals(delWord)) {
+                    System.out.println("Слово " + dictionary.get(key) + " было удалено");
+                    dictionary.remove(key);
+                    break;
+                }
+            }
+        } else {
+            System.out.println("Такого слова нет в словаре.");
+        }
+    }
+
+    // Метод для задания 6
+    private static void updateDictionary(Scanner scanner, Map<String, String> dictionary) {
+        System.out.print("Введите слово, которое хотите изменить: ");
+        String updateWord = scanner.nextLine().toLowerCase();
+        //1 если пара с таким же key и value есть -> ошибка, что данная пара уже существует//todo
+        //2 если первое введенное слово совпадает с ключом -> обновит только значение
+        if (dictionary.containsKey(updateWord)) {
+            System.out.print("Введите слово, на которое хотите изменить: ");
+            String newWord = scanner.nextLine().toLowerCase();
+            //меняем значение на что-то новое, вводим значение и проверяем, нужно менять или нет (см1)
+            dictionary.replace(updateWord, newWord);
+        }
+        //3 если первое введенное слово совпадает со значением -> обновит ключ
+        else if (dictionary.containsValue(updateWord)) {
+            //меняем ключ на что-то новое, вводим значение и проверяем, нужно менять или нет (см1)
+            System.out.print("Введите слово, на которое хотите изменить: ");
+            String newWord = scanner.nextLine().toLowerCase();
+            //меняем значение на что-то новое, вводим значение и проверяем, нужно менять или нет (см1)
+            dictionary.replace(newWord, updateWord);
+        } else {
+            System.out.println("Такого слова нет в словаре");
+        }
+    }
+
+    //Вспомогательный метод для печати словаря
     private static void printDictionary(Map<String, String> dictionary) {
         System.out.println("\n-----------------------------------------\nПечать словаря\n");
         for (String key : dictionary.keySet()) {
