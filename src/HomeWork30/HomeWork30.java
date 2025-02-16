@@ -19,6 +19,7 @@ public class HomeWork30 {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         Map<String, String> dictionary = new LinkedHashMap<>();
+        dictionary.put("1", "1");
         dictionary.put("dog", "собака");
         dictionary.put("mother", "мама");
         dictionary.put("brother", "брат");
@@ -62,11 +63,29 @@ public class HomeWork30 {
                     for (String key : dictionary.keySet()) {
                         count++;
                     }
+                    for (String value : dictionary.values()){
+                        count++;
+                    }
                     System.out.println(count);
                 }
 
                 //3) letter -> печатает количество символов в словаре
                 if (word.equals("letter")) {
+                    int letterCount = 0;
+                    for (Map.Entry<String, String> entry : dictionary.entrySet()) {
+                        letterCount += entry.getKey().length() + entry.getValue().length();
+//                        letterCount += entry.getValue().length();
+                    }
+                    System.out.println(letterCount);
+//                    int keyLetterCount = 0;
+//                    int valueLetterCount = 0;
+//                    for (String key : dictionary.keySet()) {
+//                        keyLetterCount += key.length();
+//                    }
+//                    for (String value : dictionary.values()) {
+//                        valueLetterCount += value.length();
+//                    }
+//                    System.out.println(keyLetterCount + valueLetterCount);
                 }
 
                 //4) num -> печатает сколько чисел в словаре
