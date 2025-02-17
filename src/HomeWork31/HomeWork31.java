@@ -99,6 +99,7 @@ public class HomeWork31 {
                 System.out.println("Ошибка. Не поддерживаемая команда, попробуйте снова");
             }
         }
+        System.out.println();
     }
 
     private static void mySort() {
