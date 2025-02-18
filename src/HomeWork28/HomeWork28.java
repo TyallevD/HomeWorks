@@ -129,6 +129,9 @@ class MyLinkedList<T> {
 
     //метод для задания 3
     public T removeFirst() {
+        if (head == null) {
+            return null;
+        }
         Node tmp = head;
         head = tmp.next;
 
@@ -330,6 +333,9 @@ public class HomeWork28 {
 
         System.out.println("Удаляем первое значение = " + myLinkedList3.removeFirst());
         myLinkedList3.print();
+
+        MyLinkedList myLinkedList3_1 = new MyLinkedList();
+        System.out.println("Удаляем первое значение = " + myLinkedList3_1.removeFirst());
         System.out.println();
 
 //4  -  public String removeLast();                 udalyayet posledniy element i vozvrasaet eqo
