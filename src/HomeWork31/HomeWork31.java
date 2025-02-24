@@ -1,5 +1,6 @@
 package HomeWork31;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class HomeWork31 {
@@ -34,33 +35,35 @@ public class HomeWork31 {
 
         Scanner scanner = new Scanner(System.in);
         String command;
-        while (true){
-            System.out.println("Доступные команды: \n" +
-                    "- create-folder <путь>\n" +
-                    "- create-file <путь>\n" +
-                    "- delete <путь>\n" +
-                    "- delete r <путь>\n" +
-                    "- rename <старое_имя> <новое_имя>\n" +
-                    "- move <откуда> <куда>\n" +
-                    "- list <путь>\n" +
-                    "- size <путь>\n" +
-                    "- sort <путь> [name|size]\n" +
-                    "- exit");
+        String params = "test"; //заглушка для команды
+        while (true) {
+            System.out.println("""
+                    Доступные команды:
+                    - create-folder <путь>
+                    - create-file <путь>
+                    - delete <путь>
+                    - delete r <путь>
+                    - rename <старое_имя> <новое_имя>
+                    - move <откуда> <куда>
+                    - list <путь>
+                    - size <путь>
+                    - sort <путь> [name|size]
+                    - exit""");
             System.out.print("Введите команду: ");
-            command = scanner.nextLine().toLowerCase();
+            command = scanner.nextLine().trim();
 
-            if (command.equals("exit")){
+            if (command.equalsIgnoreCase("exit")) {
                 System.out.println("Вы вышли из программы");
                 break;
             }
-            myCommand(command);
+            myCommand(command, params);
         }
     }
 
-    private static void myCommand(String command) {
+    private static void myCommand(String command, String params) {
         switch (command) {
             case "create-folder": {
-                createFolder();
+                createMyFolder(params);
                 break;
             }
             case "create-file": {
@@ -135,7 +138,8 @@ public class HomeWork31 {
         System.out.println("Файл создан");
     }
 
-    private static void createFolder() {
-        System.out.println("папка создана");
+    private static void createMyFolder(String foldername) {
+        File folder = new File(foldername);
+        System.out.println("Папка \"" + foldername + "\" " + (folder.mkdir() ? "создана" : "не создана"));
     }
 }
