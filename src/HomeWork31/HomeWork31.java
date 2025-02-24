@@ -1,6 +1,9 @@
 package HomeWork31;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
 public class HomeWork31 {
@@ -90,11 +93,11 @@ public class HomeWork31 {
                 break;
             }
             case "rename": {
-                rename();
+                rename(params);
                 break;
             }
             case "move": {
-                myMove();
+                myMove(params);
                 break;
             }
             case "list": {
@@ -102,7 +105,7 @@ public class HomeWork31 {
                 break;
             }
             case "size": {
-                mySize();
+                mySize(params);
                 break;
             }
             case "sort": {
@@ -140,20 +143,33 @@ public class HomeWork31 {
         System.out.println("Папка удалена");
     }
 
-    private static void rename() {
-        System.out.println("Папка или файл переименован");
+    private static void rename(String[] params) {
+        File currentFile = new File(params[0]);
+        System.out.println("Файл \"" + params[0] + "\" " +
+                (currentFile.renameTo(new File(params[1])) ? " переименован в \"" + params[1] + "\"" : "Файл не переименован"));
     }
 
-    private static void myMove() {
-        System.out.println("Перемещено");
+    private static void myMove(String[] params) {//todo другая библиотека, можно ли так или надо иначе...
+        Path sourcePath = Path.of(params[0]);
+        Path destinationPath = Path.of(params[1]);
+//        System.out.println(sourcePath);
+//        System.out.println(destinationPath);
+//        File currentFile = new File(params[0]);
+        try {
+            Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("копировано из \"" + sourcePath + "\" в \"" + destinationPath + "\"");
+        } catch (Exception e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
     }
 
     private static void myList() {
         System.out.println("вот все папки и файлы");
     }
 
-    private static void mySize() {
-        System.out.println("Размер");
+    private static void mySize(String[] params) {
+        File file = new File(params[0]);
+        System.out.println("Размер \"" + params[0] + "\" " + file.length() + " байт"); //todo файл вроде ок, папка вроде не ок
     }
 
     private static void mySort() {
