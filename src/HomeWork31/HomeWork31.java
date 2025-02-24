@@ -34,8 +34,7 @@ public class HomeWork31 {
         //Красивый вывод в консоль (например, с отступами, табуляцией).
 
         Scanner scanner = new Scanner(System.in);
-        String command;
-        String params = "test"; //заглушка для команды
+
         while (true) {
             System.out.println("""
                     Доступные команды:
@@ -50,28 +49,40 @@ public class HomeWork31 {
                     - sort <путь> [name|size]
                     - exit""");
             System.out.print("Введите команду: ");
-            command = scanner.nextLine().trim();
+            String input = scanner.nextLine().trim();
 
-            if (command.equalsIgnoreCase("exit")) {
+            if (input.equalsIgnoreCase("exit")) {
                 System.out.println("Вы вышли из программы");
                 break;
             }
+            String[] parts = input.split(" ");
+            if (parts.length == 0) {
+                System.out.println("Неверная команда, попробуйте снова.");
+                continue;
+            }
+
+            String command = parts[0];
+            String[] params = new String[parts.length - 1];
+            for (int i = 1; i < parts.length; i++) {
+                params[i - 1] = parts[i];
+            }
+
             myCommand(command, params);
         }
     }
 
-    private static void myCommand(String command, String params) {
+    private static void myCommand(String command, String[] params) {
         switch (command) {
             case "create-folder": {
                 createMyFolder(params);
                 break;
             }
             case "create-file": {
-                createMyFile();
+                createMyFile(params);
                 break;
             }
             case "delete": {
-                myDelete();
+                myDelete(params);
                 break;
             }
             case "delete r": {
@@ -105,41 +116,47 @@ public class HomeWork31 {
         System.out.println();
     }
 
-    private static void mySort() {
-        System.out.println("Отсортировано");
+    private static void createMyFolder(String[] params) {
+        File folder = new File(params[0]);
+        System.out.println("Папка \"" + folder + "\" " + (folder.mkdir() ? "создана" : "не создана"));
     }
 
-    private static void mySize() {
-        System.out.println("Размер");
+    private static void createMyFile(String[] params) {
+        File file = new File(params[0]);
+        try {
+            System.out.println("Файл \"" + file + "\" " + (file.createNewFile() ? "создан" : "не создан"));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    private static void myList() {
-        System.out.println("вот все папки и файлы");
-
-    }
-
-    private static void myMove() {
-        System.out.println("Перемещено");
-    }
-
-    private static void rename() {
-        System.out.println("Папка или файл переименован");
+    private static void myDelete(String[] params) {
+        String path = params[0];
+        File file = new File(path);
+        System.out.println("Папка или файл \"" + path + "\" " + (file.delete() ? "удален(а)" : "не удален(а)"));
     }
 
     private static void deleteRecurcive() {
         System.out.println("Папка удалена");
     }
 
-    private static void myDelete() {
-        System.out.println("Файл удалён");
+    private static void rename() {
+        System.out.println("Папка или файл переименован");
     }
 
-    private static void createMyFile() {
-        System.out.println("Файл создан");
+    private static void myMove() {
+        System.out.println("Перемещено");
     }
 
-    private static void createMyFolder(String foldername) {
-        File folder = new File(foldername);
-        System.out.println("Папка \"" + foldername + "\" " + (folder.mkdir() ? "создана" : "не создана"));
+    private static void myList() {
+        System.out.println("вот все папки и файлы");
+    }
+
+    private static void mySize() {
+        System.out.println("Размер");
+    }
+
+    private static void mySort() {
+        System.out.println("Отсортировано");
     }
 }
