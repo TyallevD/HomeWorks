@@ -127,7 +127,7 @@ public class HomeWork31 {
         }
 
         File folder = new File(params[0]);
-        if (folder.exists()) {
+        if (folder.exists() && folder.isDirectory()) {
             System.out.println("Папка уже существует");
             return;
         }
@@ -142,7 +142,7 @@ public class HomeWork31 {
         }
 
         File file = new File(params[0]);
-        if (file.exists()) {
+        if (file.exists() && file.isFile()) {
             System.out.println("Файл уже существует.");
             return;
         }
@@ -153,7 +153,7 @@ public class HomeWork31 {
         }
     }
 
-    //3 - удаление файла или папки ================================ //todo проверить для файлов и папок
+    //3 - удаление файла или папки ================================
     private static void myDelete(String[] params) {
         if (params.length != 1) {
             System.out.println("Ошибка, неверный параметр, попробуйте снова");
