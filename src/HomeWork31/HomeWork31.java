@@ -3,7 +3,6 @@ package HomeWork31;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
 public class HomeWork31 {
@@ -119,7 +118,7 @@ public class HomeWork31 {
         System.out.println();
     }
 
-    //1 - создание папки ================================
+    //1 - создание папки ================================ //todo нужно сделать возможность создать папку в папке (mkdirs)
     private static void createMyFolder(String[] params) {
         if (params.length != 1) {
             System.out.println("Ошибка, неверный параметр, попробуйте снова");
@@ -153,7 +152,7 @@ public class HomeWork31 {
         }
     }
 
-    //3 - удаление файла или папки ================================
+    //3 - удаление файла или папки ================================ //todo надо обработать, если файл или папка не пусты
     private static void myDelete(String[] params) {
         if (params.length != 1) {
             System.out.println("Ошибка, неверный параметр, попробуйте снова");
@@ -169,42 +168,43 @@ public class HomeWork31 {
         System.out.println("Папка или файл \"" + path + "\" " + (file.delete() ? "удален(а)" : "не удален(а)"));
     }
 
-    //4 - рекурсивное удаление ================================
+    //4 - рекурсивное удаление ================================ //todo реализовать
     private static void deleteRecurcive() {
         System.out.println("Папка удалена");
     }
 
-    //5 - переименование файл или папки ================================ //todo проверить для файлов и папок
+    //5 - переименование файл или папки ================================
     private static void rename(String[] params) {
         if (params.length != 2) {
             System.out.println("Ошибка, неверный параметр, попробуйте снова");
             return;
         }
         File currentFile = new File(params[0]);
+        if (!currentFile.exists()){
+            System.out.println("Файл или папка не найдены. Попробуйте снова");
+            return;
+        }
         System.out.println("Файл \"" + params[0] + "\" " +
-                (currentFile.renameTo(new File(params[1])) ? " переименован в \"" + params[1] + "\"" : "Файл не переименован"));
+                (currentFile.renameTo(new File(params[1])) ? " переименован в \"" + params[1] + "\"" : " не переименован"));
     }
 
     //6 - копирование файла или папки (?) ================================
-    private static void myMove(String[] params) {//todo другая библиотека, можно ли так или надо иначе... проверить для файлов и папок
+    private static void myMove(String[] params) {//todo другая библиотека, можно ли так или надо иначе... проверить для файлов и папок, нет проверок на существование путей
         if (params.length != 2) {
             System.out.println("Ошибка, неверный параметр, попробуйте снова");
             return;
         }
         Path sourcePath = Path.of(params[0]);
         Path destinationPath = Path.of(params[1]);
-//        System.out.println(sourcePath);
-//        System.out.println(destinationPath);
-//        File currentFile = new File(params[0]);
         try {
-            Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(sourcePath, destinationPath);
             System.out.println("копировано из \"" + sourcePath + "\" в \"" + destinationPath + "\"");
         } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
     }
 
-    //7 - вывод всех папок и файлов ================================
+    //7 - вывод всех папок и файлов ================================ //todo реализовать
     private static void myList() {
         System.out.println("вот все папки и файлы");
     }
@@ -239,7 +239,7 @@ public class HomeWork31 {
         return directorySize;
     }
 
-    //9 - сортировка директории ================================
+    //9 - сортировка директории ================================ //todo реализовать (то же что и list, только с сортировкой по указанному направлению
     private static void mySort() {
         System.out.println("Отсортировано");
     }
