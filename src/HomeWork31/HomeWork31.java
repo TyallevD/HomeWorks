@@ -3,6 +3,7 @@ package HomeWork31;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class HomeWork31 {
@@ -100,7 +101,7 @@ public class HomeWork31 {
                 break;
             }
             case "list": {
-                myList();
+                myList(params);
                 break;
             }
             case "size": {
@@ -180,7 +181,7 @@ public class HomeWork31 {
             return;
         }
         File currentFile = new File(params[0]);
-        if (!currentFile.exists()){
+        if (!currentFile.exists()) {
             System.out.println("Файл или папка не найдены. Попробуйте снова");
             return;
         }
@@ -194,19 +195,37 @@ public class HomeWork31 {
             System.out.println("Ошибка, неверный параметр, попробуйте снова");
             return;
         }
-        Path sourcePath = Path.of(params[0]);
-        Path destinationPath = Path.of(params[1]);
-        try {
-            Files.copy(sourcePath, destinationPath);
-            System.out.println("копировано из \"" + sourcePath + "\" в \"" + destinationPath + "\"");
-        } catch (Exception e) {
-            System.out.println("Ошибка: " + e.getMessage());
+        //вариант с использованием библиотеки nio
+//        Path sourcePath = Path.of(params[0]);
+//        Path destinationPath = Path.of(params[1]);
+//        try {
+//            Files.copy(sourcePath, destinationPath);
+//            System.out.println("копировано из \"" + sourcePath + "\" в \"" + destinationPath + "\"");
+//        } catch (Exception e) {
+//            System.out.println("Ошибка: " + e.getMessage());
+//        }
+        //вариант с библиотекой io и renameTo для перемещения (не копирования) папки/файла //todo дотестировать и доделать
+        String sourcePath = params[0];
+        String destinationPath = params[1];
+        File newFile = new File(sourcePath);
+        if (newFile.exists()) {
+            newFile.renameTo(new File(destinationPath));
+//            System.out.println(newFile.renameTo(new File(destinationPath)));
+            System.out.println("перемещено в \"" + destinationPath + "\"");
+        } else {
+            System.out.println("не перемещено");
         }
     }
 
     //7 - вывод всех папок и файлов ================================ //todo реализовать
-    private static void myList() {
-        System.out.println("вот все папки и файлы");
+    private static void myList(String[] params) {
+        if (params.length!=1){
+            System.out.println("Ошибка, неверный параметр, попробуйте снова");
+            return;
+        }
+        File folder = new File(params[0]);
+        System.out.println(Arrays.toString(folder.list()));;
+//        System.out.println("вот все папки и файлы");
     }
 
     //8 - вывод размера файла/папки ================================
