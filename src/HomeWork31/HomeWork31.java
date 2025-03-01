@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class HomeWork31 {
@@ -88,10 +89,6 @@ public class HomeWork31 {
                 myDelete(params);
                 break;
             }
-            case "delete r": {
-                deleteRecurcive();
-                break;
-            }
             case "rename": {
                 rename(params);
                 break;
@@ -109,7 +106,7 @@ public class HomeWork31 {
                 break;
             }
             case "sort": {
-                mySort();
+                mySort(params);
                 break;
             }
             default: {
@@ -119,7 +116,7 @@ public class HomeWork31 {
         System.out.println();
     }
 
-    //1 - создание папки ================================ //todo нужно сделать возможность создать папку в папке (mkdirs)
+    //1 - создание папки ================================
     private static void createMyFolder(String[] params) {
         if (params.length != 1) {
             System.out.println("Ошибка, неверный параметр, попробуйте снова");
@@ -131,7 +128,7 @@ public class HomeWork31 {
             System.out.println("Папка уже существует");
             return;
         }
-        System.out.println("Папка \"" + folder + "\" " + (folder.mkdir() ? "создана" : "не создана"));
+        System.out.println("Папка \"" + folder + "\" " + (folder.mkdirs() ? "создана" : "не создана"));
     }
 
     //2 - создание пустого файла ================================
@@ -153,25 +150,56 @@ public class HomeWork31 {
         }
     }
 
-    //3 - удаление файла или папки ================================ //todo надо обработать, если файл или папка не пусты
+    //3 - удаление файла или папки ================================
     private static void myDelete(String[] params) {
-        if (params.length != 1) {
+        if (params.length < 1 || params.length > 2) {
             System.out.println("Ошибка, неверный параметр, попробуйте снова");
             return;
         }
+        boolean recurcive = false;
+        String path;
 
-        String path = params[0];
+        if (params.length == 2 && params[0].equalsIgnoreCase("-r")) {
+            recurcive = true;
+            path = params[1];
+        } else {
+            path = params[0];
+        }
+
         File file = new File(path);
         if (!file.exists()) {
             System.out.println("Папки или файла не существует. Попробуйте снова");
             return;
         }
-        System.out.println("Папка или файл \"" + path + "\" " + (file.delete() ? "удален(а)" : "не удален(а)"));
+        if (file.isFile() || (!recurcive && file.isDirectory())) {
+            System.out.println("Папка или файл \"" + path + "\" " + (file.delete() ? "удален(а)" : "не удален(а)"));
+        } else if (recurcive && file.isDirectory()) {
+
+            System.out.println("Папка или файл \"" + path + "\" " + (deleteRecurcive(file) ? "удален(а)" : "не удален(а)"));
+        }
     }
 
-    //4 - рекурсивное удаление ================================ //todo реализовать
-    private static void deleteRecurcive() {
-        System.out.println("Папка удалена");
+    //4 - рекурсивное удаление ================================
+    private static boolean deleteRecurcive(File directory) {
+        if (directory == null || !directory.exists() || !directory.isDirectory()) {
+            return false;
+        }
+
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    if (!deleteRecurcive(file)) {
+                        return false;
+                    }
+                } else {
+                    if (!file.delete()) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return directory.delete();
     }
 
     //5 - переименование файл или папки ================================
@@ -189,43 +217,45 @@ public class HomeWork31 {
                 (currentFile.renameTo(new File(params[1])) ? " переименован в \"" + params[1] + "\"" : " не переименован"));
     }
 
-    //6 - копирование файла или папки (?) ================================
-    private static void myMove(String[] params) {//todo другая библиотека, можно ли так или надо иначе... проверить для файлов и папок, нет проверок на существование путей
+    //6 - копирование файла или папки, используется библиотека java.nio.Files ================================
+    private static void myMove(String[] params) {
         if (params.length != 2) {
             System.out.println("Ошибка, неверный параметр, попробуйте снова");
             return;
         }
-        //вариант с использованием библиотеки nio
-//        Path sourcePath = Path.of(params[0]);
-//        Path destinationPath = Path.of(params[1]);
-//        try {
-//            Files.copy(sourcePath, destinationPath);
-//            System.out.println("копировано из \"" + sourcePath + "\" в \"" + destinationPath + "\"");
-//        } catch (Exception e) {
-//            System.out.println("Ошибка: " + e.getMessage());
-//        }
-        //вариант с библиотекой io и renameTo для перемещения (не копирования) папки/файла //todo дотестировать и доделать
-        String sourcePath = params[0];
-        String destinationPath = params[1];
-        File newFile = new File(sourcePath);
-        if (newFile.exists()) {
-            newFile.renameTo(new File(destinationPath));
-//            System.out.println(newFile.renameTo(new File(destinationPath)));
-            System.out.println("перемещено в \"" + destinationPath + "\"");
-        } else {
-            System.out.println("не перемещено");
+        Path sourcePath = Path.of(params[0]);
+        Path destinationPath = Path.of(params[1]);
+        try {
+            Files.copy(sourcePath, destinationPath);
+            System.out.println("копировано из \"" + sourcePath + "\" в \"" + destinationPath + "\"");
+        } catch (Exception e) {
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 
-    //7 - вывод всех папок и файлов ================================ //todo реализовать
+    //7 - вывод всех папок и файлов ================================
     private static void myList(String[] params) {
-        if (params.length!=1){
+        if (params.length != 1) {
             System.out.println("Ошибка, неверный параметр, попробуйте снова");
             return;
         }
         File folder = new File(params[0]);
-        System.out.println(Arrays.toString(folder.list()));;
-//        System.out.println("вот все папки и файлы");
+        if (!folder.exists() || !folder.isDirectory()) {
+            System.out.println("Указанный путь не является папкой");
+            return;
+        }
+
+        File[] files = folder.listFiles();
+        if (files == null || files.length == 0) {
+            System.out.println("Папка пуста");
+        } else {
+            System.out.println("Содержимое папки \"" + folder.getAbsolutePath() + "\":");
+            System.out.println("Наименование\t Тип");
+            for (File file : files) {
+                String type = file.isDirectory() ? "файл" : "папка";
+                System.out.printf("%-15s\t %-6s%n", file.getName(), type);
+            }
+        }
     }
 
     //8 - вывод размера файла/папки ================================
@@ -258,8 +288,67 @@ public class HomeWork31 {
         return directorySize;
     }
 
-    //9 - сортировка директории ================================ //todo реализовать (то же что и list, только с сортировкой по указанному направлению
-    private static void mySort() {
-        System.out.println("Отсортировано");
+    //9 - сортировка директории ================================
+    private static void mySort(String[] params) {
+        if (params.length != 2) {
+            System.out.println("Ошибка, неверный параметр, попробуйте снова");
+            return;
+        }
+        String path = params[0];
+        String sortDirection = params[1];
+        File directory = new File(path);
+        if (!directory.exists() || !directory.isDirectory()) {
+            System.out.println("Указанный путь не существует или не является папкой. Попробуйте снова");
+            return;
+        }
+
+        File[] files = directory.listFiles();
+        if (files == null || files.length == 0) {
+            System.out.println("Папка пуста");
+            return;
+        }
+
+        try {
+
+            if (sortDirection.equalsIgnoreCase("name")) {
+                Arrays.sort(files, Comparator.comparing(File::getName));
+                printSortedFiles(files);
+            } else if (sortDirection.equalsIgnoreCase("size")) {
+                Arrays.sort(files, Comparator.comparingLong(HomeWork31::getSize).reversed());
+                printSortedFilesWithSize(files);
+            } else {
+                System.out.println("Не распознан параметр сортировки, попробуйте снова");
+            }
+        } catch (Exception ex) {
+            System.out.println("Ошибка " + ex.getMessage());
+        }
+    }
+
+    private static long getSize(File file) {
+        if (file.isFile()) {
+            return file.length();
+        } else if (file.isDirectory()) {
+            return getDirectorySize(file);
+        }
+        return 0;
+    }
+
+    private static void printSortedFiles(File[] files) {
+        System.out.println("Содержимое папки \"" + files[0].getParentFile().getAbsolutePath() + "\" (отсортировано по имени):");
+        System.out.println("Наименование\tТип");
+        for (File file : files) {
+            String type = file.isDirectory() ? "папка" : "файл";
+            System.out.printf("%-15s\t%-6s%n", file.getName(), type);
+        }
+    }
+
+    private static void printSortedFilesWithSize(File[] files) {
+        System.out.println("Содержимое папки \"" + files[0].getParentFile().getAbsolutePath() + "\" (отсортировано по размеру):");
+        System.out.printf("%-15s\t%-6s\t%8s%n", "Наименование", "Тип", "Размер");
+        for (File file : files) {
+            String type = file.isDirectory() ? "папка" : "файл";
+            long size = getSize(file);
+            System.out.printf("%-15s\t%-6s\t%8d байт%n", file.getName(), type, size);
+        }
     }
 }
