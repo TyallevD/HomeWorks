@@ -1,5 +1,7 @@
 package HomeWork32;
 
+import java.util.Scanner;
+
 public class HomeWork32 {
     public static void main(String[] args) {
         //Реализовать Объект Person с полями (name , surname, age, phone)
@@ -16,6 +18,28 @@ public class HomeWork32 {
         //3 - Update
         //4 - Print All
         //5 - Exit
+
+
+        //что делать?
+        //1) нужно создать или выбрать текстовый файл, в котором будут происходить изменения
+        //предложить выбрать файл, если существует, то берём его, если нет - создаём новый
+        //2) передаём файл в работу, пробуем изменения, добавление/изменение/удаление/печать должны производиться только с учетом значений Person
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("""
+                    Введите команду:
+                    - add
+                    - remove
+                    - update
+                    - printall
+                    - exit""");
+            System.out.print("Введите команду: ");
+            String input = scanner.nextLine().trim();
+            if (input.equalsIgnoreCase("exit")) {
+                System.out.println("Выход и программы");
+                break;
+            }
+        }
     }
 }
 
