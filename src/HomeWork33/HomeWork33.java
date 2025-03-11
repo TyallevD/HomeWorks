@@ -1,5 +1,10 @@
 package HomeWork33;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+
 //интерфейс для задания 1
 interface Summable {
     int sum(int a, int b);
@@ -59,14 +64,46 @@ interface Multiply {
 interface IsPositive {
     boolean isPositive(int a);
 }
+
 //интерфейс для задания 13
+interface ListIsEven {
+    boolean listIsEven(Integer a);
+}
+
 //интерфейс для задания 14
+interface MaxListValue {
+    Integer maxValue(List<Integer> nums);
+}
+
 //интерфейс для задания 15
+interface SortedStringList {
+    List<String> sortedStringList(List<String> names);
+}
+
 //интерфейс для задания 16
+interface TrimString {
+    String trimmedString(String string);
+}
+
 //интерфейс для задания 17
+interface ListAppender {
+    List<String> appendedList(List<String> list1, List<String> list2);
+}
+
 //интерфейс для задания 18
+interface UpperCaseFirstChar {
+    String upperCased(String string);
+}
+
 //интерфейс для задания 19
+interface DateDiff {
+    int dateDiff(LocalDate d1, LocalDate d2);
+}
+
 //интерфейс для задания 20
+interface StringIsNum {
+    boolean stringIsNum(String string);
+}
 
 public class HomeWork33 {
     public static void main(String[] args) {
@@ -167,44 +204,112 @@ public class HomeWork33 {
 
         //13) Напишите лямбда-выражение для фильтрации всех чётных чисел из списка.
         System.out.println("Задание 13. Вывод:");
-        //todo
+        ListIsEven numIsEven = n -> n % 2 == 0;
+        List<Integer> nums13 = List.of(1, 2, 3, 4, 5, 6);
+        System.out.println("Исходный список: " + nums13);
+        List<Integer> evenList = new ArrayList<>();
+
+        for (Integer num : nums13) {
+            if (numIsEven.listIsEven(num)) {
+                evenList.add(num);
+            }
+        }
+        System.out.println("Список четных чисел: " + evenList);
         System.out.println();
 
         //14) Напишите лямбда-выражение, которое находит наибольший элемент в списке чисел.
         System.out.println("Задание 14. Вывод:");
-        //todo
-        //List<Integer> maxvalue
+        MaxListValue findMax = nums -> {
+            Integer max = nums.get(0);
+            for (int num : nums) {
+                if (num > max) {
+                    max = num;
+                }
+            }
+            return max;
+        };
+        List<Integer> nums14 = List.of(3, 2, 1, 5, 7, 0, 2);
+        System.out.println("Вывод списка: " + nums14);
+        System.out.println("Максимальное значение в списке: " + findMax.maxValue(nums14));
         System.out.println();
 
         //15) Напишите лямбда-выражение, которое сортирует список строк по длине.
         System.out.println("Задание 15. Вывод:");
-        //todo
+        List<String> strings15 = new ArrayList<>();
+        strings15.add("Dmitry");
+        strings15.add("Ksenya");
+        strings15.add("Mikhail");
+        strings15.add("Robert");
+        strings15.add("Konstantin");
+        System.out.println("Список имен: " + strings15);
+        SortedStringList sortedStringList = strings -> {
+            List<String> sortedList = new ArrayList<>(strings);
+            sortedList.sort((s1, s2) -> s1.compareTo(s2));
+            return sortedList;
+        };
+        List<String> sortedStrings = sortedStringList.sortedStringList(strings15);
+        System.out.println("Отсортированный список имен: " + sortedStrings);
         System.out.println();
 
         //16) Создайте лямбда-выражение, которое возвращает строку без пробелов в начале и в конце.
         System.out.println("Задание 16. Вывод:");
-        //todo
-        //trim ?
+        TrimString trimString = string -> string.trim();
+        String string16 = "    строку нужно подрезать     ";
+        System.out.println("Изначальная строка: " + string16);
+
+        System.out.println("Измененная строка: " + trimString.trimmedString(string16));
         System.out.println();
 
         //17) Напишите лямбда-выражение, которое объединяет два списка в один.
         System.out.println("Задание 17. Вывод:");
-        //todo
+        List<String> strings17_1 = List.of("Один", "Два", "Три");
+        List<String> strings17_2 = List.of("Четыре", "Пять", "Шесть");
+        System.out.println("Исходные строки:\n" + strings17_1 + "\n" + strings17_2);
+
+        ListAppender listAppender = (s1, s2) -> {
+            List<String> fullList = new ArrayList<>();
+            fullList.addAll(s1);
+            fullList.addAll(s2);
+            return fullList;
+        };
+
+        System.out.println("Соединяем строки: " + listAppender.appendedList(strings17_1, strings17_2));
         System.out.println();
 
         //18) Напишите лямбда-выражение, которое возвращает строку с первой буквой в верхнем регистре.
         System.out.println("Задание 18. Вывод:");
-        //todo
+        String string18 = "с нижнего регистра";
+        System.out.println("Исходная строка: " + string18);
+        UpperCaseFirstChar upperCaseFirstChar = string -> Character.toUpperCase(string.charAt(0)) + string.substring(1);
+
+        System.out.println("Измененная строка: " + upperCaseFirstChar.upperCased(string18));
         System.out.println();
 
         //19) Напишите лямбда-выражение, которое находит разницу между двумя датами.
         System.out.println("Задание 19. Вывод:");
-        //todo
+        LocalDate date19_1 = LocalDate.of(2025, 3, 11);
+        LocalDate date19_2 = LocalDate.of(2025, 3, 8);
+        System.out.println("Первая дата: " + date19_1);
+        System.out.println("Вторая дата: " + date19_2);
+        DateDiff dateDiff = (d1, d2) -> {
+            Period period = Period.between(d2, d1);
+            return period.getDays();
+        };
+        System.out.println("Разница между датами в днях \"" + date19_1 + "\" и \"" + date19_2 + " равна: " + dateDiff.dateDiff(date19_1, date19_2));
         System.out.println();
 
         //20) Напишите лямбда-выражение, которое проверяет, является ли строка числом.
         System.out.println("Задание 20. Вывод:");
-        //todo
-        System.out.println();
+        String string20_1 = "1234";
+        String string20_2 = "Не число";
+        StringIsNum stringIsNum = string -> {
+            boolean isNums = false;
+            for (Character ch : string.toCharArray()) {
+                isNums = Character.isDigit(ch);
+            }
+            return isNums;
+        };
+        System.out.println("Строка \"" + string20_1 + "\" является числом? Ответ: " + (stringIsNum.stringIsNum(string20_1) ? "Да" : "Нет"));
+        System.out.println("Строка \"" + string20_2 + "\" является числом? Ответ: " + (stringIsNum.stringIsNum(string20_2) ? "Да" : "Нет"));
     }
 }
