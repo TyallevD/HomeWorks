@@ -2,6 +2,7 @@ package HomeWork33;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -291,11 +292,16 @@ public class HomeWork33 {
         LocalDate date19_2 = LocalDate.of(2025, 3, 8);
         System.out.println("Первая дата: " + date19_1);
         System.out.println("Вторая дата: " + date19_2);
+        //Вариант с Period
         DateDiff dateDiff = (d1, d2) -> {
             Period period = Period.between(d2, d1);
             return period.getDays();
         };
         System.out.println("Разница между датами в днях \"" + date19_1 + "\" и \"" + date19_2 + " равна: " + dateDiff.dateDiff(date19_1, date19_2));
+
+        //Вариант с ChronoUnit
+        DateDiff dateDiff1 = (d1, d2) -> (int) ChronoUnit.DAYS.between(d2, d1);
+        System.out.println("Разница между датами в днях \"" + date19_1 + "\" и \"" + date19_2 + " равна: " + dateDiff1.dateDiff(date19_1, date19_2));
         System.out.println();
 
         //20) Напишите лямбда-выражение, которое проверяет, является ли строка числом.
