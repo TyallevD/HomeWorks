@@ -29,7 +29,7 @@ class BankAccount {
     }
 
     public double deposit(double amount) {
-        balance = balance + amount;
+        balance += amount;
         return balance;
     }
 
@@ -38,7 +38,7 @@ class BankAccount {
             System.out.println("Некорректная операция, баланс не может принимать значение меньше нуля");
             return balance;
         } else {
-            return balance = balance - amount;
+            return balance -= amount;
         }
     }
 }
@@ -92,6 +92,10 @@ class Order {
 public class HomeWork35 {
     public static void main(String[] args) {
         //Задания для самостоятельной работы (Java, средний уровень)
+        //Дополнительно
+        //Все задания требуют обработки ошибок (например, если ввод некорректен) и должны быть решены
+        //без использования break и continue, если это не критично.
+
         //1-2. Задания на if
         //Задание 1: Классификация углов
         //Напишите программу, которая запрашивает у пользователя угол в градусах (целое число от 0 до 360)
@@ -106,8 +110,9 @@ public class HomeWork35 {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Задание 1. Вывод:");
         System.out.print("Введите градус от 0 до 360: ");
-//        int gradus = scanner.nextInt();
-        int gradus = 50;
+        int gradus = scanner.nextInt();
+        scanner.nextLine();
+//        int gradus = 50;
         if (gradus <= 0 || gradus > 360) {
             System.out.println("Некорректное значение");
         } else if (gradus < 90) {
@@ -130,16 +135,22 @@ public class HomeWork35 {
         //Сумма кредита не должна превышать 10-кратный размер ежемесячного дохода.
         //Если все условия выполняются, программа должна сообщить, что кредит одобрен.
         //В противном случае программа должна объяснить причину отказа.
-        System.out.println("Задание 2. Вывод:"); //todo доделать scanner
+        System.out.println("Задание 2. Оценка кредита. Вывод:"); //todo доделать scanner
         System.out.print("Введите возраст: ");
-//        int age = scanner.nextInt();
-        int age = 18;
-        System.out.println("Возраст = " + age);
+        int age = scanner.nextInt();
+        scanner.nextLine();
+//        int age = 18;
         System.out.print("Введите доход: ");
-        int dohod = 51000;
-        System.out.println("Доход = " + dohod);
-        int credit = 300000;
-        System.out.println("Запрашиваемый кредит = " + credit);
+        int dohod = scanner.nextInt();
+        scanner.nextLine();
+//        int dohod = 51000;
+        System.out.print("Введите запрашиваемую сумму: ");
+        int credit = scanner.nextInt();
+        scanner.nextLine();
+//        int credit = 300000;
+        System.out.println("Возраст: " + age);
+        System.out.println("Доход: " + dohod);
+        System.out.println("Запрашиваемая сумма: " + credit);
         if (age >= 18 && age <= 65 && dohod >= 50000 && credit <= dohod * 10) {
             System.out.println("Кредит одобрен");
         } else {
@@ -162,6 +173,7 @@ public class HomeWork35 {
         char operation = scanner.next().charAt(0);
         System.out.print("Введите второе число: ");
         int b = scanner.nextInt();
+        scanner.nextLine();
         switch (operation) {
             case '+':
                 System.out.println(a + " + " + b + " = " + (a + b));
@@ -188,24 +200,27 @@ public class HomeWork35 {
         //Задание 4: Поиск числа Фибоначчи
         //Пользователь вводит целое положительное число n. Программа должна вывести n-й элемент последовательности Фибоначчи, используя цикл while.
         //(Последовательность: 0, 1, 1, 2, 3, 5, 8, 13, …)
-        System.out.println("Задание 4. Вывод:"); //todo оформить нормально
-        int n = 8; //число, до которого хотим расписать ряд Фибоначчи
-        int i4_1 = 0; //первое число
-        int i4_2 = 1; //второе число
-        int i4_3 = 0; //текущее число
+        System.out.println("Задание 4. Вывод:");
+        System.out.print("Введите число для вывода ряда Фибоначчи: ");
+        int n = scanner.nextInt();
+        scanner.nextLine();
+//        int n = 8;
+        int firstNum = 0; //первое число
+        int secondNum = 1; //второе число
+        int currentNum = 0; //текущее число
         int count = 1; //счетчик цикла
         while (count <= n) {
             if (count == 1) {
-                i4_3 = i4_1;
-                System.out.print(i4_3 + " ");
+                currentNum = firstNum;
+                System.out.print(currentNum + " ");
             } else if (count == 2) {
-                i4_3 = i4_2;
-                System.out.print(i4_3 + " ");
+                currentNum = secondNum;
+                System.out.print(currentNum + " ");
             } else {
-                i4_3 = i4_1 + i4_2;
-                i4_1 = i4_2;
-                i4_2 = i4_3;
-                System.out.print(i4_3 + " ");
+                currentNum = firstNum + secondNum;
+                firstNum = secondNum;
+                secondNum = currentNum;
+                System.out.print(currentNum + " ");
             }
             count++;
         }
@@ -219,7 +234,28 @@ public class HomeWork35 {
         //Это палиндром!
         //Введите строку: hello
         //Это не палиндром.
-        System.out.println("Задание 5. Вывод:");//todo реализовать
+        System.out.println("Задание 5. Вывод:");
+        System.out.print("Введите слово: ");
+        String inputString = scanner.nextLine().toLowerCase();
+//        String inputString = "Level".toLowerCase();
+        int startPoint = 0;
+        int endPoint = inputString.length() - 1;
+        boolean isPalindrome = true;
+
+        while (startPoint < endPoint) {
+            if (inputString.charAt(startPoint) != (inputString.charAt(endPoint))) {
+                isPalindrome = false;
+                break;
+            } else {
+                startPoint++;
+                endPoint--;
+            }
+        }
+        if (isPalindrome) {
+            System.out.println("Слово \"" + inputString + "\" - палиндром");
+        } else {
+            System.out.println("Слово \"" + inputString + "\" - не палиндром");
+        }
         System.out.println();
 
         //6-7. Задания на ООП
@@ -258,7 +294,7 @@ public class HomeWork35 {
         order.addProduct(fish);
         order.addProduct(milk);
         order.addProduct(bread);
-        System.out.println("Стоимость итого: " + order.getTotalPrice());
+        System.out.println("Стоимость заказа: " + order.getTotalPrice());
         System.out.println();
 
         //8-9. Задания на Stream API
@@ -303,33 +339,39 @@ public class HomeWork35 {
         //40
         //Результат в output.txt:
         //Сумма чисел: 100
-        //Дополнительно
-        //Все задания требуют обработки ошибок (например, если ввод некорректен) и должны быть решены
-        //без использования break и continue, если это не критично.
-        System.out.println("Задание 10. Вывод:"); //todo реализовать
+        System.out.println("Задание 10. Вывод:");
         File input = new File("input.txt");
+        File output = new File("output.txt");
         try {
-            input.createNewFile();
+            //заполняю файл input.txt
             BufferedWriter writer = new BufferedWriter(new FileWriter(input));
-            writer.write('1');
+            writer.write("10");
             writer.newLine();
-            writer.write('2');
+            writer.write("20");
             writer.newLine();
-            writer.write('3');
+            writer.write("30");
             writer.newLine();
-            writer.write('4');
+            writer.write("40");
             writer.newLine();
-            writer.write('5');
+            writer.write("50");
             writer.close();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        try (BufferedReader reader = new BufferedReader(new FileReader(input))) {
+
+            //подсчитываю значения в файле input.txt и нахожу сумму
+            BufferedReader reader = new BufferedReader(new FileReader(input));
             String line;
             int result = 0;
             while ((line = reader.readLine()) != null) {
-//                result = line.
+                int intermediateResult = line.lines().mapToInt(Integer::parseInt).sum();
+                result += intermediateResult;
             }
+            String resultToWrite = "Сумма чисел: " + result;
+            System.out.println(resultToWrite);
+            reader.close();
+
+            //записываю результат в файл output.txt
+            writer = new BufferedWriter(new FileWriter(output));
+            writer.write(resultToWrite);
+            writer.close();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
