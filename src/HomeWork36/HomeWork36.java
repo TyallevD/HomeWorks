@@ -1,5 +1,7 @@
 package HomeWork36;
 
+import java.util.Scanner;
+
 public class HomeWork36 {
     public static void main(String[] args) {
         //Старт : 22.03.2025
@@ -127,8 +129,6 @@ public class HomeWork36 {
         //
         //  username : Fayev
         //
-        //
-        //
         //3 - Print logger
         //
         //4 - Exit
@@ -150,5 +150,162 @@ public class HomeWork36 {
         //// FileManager (fileManger , filemanger,FILEMANGER)
         //// email_address
         //// fullName
+        //1 вход в систему
+        //меню входа,
+        Scanner scanner = new Scanner(System.in);
+        startMenu:
+        while (true) {
+            System.out.print("""
+                    ------------------------------
+                    |   << Телефонная книга >>   |
+                    |      добро пожаловать      |
+                    ------------------------------
+                    |   1 - вход                 |
+                    |   2 - регистрация          |
+                    |   3 - выход                |
+                    ------------------------------
+                    """);
+            System.out.print("Ввод команды: ");
+            String input = scanner.nextLine();
+            switch (input) {
+                case "1":
+                    System.out.print("Введите логин: ");
+                    String login = scanner.nextLine();
+                    System.out.print("Введите пароль: ");
+                    String password = scanner.nextLine();
+                    //проверяем, есть ли логин и совпадает ли пароль, если да - идём дальше, если нет - ввод заново, получается
+                    System.out.println("Ваш логин \"" + login + "\" Ваш пароль \"" + password + "\"");
+                    mainMenu();
+                    break;
+                case "2":
+                    System.out.println("Регистрация крч");
+                    break;
+                case "3":
+                    System.out.println("Выход из программы");
+                    break startMenu;
+                default:
+                    System.out.println("Ваш ввод неверный, попробуйте снова");
+                    break;
+            }
+        }
+        //2 меню программы в другом классе, пожалуй
+        //3 логирование
+
+    }
+
+    public static void mainMenu() {
+        Scanner scanner = new Scanner(System.in);
+        mainMenu:
+        while (true) {
+            System.out.print("""
+                    ------------------------------
+                    |   << Телефонная книга >>   |
+                    ------------------------------
+                    |   Главное меню:            |
+                    |   1 - изменить контакты    |
+                    |   2 - просмотреть контакты |
+                    |   3 - выход из аккаунта    |
+                    ------------------------------
+                    """);
+            System.out.print("Ввод команды: ");
+            String input = scanner.nextLine();
+            switch (input) {
+                case "1": {
+                    contactsChangeMenu();
+                    break;
+                }
+                case "2": {
+                    System.out.println(2);
+                    break;
+                }
+                case "3": {
+                    System.out.println("Выход на экран авторизации");
+                    break mainMenu;
+                }
+                default:
+                    System.out.println("Неверная команда. Попробуйте снова.");
+            }
+        }
+    }
+
+    public static void contactsChangeMenu() {
+        Scanner scanner = new Scanner(System.in);
+        contactsChangeMenu:
+        while (true) {
+            System.out.println("""
+                    ------------------------------
+                    |   << Телефонная книга >>   |
+                    ------------------------------
+                    |   Изменение контактов:     |
+                    |   1 - добавить контакт     |
+                    |   2 - изменить контакт     |
+                    |   3 - удалить контакт      |
+                    |   4 - выход в главное меню |
+                    ------------------------------
+                    """);
+            System.out.print("Ввод команды: ");
+            String input = scanner.nextLine();
+            switch (input) {
+                case "1": {
+                    System.out.println(1);
+                    break;
+                }
+                case "2": {
+                    System.out.println(2);
+                    break;
+                }
+                case "3": {
+                    System.out.println(3);
+                    break;
+                }
+                case "4": {
+                    System.out.println("Выход в главное меню");
+                    break contactsChangeMenu;
+                }
+                default: {
+                    System.out.println("Неверная команда. Попробуйте снова.");
+                }
+            }
+        }
+    }
+
+    public static void contactsViewMenu() {
+        Scanner scanner = new Scanner(System.in);
+        contactsViewMenu:
+        while (true) {
+            System.out.println("""
+                    -----------------------------------
+                    |      << Телефонная книга >>     |
+                    ------------------------------
+                    |   Просмотр контактов:           |
+                    |   1 - просмотреть все контакты  |
+                    |   2 - поиск контактов           |
+                    |   3 - выход в главное меню      |
+                    -----------------------------------
+                    """);
+            System.out.print("Ввод команды: ");
+            String input = scanner.nextLine();
+            switch (input) {
+                case "1": {
+                    System.out.println(1);
+                    break;
+                }
+                case "2": {
+                    System.out.println(2);
+                    break;
+                }
+                case "3": {
+                    System.out.println(3);
+                    break;
+                }
+                case "4": {
+                    System.out.println("Выход в главное меню");
+                    break contactsViewMenu;
+                }
+                default: {
+                    System.out.println("Неверная команда. Попробуйте снова.");
+                }
+            }
+        }
     }
 }
