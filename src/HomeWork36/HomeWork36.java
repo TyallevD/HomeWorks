@@ -150,20 +150,18 @@ public class HomeWork36 {
         //// FileManager (fileManger , filemanger,FILEMANGER)
         //// email_address
         //// fullName
-        //1 вход в систему
-        //меню входа,
         Scanner scanner = new Scanner(System.in);
         startMenu:
         while (true) {
             System.out.print("""
-                    ------------------------------
-                    |   << Телефонная книга >>   |
-                    |      добро пожаловать      |
-                    ------------------------------
-                    |   1 - вход                 |
-                    |   2 - регистрация          |
-                    |   3 - выход                |
-                    ------------------------------
+                    ------------------------------------
+                    |      << Телефонная книга >>      |
+                    |         добро пожаловать         |
+                    ------------------------------------
+                    |   1 - вход                       |
+                    |   2 - регистрация                |
+                    |   3 - выход из программы         |
+                    ------------------------------------
                     """);
             System.out.print("Ввод команды: ");
             String input = scanner.nextLine();
@@ -175,22 +173,23 @@ public class HomeWork36 {
                     String password = scanner.nextLine();
                     //проверяем, есть ли логин и совпадает ли пароль, если да - идём дальше, если нет - ввод заново, получается
                     System.out.println("Ваш логин \"" + login + "\" Ваш пароль \"" + password + "\"");
-                    mainMenu();
+                    mainMenu(); //todo добавить отправку логина, чтобы затем использовать файл контактов именно этого логина
                     break;
                 case "2":
-                    System.out.println("Регистрация крч");
+                    registration();
                     break;
                 case "3":
-                    System.out.println("Выход из программы");
+                    System.out.println("""
+                            ------------------------------------
+                            |        Выход из программы        |
+                            ------------------------------------""");
+                    System.out.println();
                     break startMenu;
                 default:
                     System.out.println("Ваш ввод неверный, попробуйте снова");
                     break;
             }
         }
-        //2 меню программы в другом классе, пожалуй
-        //3 логирование
-
     }
 
     public static void mainMenu() {
@@ -198,14 +197,14 @@ public class HomeWork36 {
         mainMenu:
         while (true) {
             System.out.print("""
-                    ------------------------------
-                    |   << Телефонная книга >>   |
-                    ------------------------------
-                    |   Главное меню:            |
-                    |   1 - изменить контакты    |
-                    |   2 - просмотреть контакты |
-                    |   3 - выход из аккаунта    |
-                    ------------------------------
+                    ------------------------------------
+                    |      << Телефонная книга >>      |
+                    |           Главное меню           |
+                    ------------------------------------
+                    |   1 - изменить контакты          |
+                    |   2 - просмотреть контакты       |
+                    |   3 - выход из аккаунта          |
+                    ------------------------------------
                     """);
             System.out.print("Ввод команды: ");
             String input = scanner.nextLine();
@@ -215,11 +214,15 @@ public class HomeWork36 {
                     break;
                 }
                 case "2": {
-                    System.out.println(2);
+                    contactsViewMenu();
                     break;
                 }
                 case "3": {
-                    System.out.println("Выход на экран авторизации");
+                    System.out.println("""
+                            ------------------------------------
+                            |    Выход на экран авторизации    |
+                            ------------------------------------""");
+                    System.out.println();
                     break mainMenu;
                 }
                 default:
@@ -233,33 +236,36 @@ public class HomeWork36 {
         contactsChangeMenu:
         while (true) {
             System.out.println("""
-                    ------------------------------
-                    |   << Телефонная книга >>   |
-                    ------------------------------
-                    |   Изменение контактов:     |
-                    |   1 - добавить контакт     |
-                    |   2 - изменить контакт     |
-                    |   3 - удалить контакт      |
-                    |   4 - выход в главное меню |
-                    ------------------------------
-                    """);
+                    ------------------------------------
+                    |      << Телефонная книга >>      |
+                    |       Изменение контактов        |
+                    ------------------------------------
+                    |   1 - добавить контакт           |
+                    |   2 - изменить контакт           |
+                    |   3 - удалить контакт            |
+                    |   4 - выход в главное меню       |
+                    ------------------------------------""");
             System.out.print("Ввод команды: ");
             String input = scanner.nextLine();
             switch (input) {
                 case "1": {
-                    System.out.println(1);
+                    System.out.println("тут должно быть добавление");
                     break;
                 }
                 case "2": {
-                    System.out.println(2);
+                    System.out.println("тут должно быть изменение");
                     break;
                 }
                 case "3": {
-                    System.out.println(3);
+                    System.out.println("тут должно быть удаление");
                     break;
                 }
                 case "4": {
-                    System.out.println("Выход в главное меню");
+                    System.out.println("""
+                            ------------------------------------
+                            |       Выход в главное меню       |
+                            ------------------------------------""");
+                    System.out.println();
                     break contactsChangeMenu;
                 }
                 default: {
@@ -274,15 +280,14 @@ public class HomeWork36 {
         contactsViewMenu:
         while (true) {
             System.out.println("""
-                    -----------------------------------
-                    |      << Телефонная книга >>     |
-                    ------------------------------
-                    |   Просмотр контактов:           |
-                    |   1 - просмотреть все контакты  |
-                    |   2 - поиск контактов           |
-                    |   3 - выход в главное меню      |
-                    -----------------------------------
-                    """);
+                    ------------------------------------
+                    |      << Телефонная книга >>      |
+                    |        Просмотр контактов        |
+                    ------------------------------------
+                    |   1 - просмотреть все контакты   |
+                    |   2 - поиск контактов            |
+                    |   3 - выход в главное меню       |
+                    ------------------------------------""");
             System.out.print("Ввод команды: ");
             String input = scanner.nextLine();
             switch (input) {
@@ -295,17 +300,52 @@ public class HomeWork36 {
                     break;
                 }
                 case "3": {
-                    System.out.println(3);
-                    break;
-                }
-                case "4": {
-                    System.out.println("Выход в главное меню");
+                    System.out.println("""
+                            ------------------------------------
+                            |       Выход в главное меню       |
+                            ------------------------------------""");
+                    System.out.println();
                     break contactsViewMenu;
                 }
                 default: {
                     System.out.println("Неверная команда. Попробуйте снова.");
                 }
             }
+        }
+    }
+
+    public static void registration() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("""
+                ------------------------------------
+                |      << Телефонная книга >>      |
+                |     Регистрация пользователя     |
+                ------------------------------------""");
+        System.out.print("Введите имя: ");
+        String name = scanner.nextLine();
+        System.out.print("Введите фамилию: ");
+        String surname = scanner.nextLine();
+        System.out.print("Введите пароль: ");
+        String passwd1 = scanner.nextLine();
+        System.out.print("Повторите пароль: ");
+        String passwd2 = scanner.nextLine();
+
+        if (passwd1.equals(passwd2)) {
+            Login login = new Login(name, surname, Login.generateLogin(name, surname), passwd1); //todo добавить проверок для логина/пароля
+            System.out.println(login);//тут надо добавлять логин в файл логинов через LoginFileManager, но ещё нужно проверять, существует ли такой пользователь
+
+            System.out.println("""
+                    ------------------------------------
+                    |       Вы зарегистрированы!       |
+                    ------------------------------------""");
+            System.out.println();
+        } else {
+            System.out.println("""
+                    ------------------------------------
+                    |       Пароли не совпадают.       |
+                    |         Попробуйте снова         |
+                    ------------------------------------""");
+            System.out.println();
         }
     }
 }
