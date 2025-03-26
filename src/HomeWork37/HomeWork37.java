@@ -1,5 +1,7 @@
 package HomeWork37;
 
+import java.util.Random;
+
 class MyThread extends Thread {
     @Override
     public void run() {
@@ -49,27 +51,27 @@ public class HomeWork37 {
         //Для каждого способа выведите имя потока и его приоритет.
         System.out.println("Задание 2. Вывод:");
         //Создание через MyThread
-        MyThread thread3_1 = new MyThread();
-        System.out.println("Имя потока thread3_1: " + thread3_1.getName());
-        System.out.println("Приоритет потока thread3_1: " + thread3_1.getPriority());
+        MyThread thread2_1 = new MyThread();
+        System.out.println("Имя потока thread2_1: " + thread2_1.getName());
+        System.out.println("Приоритет потока thread2_1: " + thread2_1.getPriority());
         System.out.println();
 
         //Создание через MyRunnable
         MyRunnable myRunnable = new MyRunnable();
-        Thread thread3_2 = new Thread(myRunnable);
-        System.out.println("Имя потока thread3_2: " + thread3_2.getName());
-        System.out.println("Приоритет потока thread3_2: " + thread3_2.getPriority());
+        Thread thread2_2 = new Thread(myRunnable);
+        System.out.println("Имя потока thread2_2: " + thread2_2.getName());
+        System.out.println("Приоритет потока thread2_2: " + thread2_2.getPriority());
         System.out.println();
 
         //Создание через Лямба-выражение
-        Thread thread3_3 = new Thread(() -> {
+        Thread thread2_3 = new Thread(() -> {
             for (int i = 0; i < 100; i++) {
                 System.out.print(i + " ");
             }
             System.out.println();
         });
-        System.out.println("Имя потока thread3_3: " + thread3_3.getName());
-        System.out.println("Приоритет потока thread3_3: " + thread3_3.getPriority());
+        System.out.println("Имя потока thread2_3: " + thread2_3.getName());
+        System.out.println("Приоритет потока thread2_3: " + thread2_3.getPriority());
         System.out.println();
 
         //Задание 3: Взаимодействие между потоками
@@ -79,7 +81,47 @@ public class HomeWork37 {
         //Используйте методы join(), sleep() и interrupt() для управления потоками, а также продемонстрируйте
         // различные состояния жизненного цикла потока (NEW, RUNNABLE, TERMINATED и т.д.).
         System.out.println("Задание 3. Вывод:");
+        Random random = new Random();
+        Thread thread3_1 = new Thread(() -> {
+            System.out.println("Состояние потока \"" + Thread.currentThread().getName() + "\" " + Thread.currentThread().getState());
+            try {
+                while (true) {
+                    int randomNum = random.nextInt(101);
+                    System.out.println("Сгенерированное значение: " + randomNum);
+                    if (randomNum > 90) {
+                        System.out.println("Значение больше 90, останавливаем поток");
+                        Thread.currentThread().interrupt();
+                    }
+                    Thread.sleep(1000);
+                }
+            } catch (InterruptedException interruptedException) {
+                System.out.println("Поток " + Thread.currentThread().getName() + " был прерван");
+            } 
+        });
 
+        Thread thread3_2 = new Thread(() -> {
+            System.out.println("Состояние потока \"" + Thread.currentThread().getName() + "\" " + Thread.currentThread().getState());
+            try {
+                thread3_1.join();
+                System.out.println("Поток \"" + Thread.currentThread().getName() + "\" завершается");
+            } catch (InterruptedException interruptedException) {
+                System.out.println("Поток \"" + Thread.currentThread().getName() + "\" был прерван");
+            }
+        });
+        System.out.println("Состояние потока \"" + thread3_1.getName() + "\" " + thread3_1.getState());
+        System.out.println("Состояние потока \"" + thread3_2.getName() + "\" " + thread3_2.getState());
+        thread3_1.start();
+        thread3_2.start();
+
+
+        try {
+            thread3_1.join();
+            thread3_2.join();
+        } catch (InterruptedException interruptedException) {
+            System.out.println(interruptedException.getMessage());
+        }
+        System.out.println("Состояние потока \"" + thread3_1.getName() + "\" " + thread3_1.getState());
+        System.out.println("Состояние потока \"" + thread3_2.getName() + "\" " + thread3_2.getState());
     }
 
     private static long sequentialExecution() {
