@@ -1,5 +1,7 @@
 package HomeWork36;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class HomeWork36 {
@@ -151,6 +153,7 @@ public class HomeWork36 {
         //// email_address
         //// fullName
         Scanner scanner = new Scanner(System.in);
+        LoginFileManager.createOrCheckExistingFolders();
         startMenu:
         while (true) {
             System.out.print("""
@@ -332,13 +335,19 @@ public class HomeWork36 {
 
         if (passwd1.equals(passwd2)) {
             Login login = new Login(name, surname, Login.generateLogin(name, surname), passwd1); //todo добавить проверок для логина/пароля
-            System.out.println(login);//тут надо добавлять логин в файл логинов через LoginFileManager, но ещё нужно проверять, существует ли такой пользователь
+            try {
+                LoginFileManager manager = new LoginFileManager();
+                manager.createLoginContacts(login.getLogin());
+                manager.addLogin(login);
+                System.out.println("""
+                        ------------------------------------
+                        |       Вы зарегистрированы!       |
+                        ------------------------------------""");
+                System.out.println();
+            } catch (IOException e) {
+                System.out.println("Ошибка, не удалось зарегистрировать нового пользователя: " + e.getMessage());
+            }
 
-            System.out.println("""
-                    ------------------------------------
-                    |       Вы зарегистрированы!       |
-                    ------------------------------------""");
-            System.out.println();
         } else {
             System.out.println("""
                     ------------------------------------

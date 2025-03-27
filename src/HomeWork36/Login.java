@@ -1,5 +1,7 @@
 package HomeWork36;
 
+import java.util.Objects;
+
 class Login {
     private String name;
     private String surname;
@@ -34,8 +36,14 @@ class Login {
     }
 
     public static String generateLogin(String name, String surname) {
-        return name.substring(0, 2).concat(surname);
+        return name.substring(0, 2).concat("-").concat(surname);
     }
+
+    public static Login parseLogin(String line) {
+        String[] parts = line.split(" ");
+        return new Login(parts[0], parts[1], parts[2], parts[3]);
+    }
+
 
     @Override
     public String toString() {
