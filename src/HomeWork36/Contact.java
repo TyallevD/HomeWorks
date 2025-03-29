@@ -1,5 +1,7 @@
 package HomeWork36;
 
+import java.util.Scanner;
+
 class Contact {
     private int id;
     private String name;

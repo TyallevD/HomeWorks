@@ -1,6 +1,8 @@
 package HomeWork36;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -170,13 +172,10 @@ public class HomeWork36 {
             String input = scanner.nextLine();
             switch (input) {
                 case "1":
-                    System.out.print("Введите логин: ");
-                    String login = scanner.nextLine();
-                    System.out.print("Введите пароль: ");
-                    String password = scanner.nextLine();
-                    //проверяем, есть ли логин и совпадает ли пароль, если да - идём дальше, если нет - ввод заново, получается
-                    System.out.println("Ваш логин \"" + login + "\" Ваш пароль \"" + password + "\"");
-                    mainMenu(); //todo добавить отправку логина, чтобы затем использовать файл контактов именно этого логина
+                    String userContactFile = authorization();
+                    if (userContactFile != null) {
+                        mainMenu(userContactFile);
+                    }
                     break;
                 case "2":
                     registration();
@@ -187,6 +186,7 @@ public class HomeWork36 {
                             |        Выход из программы        |
                             ------------------------------------""");
                     System.out.println();
+                    userContactFile = null;
                     break startMenu;
                 default:
                     System.out.println("Ваш ввод неверный, попробуйте снова");
@@ -195,7 +195,7 @@ public class HomeWork36 {
         }
     }
 
-    public static void mainMenu() {
+    public static void mainMenu(String userContactFile) {
         Scanner scanner = new Scanner(System.in);
         mainMenu:
         while (true) {
@@ -213,11 +213,11 @@ public class HomeWork36 {
             String input = scanner.nextLine();
             switch (input) {
                 case "1": {
-                    contactsChangeMenu();
+                    contactsChangeMenu(userContactFile);
                     break;
                 }
                 case "2": {
-                    contactsViewMenu();
+                    contactsViewMenu(userContactFile);
                     break;
                 }
                 case "3": {
@@ -234,7 +234,7 @@ public class HomeWork36 {
         }
     }
 
-    public static void contactsChangeMenu() {
+    public static void contactsChangeMenu(String userContactFile) {
         Scanner scanner = new Scanner(System.in);
         contactsChangeMenu:
         while (true) {
@@ -252,14 +252,18 @@ public class HomeWork36 {
             String input = scanner.nextLine();
             switch (input) {
                 case "1": {
-                    System.out.println("тут должно быть добавление");
+                    //todo доделать добавление контакта
+                    System.out.println("нужно создать контакт и записать его в файл");
+//                    ContactFileManager.addContact(userContactFile);
                     break;
                 }
                 case "2": {
+                    //todo сделать изменение контакта
                     System.out.println("тут должно быть изменение");
                     break;
                 }
                 case "3": {
+                    //todo сделать удаление контакта
                     System.out.println("тут должно быть удаление");
                     break;
                 }
@@ -278,7 +282,7 @@ public class HomeWork36 {
         }
     }
 
-    public static void contactsViewMenu() {
+    public static void contactsViewMenu(String userContactFile) {
         Scanner scanner = new Scanner(System.in);
         contactsViewMenu:
         while (true) {
@@ -295,7 +299,7 @@ public class HomeWork36 {
             String input = scanner.nextLine();
             switch (input) {
                 case "1": {
-                    System.out.println(1);
+                    ContactFileManager.viewAllContacts(userContactFile);
                     break;
                 }
                 case "2": {
@@ -334,7 +338,7 @@ public class HomeWork36 {
         String passwd2 = scanner.nextLine();
 
         if (passwd1.equals(passwd2)) {
-            Login login = new Login(name, surname, Login.generateLogin(name, surname), passwd1); //todo добавить проверок для логина/пароля
+            Login login = new Login(name, surname, Login.generateLogin(name, surname), passwd1); //todo добавить проверок для логина/пароля ?
             try {
                 LoginFileManager manager = new LoginFileManager();
                 manager.createLoginContacts(login.getLogin());
@@ -356,5 +360,29 @@ public class HomeWork36 {
                     ------------------------------------""");
             System.out.println();
         }
+    }
+
+    private static String authorization() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите логин: ");
+        String login = scanner.nextLine();
+        System.out.print("Введите пароль: ");
+        String password = scanner.nextLine();
+
+        File usersFile = ProgrammPaths.USERS_FILE;
+        try (BufferedReader reader = new BufferedReader(new FileReader(usersFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" ");
+                if (parts.length == 4 && parts[2].equals(login) && parts[3].equals(password)) {
+                    System.out.println("Вы авторизованы");
+                    return ProgrammPaths.CONTACTS_DIR + "/" + login.concat("Contacts.txt");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Ошибка чтения файла пользователей: " + e.getMessage());
+        }
+        System.out.println("Неверный логин или пароль");
+        return null;
     }
 }
