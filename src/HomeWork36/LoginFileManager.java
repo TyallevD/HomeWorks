@@ -46,4 +46,19 @@ public class LoginFileManager {
             System.out.println("Не удалось записать информацию в файл: " + e.getMessage());
         }
     }
+    public static boolean checkLogin(String login, String password){
+        File usersFile = ProgrammPaths.USERS_FILE;
+        try (BufferedReader reader = new BufferedReader(new FileReader(usersFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" ");
+                if (parts.length == 4 && parts[2].equals(login) && parts[3].equals(password)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Ошибка чтения файла пользователей: " + e.getMessage());
+        }
+        return false;
+    }
 }

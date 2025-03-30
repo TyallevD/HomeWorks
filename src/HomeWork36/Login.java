@@ -36,8 +36,8 @@ class Login {
         return login;
     }
 
-    public String getLoginContactsPath() {
-        return ProgrammPaths.CONTACTS_DIR + "/" + this.login.concat("Contacts.txt");
+    public static String getLoginContactsPath(String login) {
+        return ProgrammPaths.CONTACTS_DIR + "/" + login.concat("Contacts.txt");
     }
 
     public static String generateLogin(String name, String surname) {

@@ -1,9 +1,7 @@
 package HomeWork36;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class HomeWork36 {
@@ -172,10 +170,9 @@ public class HomeWork36 {
             String input = scanner.nextLine();
             switch (input) {
                 case "1":
-                    //
-                    String userContactFile = authorization();
-                    if (userContactFile != null) {
-                        mainMenu(userContactFile);
+                    List<Contact> userContactList = authorization();
+                    if (userContactList != null) {
+                        mainMenu(userContactList);
                     }
                     break;
                 case "2":
@@ -195,7 +192,7 @@ public class HomeWork36 {
         }
     }
 
-    public static void mainMenu(String userContactFile) {
+    public static void mainMenu(List<Contact> userContactList) {
         Scanner scanner = new Scanner(System.in);
         mainMenu:
         while (true) {
@@ -213,11 +210,11 @@ public class HomeWork36 {
             String input = scanner.nextLine();
             switch (input) {
                 case "1": {
-                    contactsChangeMenu(userContactFile);
+                    contactsChangeMenu(userContactList);
                     break;
                 }
                 case "2": {
-                    contactsViewMenu(userContactFile);
+                    contactsViewMenu(userContactList);
                     break;
                 }
                 case "3": {
@@ -226,7 +223,7 @@ public class HomeWork36 {
                             |    Выход на экран авторизации    |
                             ------------------------------------""");
                     System.out.println();
-                    userContactFile = null;
+                    userContactList = null;
                     break mainMenu;
                 }
                 default:
@@ -235,7 +232,7 @@ public class HomeWork36 {
         }
     }
 
-    public static void contactsChangeMenu(String userContactFile) {
+    public static void contactsChangeMenu(List<Contact> userContactList) {
         Scanner scanner = new Scanner(System.in);
         contactsChangeMenu:
         while (true) {
@@ -253,8 +250,8 @@ public class HomeWork36 {
             String input = scanner.nextLine();
             switch (input) {
                 case "1": {
-                    //todo доделать добавление контакта
-                    ContactFileManager.addContact(userContactFile,ContactFileManager.createContact(userContactFile));
+                    //todo доделать добавление контакта (пока сохраняется в лист, но не сохраняется в файл)
+                    ContactFileManager.addContact(userContactList, ContactFileManager.createContact(userContactList));
                     break;
                 }
                 case "2": {
@@ -282,7 +279,7 @@ public class HomeWork36 {
         }
     }
 
-    public static void contactsViewMenu(String userContactFile) {
+    public static void contactsViewMenu(List<Contact> userContactList) {
         Scanner scanner = new Scanner(System.in);
         contactsViewMenu:
         while (true) {
@@ -299,7 +296,7 @@ public class HomeWork36 {
             String input = scanner.nextLine();
             switch (input) {
                 case "1": {
-                    ContactFileManager.viewAllContacts(userContactFile);
+                    ContactFileManager.viewAllContacts(userContactList);
                     break;
                 }
                 case "2": {
@@ -322,7 +319,7 @@ public class HomeWork36 {
         }
     }
 
-    public static void registration() {
+    private static void registration() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("""
                 ------------------------------------
@@ -388,28 +385,28 @@ public class HomeWork36 {
 //    }
 
     //вариант с листом
-    private static String authorization() {
+    private static List<Contact> authorization() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите логин: ");
         String login = scanner.nextLine();
         System.out.print("Введите пароль: ");
         String password = scanner.nextLine();
-
-        File usersFile = ProgrammPaths.USERS_FILE;
-        try (BufferedReader reader = new BufferedReader(new FileReader(usersFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" ");
-                if (parts.length == 4 && parts[2].equals(login) && parts[3].equals(password)) {
-                    System.out.println("Вы авторизованы");
-                    return ProgrammPaths.CONTACTS_DIR + "/" + login.concat("Contacts.txt");
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Ошибка чтения файла пользователей: " + e.getMessage());
+        if (LoginFileManager.checkLogin(login, password)) {
+            System.out.println("""
+                    ------------------------------------
+                    |          Вы авторизованы         |
+                    ------------------------------------""");
+            System.out.println();
+            return ContactFileManager.loadContactList(login);
+        } else {
+            System.out.println("""
+                    ------------------------------------
+                    |     Неверный логин или пароль    |
+                    |         Попробуйте снова         |
+                    ------------------------------------""");
+            System.out.println();
+            return null;
         }
-        System.out.println("Неверный логин или пароль");
-        return null;
     }
     //При авторизации подгружаем из файла контактов юзера все контакты в лист
     //Потом редактирование, просмотр, поиск и сортировку делаем через лист (так проще, чем каждый раз загружать файл)

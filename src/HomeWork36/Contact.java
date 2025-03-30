@@ -62,7 +62,6 @@ class Contact {
         this.age = age;
     }
 
-    //возможно чушь
     public static Contact parse(String line) {
         String[] parts = line.split(" ");
         return new Contact(
@@ -74,19 +73,28 @@ class Contact {
         );
     }
 
-    public static int generateId(String contactFilePath) {
-        File contactFile = new File(contactFilePath);
-
+    //      вариант с файлом
+//    public static int generateId(String contactFilePath) {
+//        File contactFile = new File(contactFilePath);
+//
+//        int nextId = 0;
+//        try (BufferedReader reader = new BufferedReader(new FileReader(contactFile))) {
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                nextId++;
+//            }
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//        return nextId;
+//    }
+    //вариант с листом
+    public static int generateId(List<Contact> userContactsList) {
         int nextId = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(contactFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                nextId++;
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        for (Contact contact : userContactsList) {
+            nextId++;
         }
-
         return nextId;
     }
 
