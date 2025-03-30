@@ -170,10 +170,14 @@ public class HomeWork36 {
             String input = scanner.nextLine();
             switch (input) {
                 case "1":
-                    List<Contact> userContactList = authorization();
-                    if (userContactList != null) {
-                        mainMenu(userContactList);
+                    authorization();
+                    if (Session.getCurrentLoginContacts() != null) {
+                        mainMenu(Session.getCurrentLoginContacts());
                     }
+//                    List<Contact> userContactList = authorization();
+//                    if (userContactList != null) {
+//                        mainMenu(userContactList);
+//                    }
                     break;
                 case "2":
                     registration();
@@ -265,6 +269,7 @@ public class HomeWork36 {
                     break;
                 }
                 case "4": {
+                    ContactFileManager.saveToFile(userContactList);
                     System.out.println("""
                             ------------------------------------
                             |       Выход в главное меню       |
@@ -385,7 +390,9 @@ public class HomeWork36 {
 //    }
 
     //вариант с листом
-    private static List<Contact> authorization() {
+    private static void authorization() {
+        Login user;
+        Session currentSession;
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите логин: ");
         String login = scanner.nextLine();
@@ -397,7 +404,10 @@ public class HomeWork36 {
                     |          Вы авторизованы         |
                     ------------------------------------""");
             System.out.println();
-            return ContactFileManager.loadContactList(login);
+            user = new Login(login, password);
+            ContactFileManager.loadContactList(user);
+            currentSession = new Session(user);
+//            return ContactFileManager.loadContactList(login);
         } else {
             System.out.println("""
                     ------------------------------------
@@ -405,7 +415,6 @@ public class HomeWork36 {
                     |         Попробуйте снова         |
                     ------------------------------------""");
             System.out.println();
-            return null;
         }
     }
     //При авторизации подгружаем из файла контактов юзера все контакты в лист

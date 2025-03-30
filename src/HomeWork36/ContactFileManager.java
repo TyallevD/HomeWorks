@@ -73,8 +73,15 @@ class ContactFileManager {
 //            System.out.println("Ошибка чтения контактов " + e.getMessage());
 //        }
 //    }
-    public static void saveToFile(List<Contact> userContactList){
-        System.out.println("Сохраняем в файл юзера");
+    public static void saveToFile(List<Contact> userContactList) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Login.getLoginContactsPath(Session.getCurrentLogin())))) {
+            for (Contact contact : userContactList) {
+                writer.write(contact.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Ошибка записи в файл: " + e.getMessage());
+        }
     }
 
     public static void addContact(List<Contact> contacts, Contact contact) {
@@ -87,11 +94,11 @@ class ContactFileManager {
         }
     }
 
-    public static List<Contact> loadContactList(String login) {
-        File contactFile = new File(Login.getLoginContactsPath(login));
+    public static void loadContactList(Login login) {
+        File contactFile = new File(Login.getLoginContactsPath(login.getLogin()));
         if (!contactFile.exists()) {
             System.out.println("Файл контактов не найден");
-            return null;
+            return;
         }
         List<Contact> contactList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(contactFile))) {
@@ -99,9 +106,9 @@ class ContactFileManager {
             while ((line = reader.readLine()) != null) {
                 contactList.add(Contact.parse(line));
             }
+            login.setContactList(contactList);
         } catch (IOException e) {
             System.out.println("Не удалось прочитать файл: " + e.getMessage());
         }
-        return contactList;
     }
 }

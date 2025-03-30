@@ -1,17 +1,24 @@
 package HomeWork36;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 class Login {
     private String name;
     private String surname;
     private String login;
     private String password;
-    private String loginContactsPath;
+    private List<Contact> contactList;
 
     public Login(String name, String surname, String login, String password) {
         this.name = name;
         this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.contactList = new ArrayList<>();
+    }
+
+    public Login(String login, String password) {
         this.login = login;
         this.password = password;
     }
@@ -36,6 +43,18 @@ class Login {
         return login;
     }
 
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public List<Contact> getContactList() {
+        return contactList;
+    }
+
+    public void setContactList(List<Contact> contactList) {
+        this.contactList = contactList;
+    }
+
     public static String getLoginContactsPath(String login) {
         return ProgrammPaths.CONTACTS_DIR + "/" + login.concat("Contacts.txt");
     }
@@ -44,10 +63,11 @@ class Login {
         return name.substring(0, 2).concat("-").concat(surname);
     }
 
-    public static Login parseLogin(String line) {
-        String[] parts = line.split(" ");
-        return new Login(parts[0], parts[1], parts[2], parts[3]);
-    }
+//нужен был для работы с файлом
+//    public static Login parseLogin(String line) {
+//        String[] parts = line.split(" ");
+//        return new Login(parts[0], parts[1], parts[2], parts[3]);
+//    }
 
 
     @Override

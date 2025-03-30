@@ -46,7 +46,8 @@ public class LoginFileManager {
             System.out.println("Не удалось записать информацию в файл: " + e.getMessage());
         }
     }
-    public static boolean checkLogin(String login, String password){
+
+    public static boolean checkLogin(String login, String password) {
         File usersFile = ProgrammPaths.USERS_FILE;
         try (BufferedReader reader = new BufferedReader(new FileReader(usersFile))) {
             String line;
