@@ -1,6 +1,11 @@
 package HomeWork36;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 class Contact {
     private int id;
@@ -55,6 +60,34 @@ class Contact {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    //возможно чушь
+    public static Contact parse(String line) {
+        String[] parts = line.split(" ");
+        return new Contact(
+                Integer.parseInt(parts[0]),
+                parts[1],
+                parts[2],
+                parts[3],
+                Integer.parseInt(parts[4])
+        );
+    }
+
+    public static int generateId(String contactFilePath) {
+        File contactFile = new File(contactFilePath);
+
+        int nextId = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(contactFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                nextId++;
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return nextId;
     }
 
     @Override

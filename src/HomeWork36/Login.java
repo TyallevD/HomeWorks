@@ -7,6 +7,7 @@ class Login {
     private String surname;
     private String login;
     private String password;
+    private String loginContactsPath;
 
     public Login(String name, String surname, String login, String password) {
         this.name = name;
@@ -33,6 +34,10 @@ class Login {
 
     public String getLogin() {
         return login;
+    }
+
+    public String getLoginContactsPath() {
+        return ProgrammPaths.CONTACTS_DIR + "/" + this.login.concat("Contacts.txt");
     }
 
     public static String generateLogin(String name, String surname) {
