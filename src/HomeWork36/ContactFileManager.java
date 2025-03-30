@@ -89,9 +89,15 @@ class ContactFileManager {
     }
 
     public static void viewAllContacts(List<Contact> contactsList) {
+        System.out.println("""
+                    ------------------------------------
+                    |          Ваши контакты           |
+                    ------------------------------------""");
+        System.out.println();
         for (Contact contact : contactsList) {
             System.out.println(contact);
         }
+        System.out.println();
     }
 
     public static void loadContactList(Login login) {
