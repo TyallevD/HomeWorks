@@ -1,6 +1,7 @@
 package HomeWork36;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -187,6 +188,7 @@ public class HomeWork36 {
                     break startMenu;
                 default:
                     System.out.println("Ваш ввод неверный, попробуйте снова");
+                    System.out.println();
                     break;
             }
         }
@@ -228,6 +230,7 @@ public class HomeWork36 {
                 }
                 default:
                     System.out.println("Неверная команда. Попробуйте снова.");
+                    System.out.println();
             }
         }
     }
@@ -273,6 +276,7 @@ public class HomeWork36 {
                 }
                 default: {
                     System.out.println("Неверная команда. Попробуйте снова.");
+                    System.out.println();
                 }
             }
         }
@@ -318,6 +322,7 @@ public class HomeWork36 {
                 }
                 default: {
                     System.out.println("Неверная команда. Попробуйте снова.");
+                    System.out.println();
                 }
             }
         }
@@ -369,6 +374,7 @@ public class HomeWork36 {
                         ContactFileManager.sortContact(userContactList, 2);
                     } else {
                         System.out.println("Неверная команда. Попробуйте снова.");
+                        System.out.println();
                     }
                     break;
                 }
@@ -389,6 +395,7 @@ public class HomeWork36 {
                         ContactFileManager.sortContact(userContactList, 4);
                     } else {
                         System.out.println("Неверная команда. Попробуйте снова.");
+                        System.out.println();
                     }
                     break;
                 }
@@ -409,6 +416,7 @@ public class HomeWork36 {
                         ContactFileManager.sortContact(userContactList, 6);
                     } else {
                         System.out.println("Неверная команда. Попробуйте снова.");
+                        System.out.println();
                     }
                     break;
                 }
@@ -429,6 +437,7 @@ public class HomeWork36 {
                         ContactFileManager.sortContact(userContactList, 8);
                     } else {
                         System.out.println("Неверная команда. Попробуйте снова.");
+                        System.out.println();
                     }
                     break;
                 }
@@ -443,6 +452,7 @@ public class HomeWork36 {
                 }
                 default: {
                     System.out.println("Неверная команда. Попробуйте снова.");
+                    System.out.println();
                 }
             }
         }
@@ -478,10 +488,16 @@ public class HomeWork36 {
             String input = scanner.nextLine();
             switch (input) {
                 case "1": {
-                    System.out.print("Введите id для удаления: ");
-                    int id = scanner.nextInt();
-                    scanner.nextLine();
-                    ContactFileManager.deleteContactById(userContactList, id);
+                    try {
+                        System.out.print("Введите id для удаления: ");
+                        int id = scanner.nextInt();
+                        scanner.nextLine();
+                        ContactFileManager.deleteContactById(userContactList, id);
+                    } catch (InputMismatchException e) {
+                        System.out.println("Некорректный ввод id, попробуйте снова");
+                        System.out.println();
+                        scanner.nextLine();
+                    }
                     break;
                 }
                 case "2": {
@@ -513,6 +529,7 @@ public class HomeWork36 {
                 }
                 default: {
                     System.out.println("Неверная команда. Попробуйте снова.");
+                    System.out.println();
                 }
             }
         }

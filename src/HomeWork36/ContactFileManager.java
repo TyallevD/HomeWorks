@@ -60,6 +60,7 @@ class ContactFileManager {
         File contactFile = new File(Login.getLoginContactsPath(login.getLogin()));
         if (!contactFile.exists()) {
             System.out.println("Файл контактов не найден");
+            System.out.println();
             return;
         }
         List<Contact> contactList = new ArrayList<>();
@@ -174,6 +175,7 @@ class ContactFileManager {
             }
             default: {
                 System.out.println("Непредвиденная ошибка, попробуйте снова");
+                System.out.println();
             }
         }
     }
@@ -183,10 +185,12 @@ class ContactFileManager {
             if (contact.getId() == id) {
                 userContactList.remove(contact);
                 System.out.println("Контакт с id \"" + id + "\" был удалён");
+                System.out.println();
                 return;
             }
         }
         System.out.println("Контакт с id \"" + id + "\" не найден");
+        System.out.println();
     }
 
     public static void deleteContactByName(List<Contact> userContactList, String name) {
@@ -194,10 +198,12 @@ class ContactFileManager {
             if (contact.getName().equals(name)) {
                 userContactList.remove(contact);
                 System.out.println("Контакт с именем \"" + name + "\" был удалён");
+                System.out.println();
                 return;
             }
         }
         System.out.println("Контакт с именем \"" + name + "\" не найден");
+        System.out.println();
     }
 
     public static void deleteContactBySurname(List<Contact> userContactList, String surname) {
@@ -205,10 +211,12 @@ class ContactFileManager {
             if (contact.getSurname().equals(surname)) {
                 userContactList.remove(contact);
                 System.out.println("Контакт с фамилией \"" + surname + "\" был удалён");
+                System.out.println();
                 return;
             }
         }
         System.out.println("Контакт с фамилией \"" + surname + "\" не найден");
+        System.out.println();
     }
 
     public static void deleteContactByPhone(List<Contact> userContactList, String phone) {
@@ -216,8 +224,10 @@ class ContactFileManager {
             if (contact.getPhone().equals(phone)) {
                 userContactList.remove(contact);
                 System.out.println("Контакт с номером телефона \"" + phone + "\" был удалён");
+                System.out.println();
             }
         }
         System.out.println("Контакт с номером телефона \"" + phone + "\" не найден");
+        System.out.println();
     }
 }
