@@ -3,11 +3,8 @@ package HomeWork36;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
 public class LoginFileManager {
-    private List<Login> logins;
-
 // что должен уметь менеджер логинов:
     //1) добавлять новый уникальный логин
     //2) считывать логин из файла и передавать в другие методы/классы

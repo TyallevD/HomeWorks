@@ -1,10 +1,5 @@
 package HomeWork36;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 class Contact {
@@ -73,27 +68,12 @@ class Contact {
         );
     }
 
-    //      вариант с файлом
-//    public static int generateId(String contactFilePath) {
-//        File contactFile = new File(contactFilePath);
-//
-//        int nextId = 0;
-//        try (BufferedReader reader = new BufferedReader(new FileReader(contactFile))) {
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                nextId++;
-//            }
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//
-//        return nextId;
-//    }
-    //вариант с листом
     public static int generateId(List<Contact> userContactsList) {
-        int nextId = 0;
-        for (Contact contact : userContactsList) {
-            nextId++;
+        int nextId;
+        if (userContactsList.isEmpty()) {
+            nextId = 0;
+        } else {
+            nextId = userContactsList.getLast().getId() + 1;
         }
         return nextId;
     }

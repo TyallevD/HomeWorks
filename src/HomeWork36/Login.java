@@ -63,13 +63,6 @@ class Login {
         return name.substring(0, 2).concat("-").concat(surname);
     }
 
-//нужен был для работы с файлом
-//    public static Login parseLogin(String line) {
-//        String[] parts = line.split(" ");
-//        return new Login(parts[0], parts[1], parts[2], parts[3]);
-//    }
-
-
     @Override
     public String toString() {
         return name + " " + surname + " " + login + " " + password;

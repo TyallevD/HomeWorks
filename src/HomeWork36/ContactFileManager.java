@@ -1,28 +1,10 @@
 package HomeWork36;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 class ContactFileManager {
-
-//    public static Contact createContact(String contactFilePath) { //todo - надо сначала создать контакт, а потом добавить его в файл (сделать в одном методе или в двух...)
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Введите имя: ");
-//        String name = scanner.nextLine();
-//        System.out.print("Введите фамилию: ");
-//        String surname = scanner.nextLine();
-//        System.out.print("Введите номер телефона: ");
-//        String phone = scanner.nextLine();
-//        System.out.print("Введите возраст: ");
-//        int age = scanner.nextInt();
-//        scanner.nextLine();
-//
-//        int id = Contact.generateId(contactFilePath);
-//        Contact contact = new Contact(id, name, surname, phone, age);
-//        return contact;
-//    }
 
     public static Contact createContact(List<Contact> userContactsList) {
         Scanner scanner = new Scanner(System.in);
@@ -36,43 +18,11 @@ class ContactFileManager {
         int age = scanner.nextInt();
         scanner.nextLine();
 
-//        int id = Contact.generateId(contactFilePath);
         int id = Contact.generateId(userContactsList);
         Contact contact = new Contact(id, name, surname, phone, age);
         return contact;
     }
-    //вариант с файлом
-//    public static void addContact(String contactsPath, Contact contact) {
-//        File contactPath = new File(contactsPath);
-//        if (!contactPath.exists()) {
-//            System.out.println("Файл контактов не найден");
-//            return;
-//        }
-//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(contactPath, true))) {
-//            writer.write(contact.toString());
-//            writer.newLine();
-//            System.out.println("Контакт добавлен \"" + contact.toString() + "\"");
-//        } catch (IOException e) {
-//            System.out.println("Ошибка записи в файл " + e.getMessage());
-//        }
-//    }
 
-    //вариант с файлом
-//    public static void viewAllContacts(String contactsPath) {
-//        File contactPath = new File(contactsPath);
-//        if (!contactPath.exists()) {
-//            System.out.println("Файл контактов не найден");
-//            return;
-//        }
-//        try (BufferedReader reader = new BufferedReader(new FileReader(contactPath))) {
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                System.out.println(line);
-//            }
-//        } catch (IOException e) {
-//            System.out.println("Ошибка чтения контактов " + e.getMessage());
-//        }
-//    }
     public static void saveToFile(List<Contact> userContactList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(Login.getLoginContactsPath(Session.getCurrentLogin())))) {
             for (Contact contact : userContactList) {
@@ -90,10 +40,16 @@ class ContactFileManager {
 
     public static void viewAllContacts(List<Contact> contactsList) {
         System.out.println("""
+                ------------------------------------
+                |          Ваши контакты           |
+                ------------------------------------""");
+        if (contactsList.isEmpty()) {
+            System.out.println("""
                     ------------------------------------
-                    |          Ваши контакты           |
+                    |       Список контактов пуст      |
                     ------------------------------------""");
-        System.out.println();
+            System.out.println();
+        }
         for (Contact contact : contactsList) {
             System.out.println(contact);
         }
@@ -116,5 +72,152 @@ class ContactFileManager {
         } catch (IOException e) {
             System.out.println("Не удалось прочитать файл: " + e.getMessage());
         }
+    }
+
+    public static void sortContact(List<Contact> contacts, int destination) {
+        switch (destination) {
+            case 1: {
+                System.out.println("""
+                        ------------------------------------
+                        |     Сортировка по имени (A-Z)    |
+                        ------------------------------------""");
+                System.out.println();
+                List<Contact> sortedByNameAZ = contacts.stream().sorted((a, b) -> a.getName().compareTo(b.getName())).collect(Collectors.toList());
+                for (Contact contact : sortedByNameAZ) {
+                    System.out.println(contact);
+                }
+                break;
+            }
+            case 2: {
+                System.out.println("""
+                        ------------------------------------
+                        |     Сортировка по имени (Z-A)    |
+                        ------------------------------------""");
+                System.out.println();
+                List<Contact> sortedByNameZA = contacts.stream().sorted((a, b) -> b.getName().compareTo(a.getName())).collect(Collectors.toList());
+                for (Contact contact : sortedByNameZA) {
+                    System.out.println(contact);
+                }
+                break;
+            }
+            case 3: {
+                System.out.println("""
+                        ------------------------------------
+                        |    Сортировка по фамилии (A-Z)   |
+                        ------------------------------------""");
+                System.out.println();
+                List<Contact> sortedBySurnameAZ = contacts.stream().sorted((a, b) -> a.getSurname().compareTo(b.getSurname())).collect(Collectors.toList());
+                for (Contact contact : sortedBySurnameAZ) {
+                    System.out.println(contact);
+                }
+                break;
+            }
+            case 4: {
+                System.out.println("""
+                        ------------------------------------
+                        |    Сортировка по фамилии (Z-A)   |
+                        ------------------------------------""");
+                System.out.println();
+                List<Contact> sortedBySurnameZA = contacts.stream().sorted((a, b) -> b.getSurname().compareTo(a.getSurname())).collect(Collectors.toList());
+                for (Contact contact : sortedBySurnameZA) {
+                    System.out.println(contact);
+                }
+                break;
+            }
+            case 5: {
+                System.out.println("""
+                        ------------------------------------
+                        |    Сортировка по номеру (0-9)    |
+                        ------------------------------------""");
+                System.out.println();
+                List<Contact> sortedByPhoneForward = contacts.stream().sorted((a, b) -> a.getPhone().compareTo(b.getPhone())).collect(Collectors.toList());
+                for (Contact contact : sortedByPhoneForward) {
+                    System.out.println(contact);
+                }
+                break;
+            }
+            case 6: {
+                System.out.println("""
+                        ------------------------------------
+                        |    Сортировка по номеру (9-0)    |
+                        ------------------------------------""");
+                System.out.println();
+                List<Contact> sortedByPhoneBackward = contacts.stream().sorted((a, b) -> b.getPhone().compareTo(a.getPhone())).collect(Collectors.toList());
+                for (Contact contact : sortedByPhoneBackward) {
+                    System.out.println(contact);
+                }
+                break;
+            }
+            case 7: {
+                System.out.println("""
+                        ------------------------------------
+                        |    Сортировка по возрасту (0-9)  |
+                        ------------------------------------""");
+                System.out.println();
+                List<Contact> sortedByAgeForward = contacts.stream().sorted(Comparator.comparingInt(Contact::getAge)).collect(Collectors.toList());
+                for (Contact contact : sortedByAgeForward) {
+                    System.out.println(contact);
+                }
+                break;
+            }
+            case 8: {
+                System.out.println("""
+                        ------------------------------------
+                        |    Сортировка по возрасту (9-0)  |
+                        ------------------------------------""");
+                System.out.println();
+                List<Contact> sortedByAgeBackward = contacts.stream().sorted(Comparator.comparingInt(Contact::getAge).reversed()).collect(Collectors.toList());
+                for (Contact contact : sortedByAgeBackward) {
+                    System.out.println(contact);
+                }
+                break;
+            }
+            default: {
+                System.out.println("Непредвиденная ошибка, попробуйте снова");
+            }
+        }
+    }
+
+    public static void deleteContactById(List<Contact> userContactList, int id) {
+        for (Contact contact : userContactList) {
+            if (contact.getId() == id) {
+                userContactList.remove(contact);
+                System.out.println("Контакт с id \"" + id + "\" был удалён");
+                return;
+            }
+        }
+        System.out.println("Контакт с id \"" + id + "\" не найден");
+    }
+
+    public static void deleteContactByName(List<Contact> userContactList, String name) {
+        for (Contact contact : userContactList) {
+            if (contact.getName().equals(name)) {
+                userContactList.remove(contact);
+                System.out.println("Контакт с именем \"" + name + "\" был удалён");
+                return;
+            }
+        }
+        System.out.println("Контакт с именем \"" + name + "\" не найден");
+    }
+
+    public static void deleteContactBySurname(List<Contact> userContactList, String surname) {
+        for (Contact contact : userContactList) {
+            if (contact.getSurname().equals(surname)) {
+                userContactList.remove(contact);
+                System.out.println("Контакт с фамилией \"" + surname + "\" был удалён");
+                return;
+            }
+        }
+        System.out.println("Контакт с фамилией \"" + surname + "\" не найден");
+    }
+
+    public static void deleteContactByPhone(List<Contact> userContactList, String phone) {
+        for (Contact contact : userContactList) {
+            if (contact.getPhone().equals(phone)) {
+                userContactList.remove(contact);
+                System.out.println("Контакт с номером телефона \"" + phone + "\" был удалён");
+            }
+        }
+        System.out.println("Контакт с номером телефона \"" + phone + "\" не найден");
     }
 }
