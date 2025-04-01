@@ -256,6 +256,7 @@ class ContactFileManager {
         System.out.println("------------------------------------");
         for (Contact contact : userContactList) {
             if (surname.equals(contact.getSurname())) {
+                isFound = true;
                 System.out.println(contact);
             }
         }
@@ -272,6 +273,7 @@ class ContactFileManager {
         System.out.println("------------------------------------");
         for (Contact contact : userContactList) {
             if (phone.equals(contact.getPhone())) {
+                isFound = true;
                 System.out.println(contact);
             }
         }
@@ -288,6 +290,7 @@ class ContactFileManager {
         System.out.println("------------------------------------");
         for (Contact contact : userContactList) {
             if (age == contact.getAge()) {
+                isFound = true;
                 System.out.println(contact);
             }
         }
