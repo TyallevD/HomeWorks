@@ -69,8 +69,7 @@ class Contact {
     }
 
     public static int generateId(List<Contact> userContactsList) {
-        int nextId;
-        return nextId = userContactsList.isEmpty() ? 0 : userContactsList.getLast().getId() + 1;
+        return userContactsList.isEmpty() ? 0 : userContactsList.getLast().getId() + 1;
     }
 
     @Override

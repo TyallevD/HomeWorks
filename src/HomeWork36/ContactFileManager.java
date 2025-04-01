@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 class ContactFileManager {
 
-    public static Contact createContact(List<Contact> userContactsList) {
+    public static Contact createContact(List<Contact> userContactsList) throws InputMismatchException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите имя: ");
         String name = scanner.nextLine();
@@ -229,5 +229,88 @@ class ContactFileManager {
         }
         System.out.println("Контакт с номером телефона \"" + phone + "\" не найден");
         System.out.println();
+    }
+
+    //Методы для поиска контактов
+    public static void searchContactByName(List<Contact> userContactList, String name) {
+        boolean isFound = false;
+        System.out.println("------------------------------------");
+        System.out.println(" Найденные контакты по имени \"" + name + "\":");
+        System.out.println("------------------------------------");
+        for (Contact contact : userContactList) {
+            if (name.equals(contact.getName())) {
+                isFound = true;
+                System.out.println(contact);
+            }
+        }
+        if (!isFound) {
+            System.out.println("По заданным критериям ничего не найдено");
+            System.out.println();
+        }
+    }
+
+    public static void searchContactBySurname(List<Contact> userContactList, String surname) {
+        boolean isFound = false;
+        System.out.println("------------------------------------");
+        System.out.println(" Найденные контакты по фамилии \"" + surname + "\"");
+        System.out.println("------------------------------------");
+        for (Contact contact : userContactList) {
+            if (surname.equals(contact.getSurname())) {
+                System.out.println(contact);
+            }
+        }
+        if (!isFound) {
+            System.out.println("По заданным критериям ничего не найдено");
+            System.out.println();
+        }
+    }
+
+    public static void searchContactByPhone(List<Contact> userContactList, String phone) {
+        boolean isFound = false;
+        System.out.println("------------------------------------");
+        System.out.println(" Найденные контакты по номеру \"" + phone + "\"");
+        System.out.println("------------------------------------");
+        for (Contact contact : userContactList) {
+            if (phone.equals(contact.getPhone())) {
+                System.out.println(contact);
+            }
+        }
+        if (!isFound) {
+            System.out.println("По заданным критериям ничего не найдено");
+            System.out.println();
+        }
+    }
+
+    public static void searchContactByAge(List<Contact> userContactList, int age) {
+        boolean isFound = false;
+        System.out.println("------------------------------------");
+        System.out.println(" Найденные контакты по возрасту \"" + age + "\"");
+        System.out.println("------------------------------------");
+        for (Contact contact : userContactList) {
+            if (age == contact.getAge()) {
+                System.out.println(contact);
+            }
+        }
+        if (!isFound) {
+            System.out.println("По заданным критериям ничего не найдено");
+            System.out.println();
+        }
+    }
+
+    //Методы для изменения контактов
+    public static void updateContactByName(List<Contact> userContactList, String name) {
+
+    }
+
+    public static void updateContactBySurname(List<Contact> userContactList, String surname) {
+
+    }
+
+    public static void updateContactByPhone(List<Contact> userContactList, String phone) {
+
+    }
+
+    public static void updateContactByAge(List<Contact> userContactList, int age) {
+
     }
 }
