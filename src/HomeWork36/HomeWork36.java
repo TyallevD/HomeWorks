@@ -22,16 +22,16 @@ public class HomeWork36 {
                     ------------------------------------
                     """);
             System.out.print("Ввод команды: ");
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
             switch (input) {
                 case "1":
-                    authorization();
+                  Authorization.authorization();
                     if (Session.getCurrentLoginContacts() != null) {
                         mainMenu(Session.getCurrentLoginContacts());
                     }
                     break;
                 case "2":
-                    registration();
+                    Authorization.registration();
                     break;
                 case "3":
                     System.out.println("""
@@ -63,7 +63,7 @@ public class HomeWork36 {
                     ------------------------------------
                     """);
             System.out.print("Ввод команды: ");
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
             switch (input) {
                 case "1": {
                     contactsChangeMenu(userContactList);
@@ -104,7 +104,7 @@ public class HomeWork36 {
                     |   4 - выход в главное меню       |
                     ------------------------------------""");
             System.out.print("Ввод команды: ");
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
             switch (input) {
                 case "1": {
                     try {
@@ -155,7 +155,7 @@ public class HomeWork36 {
                     |   4 - выход в главное меню       |
                     ------------------------------------""");
             System.out.print("Ввод команды: ");
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
             switch (input) {
                 case "1": {
                     ContactFileManager.viewAllContacts(userContactList);
@@ -212,7 +212,7 @@ public class HomeWork36 {
                     |       контактов                  |
                     ------------------------------------""");
             System.out.print("Ввод команды: ");
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
             switch (input) {
                 case "1": {
                     System.out.println("""
@@ -224,7 +224,7 @@ public class HomeWork36 {
                             |   2 - сортировка по имени (Z-A)  |
                             ------------------------------------""");
                     System.out.print("Ввод команды: ");
-                    String destinationInput = scanner.nextLine();
+                    String destinationInput = scanner.nextLine().trim();
                     if (destinationInput.equals("1")) {
                         ContactFileManager.sortContact(userContactList, 1);
                     } else if (destinationInput.equals("2")) {
@@ -245,7 +245,7 @@ public class HomeWork36 {
                             |  2 - сортировка по фамилии (Z-A) |
                             ------------------------------------""");
                     System.out.print("Ввод команды: ");
-                    String destinationInput = scanner.nextLine();
+                    String destinationInput = scanner.nextLine().trim();
                     if (destinationInput.equals("1")) {
                         ContactFileManager.sortContact(userContactList, 3);
                     } else if (destinationInput.equals("2")) {
@@ -266,7 +266,7 @@ public class HomeWork36 {
                             |   2 - сортировка по номеру(9-0)  |
                             ------------------------------------""");
                     System.out.print("Ввод команды: ");
-                    String destinationInput = scanner.nextLine();
+                    String destinationInput = scanner.nextLine().trim();
                     if (destinationInput.equals("1")) {
                         ContactFileManager.sortContact(userContactList, 5);
                     } else if (destinationInput.equals("2")) {
@@ -287,7 +287,7 @@ public class HomeWork36 {
                             |  2 - сортировка по возрасту(9-0) |
                             ------------------------------------""");
                     System.out.print("Ввод команды: ");
-                    String destinationInput = scanner.nextLine();
+                    String destinationInput = scanner.nextLine().trim();
                     if (destinationInput.equals("1")) {
                         ContactFileManager.sortContact(userContactList, 7);
                     } else if (destinationInput.equals("2")) {
@@ -548,78 +548,4 @@ public class HomeWork36 {
             }
         }
     }
-
-    private static void registration() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("""
-                ------------------------------------
-                |      << Телефонная книга >>      |
-                |     Регистрация пользователя     |
-                ------------------------------------""");
-        System.out.print("Введите имя: ");
-        String name = scanner.nextLine();
-        System.out.print("Введите фамилию: ");
-        String surname = scanner.nextLine();
-        System.out.print("Введите пароль: ");
-        String passwd1 = scanner.nextLine();
-        System.out.print("Повторите пароль: ");
-        String passwd2 = scanner.nextLine();
-
-        if (passwd1.equals(passwd2)) {
-            Login login = new Login(name, surname, Login.generateLogin(name, surname), passwd1); //todo добавить проверок для логина/пароля ?
-            try {
-                LoginFileManager manager = new LoginFileManager();
-                manager.createLoginContacts(login.getLogin());
-                manager.addLogin(login);
-                System.out.println("""
-                        ------------------------------------
-                        |       Вы зарегистрированы!       |
-                        ------------------------------------""");
-                System.out.println();
-            } catch (IOException e) {
-                System.out.println("Ошибка, не удалось зарегистрировать нового пользователя: " + e.getMessage());
-            }
-
-        } else {
-            System.out.println("""
-                    ------------------------------------
-                    |       Пароли не совпадают.       |
-                    |         Попробуйте снова         |
-                    ------------------------------------""");
-            System.out.println();
-        }
-    }
-
-    private static void authorization() {
-        Login user;
-        Session currentSession;
-        //todo раскомментировать и удалить тестовые данные
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Введите логин: ");
-//        String login = scanner.nextLine().trim;
-//        System.out.print("Введите пароль: ");
-//        String password = scanner.nextLine().trim();
-        //тестовые данные
-        String login = "Ди-Тяллев";
-        String password = "123";
-        if (LoginFileManager.checkLogin(login, password)) {
-            System.out.println("""
-                    ------------------------------------
-                    |          Вы авторизованы         |
-                    ------------------------------------""");
-            System.out.println();
-            user = new Login(login, password);
-            ContactFileManager.loadContactList(user);
-            currentSession = new Session(user);
-        } else {
-            System.out.println("""
-                    ------------------------------------
-                    |     Неверный логин или пароль    |
-                    |         Попробуйте снова         |
-                    ------------------------------------""");
-            System.out.println();
-        }
-    }
-    //При авторизации подгружаем из файла контактов юзера все контакты в лист
-    //Потом редактирование, просмотр, поиск и сортировку делаем через лист (так проще, чем каждый раз загружать файл)
 }

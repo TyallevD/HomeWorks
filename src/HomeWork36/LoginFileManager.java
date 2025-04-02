@@ -12,7 +12,7 @@ public class LoginFileManager {
     public static void createOrCheckExistingFolders() {
 
         if (!ProgrammPaths.USERS_DIR.exists()) {
-            System.out.println(ProgrammPaths.USERS_DIR.mkdir() ? "Папка юзеров создана" : "Папка юзеров не создана");
+            System.out.println(ProgrammPaths.USERS_DIR.mkdir() ? "Папка пользователей создана" : "Папка пользователей не создана");
         }
 
         if (!ProgrammPaths.CONTACTS_DIR.exists()) {

@@ -9,11 +9,11 @@ class ContactFileManager {
     public static Contact createContact(List<Contact> userContactsList) throws InputMismatchException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите имя: ");
-        String name = scanner.nextLine();
+        String name = scanner.nextLine().trim();
         System.out.print("Введите фамилию: ");
-        String surname = scanner.nextLine();
+        String surname = scanner.nextLine().trim();
         System.out.print("Введите номер телефона: ");
-        String phone = scanner.nextLine();
+        String phone = scanner.nextLine().trim();
         System.out.print("Введите возраст: ");
         int age = scanner.nextInt();
         scanner.nextLine();
