@@ -1,6 +1,5 @@
 package HomeWork36;
 
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -25,7 +24,7 @@ public class HomeWork36 {
             String input = scanner.nextLine().trim();
             switch (input) {
                 case "1":
-                  Authorization.authorization();
+                    Authorization.authorization();
                     if (Session.getCurrentLoginContacts() != null) {
                         mainMenu(Session.getCurrentLoginContacts());
                     }
@@ -226,9 +225,9 @@ public class HomeWork36 {
                     System.out.print("Ввод команды: ");
                     String destinationInput = scanner.nextLine().trim();
                     if (destinationInput.equals("1")) {
-                        ContactFileManager.sortContact(userContactList, 1);
+                        SortContact.sortContact(userContactList, 1);
                     } else if (destinationInput.equals("2")) {
-                        ContactFileManager.sortContact(userContactList, 2);
+                        SortContact.sortContact(userContactList, 2);
                     } else {
                         System.out.println("Неверная команда. Попробуйте снова.");
                         System.out.println();
@@ -247,9 +246,9 @@ public class HomeWork36 {
                     System.out.print("Ввод команды: ");
                     String destinationInput = scanner.nextLine().trim();
                     if (destinationInput.equals("1")) {
-                        ContactFileManager.sortContact(userContactList, 3);
+                        SortContact.sortContact(userContactList, 3);
                     } else if (destinationInput.equals("2")) {
-                        ContactFileManager.sortContact(userContactList, 4);
+                        SortContact.sortContact(userContactList, 4);
                     } else {
                         System.out.println("Неверная команда. Попробуйте снова.");
                         System.out.println();
@@ -268,9 +267,9 @@ public class HomeWork36 {
                     System.out.print("Ввод команды: ");
                     String destinationInput = scanner.nextLine().trim();
                     if (destinationInput.equals("1")) {
-                        ContactFileManager.sortContact(userContactList, 5);
+                        SortContact.sortContact(userContactList, 5);
                     } else if (destinationInput.equals("2")) {
-                        ContactFileManager.sortContact(userContactList, 6);
+                        SortContact.sortContact(userContactList, 6);
                     } else {
                         System.out.println("Неверная команда. Попробуйте снова.");
                         System.out.println();
@@ -289,9 +288,9 @@ public class HomeWork36 {
                     System.out.print("Ввод команды: ");
                     String destinationInput = scanner.nextLine().trim();
                     if (destinationInput.equals("1")) {
-                        ContactFileManager.sortContact(userContactList, 7);
+                        SortContact.sortContact(userContactList, 7);
                     } else if (destinationInput.equals("2")) {
-                        ContactFileManager.sortContact(userContactList, 8);
+                        SortContact.sortContact(userContactList, 8);
                     } else {
                         System.out.println("Неверная команда. Попробуйте снова.");
                         System.out.println();
@@ -349,7 +348,7 @@ public class HomeWork36 {
                         System.out.print("Введите id для удаления: ");
                         int id = scanner.nextInt();
                         scanner.nextLine();
-                        ContactFileManager.deleteContactById(userContactList, id);
+                        DeleteContact.deleteContactById(userContactList, id);
                     } catch (InputMismatchException e) {
                         System.out.println("Некорректное значение id, попробуйте снова");
                         System.out.println();
@@ -360,19 +359,19 @@ public class HomeWork36 {
                 case "2": {
                     System.out.print("Введите имя для удаления: ");
                     String name = scanner.nextLine().trim();
-                    ContactFileManager.deleteContactByName(userContactList, name);
+                    DeleteContact.deleteContactByName(userContactList, name);
                     break;
                 }
                 case "3": {
                     System.out.print("Введите фамилию для удаления: ");
                     String surname = scanner.nextLine().trim();
-                    ContactFileManager.deleteContactBySurname(userContactList, surname);
+                    DeleteContact.deleteContactBySurname(userContactList, surname);
                     break;
                 }
                 case "4": {
                     System.out.print("Введите номер телефона для удаления");
                     String phone = scanner.nextLine().trim();
-                    ContactFileManager.deleteContactByPhone(userContactList, phone);
+                    DeleteContact.deleteContactByPhone(userContactList, phone);
                     break;
                 }
                 case "5": {
@@ -426,19 +425,19 @@ public class HomeWork36 {
                 case "1": {
                     System.out.print("Введите имя для изменения: ");
                     String name = scanner.nextLine().trim();
-                    ContactFileManager.updateContactByName(userContactList, name);
+                    UpdateContact.updateContactByName(userContactList, name);
                     break;
                 }
                 case "2": {
                     System.out.print("Введите фамилию для изменения: ");
                     String surname = scanner.nextLine().trim();
-                    ContactFileManager.updateContactBySurname(userContactList, surname);
+                    UpdateContact.updateContactBySurname(userContactList, surname);
                     break;
                 }
                 case "3": {
                     System.out.print("Введите номер телефона для изменения: ");
                     String phone = scanner.nextLine().trim();
-                    ContactFileManager.updateContactByPhone(userContactList, phone);
+                    UpdateContact.updateContactByPhone(userContactList, phone);
                     break;
                 }
                 case "4": {
@@ -446,11 +445,10 @@ public class HomeWork36 {
                     try {
                         int age = scanner.nextInt();
                         scanner.nextLine();
-                        ContactFileManager.updateContactByAge(userContactList, age);
+                        UpdateContact.updateContactByAge(userContactList, age);
                     } catch (InputMismatchException e) {
                         System.out.println("Неверное значение возраста. Попробуйте снова");
                         System.out.println();
-                        scanner.nextLine();
                     }
                     break;
                 }
@@ -505,21 +503,21 @@ public class HomeWork36 {
                     //todo Поиск по имени/частичный поиск
                     System.out.print("Введите имя для поиска: ");
                     String name = scanner.nextLine().trim();
-                    ContactFileManager.searchContactByName(userContactList, name);
+                    SearchContact.searchContactByName(userContactList, name);
                     break;
                 }
                 case "2": {
                     //todo Поиск по фамилии/частичный поиск
                     System.out.print("Введите фамилию для поиска: ");
                     String surname = scanner.nextLine().trim();
-                    ContactFileManager.searchContactBySurname(userContactList, surname);
+                    SearchContact.searchContactBySurname(userContactList, surname);
                     break;
                 }
                 case "3": {
                     //todo Поиск по номеру телефона/частичный поиск
                     System.out.print("Введите номер для поиска: ");
                     String phone = scanner.nextLine().trim();
-                    ContactFileManager.searchContactByPhone(userContactList, phone);
+                    SearchContact.searchContactByPhone(userContactList, phone);
                     break;
                 }
                 case "4": {
@@ -528,7 +526,7 @@ public class HomeWork36 {
                     try {
                         int age = scanner.nextInt();
                         scanner.nextLine();
-                        ContactFileManager.searchContactByAge(userContactList, age);
+                        SearchContact.searchContactByAge(userContactList, age);
                     } catch (InputMismatchException e) {
                         System.out.println("Неверный значение возраста. Попробуйте снова");
                         System.out.println();
@@ -544,6 +542,10 @@ public class HomeWork36 {
                             ------------------------------------""");
                     System.out.println();
                     break searchContactMenu;
+                }
+                default: {
+                    System.out.println("Неверная команда. Попробуйте снова.");
+                    System.out.println();
                 }
             }
         }
