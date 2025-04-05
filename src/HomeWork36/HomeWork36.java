@@ -24,27 +24,32 @@ public class HomeWork36 {
             System.out.print("Ввод команды: ");
             String input = scanner.nextLine().trim();
             switch (input) {
-                case "1":
+                case "1": {
                     Authorization.authorization();
                     if (Session.getCurrentLoginContacts() != null) {
                         mainMenu(Session.getCurrentLoginContacts());
                     }
                     break;
-                case "2":
+                }
+                case "2": {
+                    Logger.addRecord("Начало регистрации пользователя");
                     Authorization.registration();
                     break;
-                case "3":
+                }
+                case "3": {
                     System.out.println("""
                             ------------------------------------
                             |        Выход из программы        |
                             ------------------------------------""");
                     System.out.println();
-                    Logger.addRecord("Остановка программы");
+                    Logger.addRecord("Завершение программы");
                     break startMenu;
-                default:
+                }
+                default: {
                     System.out.println("Ваш ввод неверный, попробуйте снова");
                     System.out.println();
                     break;
+                }
             }
         }
     }
@@ -80,15 +85,16 @@ public class HomeWork36 {
                             |    Выход на экран авторизации    |
                             ------------------------------------""");
                     System.out.println();
-                    Logger.addRecord("пользователь вышел из аккаунта");
-                    Logger.addRecord("список контактов очищен");
+                    Logger.addRecord("Пользователь \"" + Session.getCurrentLogin() + "\" вышел из аккаунта");
+                    Logger.addRecord("Список контактов очищен");
                     Session.setCurrentLogin(null);
                     userContactList = null;
                     break mainMenu;
                 }
-                default:
+                default: {
                     System.out.println("Неверная команда. Попробуйте снова.");
                     System.out.println();
+                }
             }
         }
     }
@@ -505,37 +511,118 @@ public class HomeWork36 {
             String input = scanner.nextLine();
             switch (input) {
                 case "1": {
-                    //todo Поиск по имени/частичный поиск
-                    System.out.print("Введите имя для поиска: ");
-                    String name = scanner.nextLine().trim();
-                    SearchContact.searchContactByName(userContactList, name);
+                    System.out.println("""
+                            ------------------------------------
+                            |      << Телефонная книга >>      |
+                            |          Поиск по имени          |
+                            ------------------------------------
+                            |   1 - поиск по имени (полный)    |
+                            |   2 - поиск по имени (частичный) |
+                            ------------------------------------""");
+                    System.out.print("Ввод команды: ");
+                    String searchOption = scanner.nextLine().trim();
+                    if (searchOption.equals("1")) {
+                        System.out.print("Введите имя для поиска: ");
+                        String name = scanner.nextLine().trim();
+                        SearchContact.searchContactByName(userContactList, name);
+                    } else if (searchOption.equals("2")) {
+                        System.out.print("Введите имя для поиска, используя символы \"_\" или \"%\": ");
+                        String name = scanner.nextLine().trim();
+                        PartialSearchContact.partialSearchByName(userContactList, name);
+                    } else {
+                        System.out.println("Неверная команда. Попробуйте снова.");
+                        System.out.println();
+                    }
                     break;
                 }
                 case "2": {
-                    //todo Поиск по фамилии/частичный поиск
-                    System.out.print("Введите фамилию для поиска: ");
-                    String surname = scanner.nextLine().trim();
-                    SearchContact.searchContactBySurname(userContactList, surname);
+                    System.out.println("""
+                            ------------------------------------
+                            |      << Телефонная книга >>      |
+                            |          Поиск по фамилии        |
+                            ------------------------------------
+                            | 1 - поиск по фамилии (полный)    |
+                            | 2 - поиск по фамилии (частичный) |
+                            ------------------------------------""");
+                    System.out.print("Ввод команды: ");
+                    String searchOption = scanner.nextLine().trim();
+                    if (searchOption.equals("1")) {
+                        System.out.print("Введите фамилию для поиска: ");
+                        String surname = scanner.nextLine().trim();
+                        SearchContact.searchContactBySurname(userContactList, surname);
+                    } else if (searchOption.equals("2")) {
+                        System.out.print("Введите фамилию для поиска, используя символы \"_\" или \"%\": ");
+                        String surname = scanner.nextLine().trim();
+                        PartialSearchContact.partialSearchBySurname(userContactList, surname);
+                    } else {
+                        System.out.println("Неверная команда. Попробуйте снова.");
+                        System.out.println();
+                    }
                     break;
                 }
                 case "3": {
-                    //todo Поиск по номеру телефона/частичный поиск
-                    System.out.print("Введите номер для поиска: ");
-                    String phone = scanner.nextLine().trim();
-                    SearchContact.searchContactByPhone(userContactList, phone);
+                    System.out.println("""
+                            ------------------------------------
+                            |      << Телефонная книга >>      |
+                            |         Поиск по телефону        |
+                            ------------------------------------
+                            | 1 - поиск по телефону (полный)   |
+                            | 2 - поиск по телефону (частичный)|
+                            ------------------------------------""");
+                    System.out.print("Ввод команды: ");
+                    String searchOption = scanner.nextLine().trim();
+                    if (searchOption.equals("1")) {
+                        System.out.print("Введите номер для поиска: ");
+                        String phone = scanner.nextLine().trim();
+                        SearchContact.searchContactByPhone(userContactList, phone);
+                    } else if (searchOption.equals("2")) {
+                        System.out.print("Введите номер для поиска, используя символы \"_\" или \"%\": ");
+                        String phone = scanner.nextLine().trim();
+                        PartialSearchContact.partialSearchByPhone(userContactList, phone);
+                    } else {
+                        System.out.println("Неверная команда. Попробуйте снова.");
+                        System.out.println();
+                    }
                     break;
                 }
                 case "4": {
-                    //todo Поиск по возрасту/больше, меньше, равно
-                    System.out.print("Введите возраст для поиска: ");
-                    try {
-                        int age = scanner.nextInt();
-                        scanner.nextLine();
-                        SearchContact.searchContactByAge(userContactList, age);
-                    } catch (InputMismatchException e) {
-                        System.out.println("Неверный значение возраста. Попробуйте снова");
+                    System.out.println("""
+                            ------------------------------------
+                            |      << Телефонная книга >>      |
+                            |         Поиск по возрасту        |
+                            ------------------------------------
+                            | 1 - поиск по возрасту (полный)   |
+                            | 2 - поиск по возрасту (ниже/выше)|
+                            ------------------------------------""");
+                    System.out.print("Ввод команды: ");
+                    String searchOption = scanner.nextLine().trim();
+                    if (searchOption.equals("1")) {
+                        System.out.print("Введите возраст для поиска: ");
+                        try {
+                            int age = scanner.nextInt();
+                            scanner.nextLine();
+                            SearchContact.searchContactByAge(userContactList, age);
+                        } catch (InputMismatchException e) {
+                            System.out.println("Неверный значение возраста. Попробуйте снова");
+                            System.out.println();
+                            scanner.nextLine();
+                        }
+                    } else if (searchOption.equals("2")) {
+                        System.out.print("Введите возраст для поиска: ");
+                        try {
+                            int age = scanner.nextInt();
+                            scanner.nextLine();
+                            System.out.print("Введите значение 1 - выше, 2 - ниже: ");
+                            String destination = scanner.nextLine().trim();
+                            PartialSearchContact.partialSearchByAge(userContactList, age, destination);
+                        } catch (InputMismatchException e) {
+                            System.out.println("Неверный значение возраста. Попробуйте снова");
+                            System.out.println();
+                            scanner.nextLine();
+                        }
+                    } else {
+                        System.out.println("Неверная команда. Попробуйте снова.");
                         System.out.println();
-                        scanner.nextLine();
                     }
                     break;
                 }

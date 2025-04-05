@@ -26,6 +26,7 @@ public class Authorization {
                 LoginFileManager manager = new LoginFileManager();
                 manager.createLoginContacts(login.getLogin());
                 manager.addLogin(login);
+                Logger.addRecord("Регистрация нового пользователя \"" + login.getLogin() + "\" выполнена успешно");
                 System.out.println("""
                         ------------------------------------
                         |       Вы зарегистрированы!       |
@@ -66,8 +67,8 @@ public class Authorization {
             user = new Login(login, password);
             ContactFileManager.loadContactList(user);
             currentSession = new Session(user);
-            Logger.addRecord("пользователь авторизован");
-            Logger.addRecord("загружены данные файла контактов пользователя " + Session.getCurrentLogin() + " из файла: " + Login.getLoginContactsPath(login));
+            Logger.addRecord("Пользователь " + Session.getCurrentLogin() + " авторизован");
+            Logger.addRecord("Загружены данные файла контактов пользователя \"" + Session.getCurrentLogin() + "\" из файла: " + Login.getLoginContactsPath(login));
         } else {
             System.out.println("""
                     ------------------------------------
