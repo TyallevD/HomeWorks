@@ -66,6 +66,8 @@ public class Authorization {
             user = new Login(login, password);
             ContactFileManager.loadContactList(user);
             currentSession = new Session(user);
+            Logger.addRecord("пользователь авторизован");
+            Logger.addRecord("загружены данные файла контактов пользователя " + Session.getCurrentLogin() + " из файла: " + Login.getLoginContactsPath(login));
         } else {
             System.out.println("""
                     ------------------------------------
@@ -75,6 +77,7 @@ public class Authorization {
                     |          Попробуйте снова        |
                     ------------------------------------""");
             System.out.println();
+            Logger.addRecord("Неудачная авторизация, неверный логин/пароль или пользователь не существует");
         }
     }
 }

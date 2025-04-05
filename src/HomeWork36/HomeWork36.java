@@ -7,7 +7,8 @@ import java.util.Scanner;
 public class HomeWork36 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        LoginFileManager.createOrCheckExistingFolders();
+        ProgrammPaths.createOrCheckExistingFolders();
+        Logger.addRecord("Запуск программы");
         startMenu:
         while (true) {
             System.out.print("""
@@ -38,6 +39,7 @@ public class HomeWork36 {
                             |        Выход из программы        |
                             ------------------------------------""");
                     System.out.println();
+                    Logger.addRecord("Остановка программы");
                     break startMenu;
                 default:
                     System.out.println("Ваш ввод неверный, попробуйте снова");
@@ -78,6 +80,9 @@ public class HomeWork36 {
                             |    Выход на экран авторизации    |
                             ------------------------------------""");
                     System.out.println();
+                    Logger.addRecord("пользователь вышел из аккаунта");
+                    Logger.addRecord("список контактов очищен");
+                    Session.setCurrentLogin(null);
                     userContactList = null;
                     break mainMenu;
                 }
