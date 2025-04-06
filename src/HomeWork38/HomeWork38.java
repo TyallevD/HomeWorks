@@ -77,7 +77,7 @@ public class HomeWork38 {
             System.out.println("Количество чисел: " + numsCount);
             long endNumsCountTime = System.nanoTime();
             long durationNumsCountTime = (endNumsCountTime - startNumsCountTime) / 1_000_000;
-            System.out.println("Длительность подсчета слов: " + durationNumsCountTime + " мс");
+            System.out.println("Длительность подсчета чисел: " + durationNumsCountTime + " мс");
             System.out.println(delimeter);
         });
         try {
