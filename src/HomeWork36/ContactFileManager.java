@@ -35,6 +35,7 @@ class ContactFileManager {
 
     public static void addContact(List<Contact> contacts, Contact contact) {
         contacts.add(contact);
+        Logger.addRecord("Добавлен контакт: " + contact);
     }
 
     public static void viewAllContacts(List<Contact> contactsList) {

@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class PartialSearchContact {
     public static void partialSearchByName(List<Contact> userContactList, String name) {
-int count = 0;
+        int count = 0;
         if (name.contains("_")) {
             String regex = convertToPartialRegex(name);
             Pattern pattern = Pattern.compile(regex);

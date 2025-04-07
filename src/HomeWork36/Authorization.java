@@ -37,6 +37,7 @@ public class Authorization {
             }
 
         } else {
+            Logger.addRecord("Ошибка регистрации");
             System.out.println("""
                     ------------------------------------
                     |       Пароли не совпадают.       |

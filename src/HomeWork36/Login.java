@@ -1,5 +1,8 @@
 package HomeWork36;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +65,20 @@ class Login {
     public static String generateLogin(String name, String surname) {
         return name.substring(0, 2).concat("-").concat(surname);
     }
-
+//    private static boolean isLoginExists(String login){
+//        try (BufferedReader reader = new BufferedReader(new FileReader(ProgrammPaths.USERS_FILE))){
+//            String line;
+//            while ((line = reader.readLine())!=null){
+//                String[] readedLine = line.split("\\s+");
+//                if (readedLine[2].equals(login)){
+//                    return true;
+//                }
+//            }
+//        }catch (IOException e){
+//            System.out.println("Не удалось прочитать файл пользователей");
+//        }
+//        return false;
+//    }
     @Override
     public String toString() {
         return name + " " + surname + " " + login + " " + password;

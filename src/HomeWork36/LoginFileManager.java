@@ -5,9 +5,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class LoginFileManager {
-// что должен уметь менеджер логинов:
-    //1) добавлять новый уникальный логин
-    //2) считывать логин из файла и передавать в другие методы/классы
     public void createLoginContacts(String login) throws IOException {
         Path contactsFilePath = Paths.get(ProgrammPaths.CONTACTS_DIR.getPath());
         File file = new File(contactsFilePath + "/" + login.concat("Contacts.txt"));

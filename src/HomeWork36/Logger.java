@@ -1,14 +1,12 @@
 package HomeWork36;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Logger {
     //логгер должен записывать все действия:
-    //1) запуск программы, остановка программы
+    //1) запуск программы, остановка программы +
     //2) авторизация, регистрация
     //3) добавление, удаление, изменение контактов, сохранение контактов
     //4) просмотр контактов (отображение всех контактов, поиск контактов, сортировка контактов
@@ -27,6 +25,22 @@ public class Logger {
             writer.newLine();
         } catch (IOException e) {
             System.out.println("Не удалось выполнить запись в лог");
+        }
+    }
+
+    public static void readLogsFile() {
+        System.out.println("""
+                ------------------------------------
+                |          Логи программы          |
+                ------------------------------------""");
+        System.out.println();
+        try (BufferedReader reader = new BufferedReader(new FileReader(ProgrammPaths.LOGS_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Не удалось прочитать файл логов");
         }
     }
 }
