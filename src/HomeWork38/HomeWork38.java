@@ -111,13 +111,13 @@ public class HomeWork38 {
 //            while (matcher.find()) {
 //                vowelCount++;
 //            }
-            long startVovelCountTime = System.nanoTime();
-            String vovelRegex = "[АЕЁИОУЭЮЯаеёиоуэюяAEIOUYaeiouy]";
-            int vowelCount = countMatches(text, vovelRegex);
+            long startVowelCountTime = System.nanoTime();
+            String vowelRegex = "[АЕЁИОУЭЮЯаеёиоуэюяAEIOUYaeiouy]";
+            int vowelCount = countMatches(text, vowelRegex);
             System.out.println("Количество гласных: " + vowelCount);
-            long endVovelCountTime = System.nanoTime();
-            long durationVovelCountTime = (endVovelCountTime - startVovelCountTime) / 1_000_000;
-            System.out.println("Длительность подсчета гласных: " + durationVovelCountTime + " мс");
+            long endVowelCountTime = System.nanoTime();
+            long durationVowelCountTime = (endVowelCountTime - startVowelCountTime) / 1_000_000;
+            System.out.println("Длительность подсчета гласных: " + durationVowelCountTime + " мс");
             System.out.println(delimeter);
         });
         try {
@@ -158,8 +158,8 @@ public class HomeWork38 {
 //                punctuationCount++;
 //            }
             long startPunctuationCountTime = System.nanoTime();
-            String punctiationRegex = "[.,!?:;]";
-            int punctuationCount = countMatches(text, punctiationRegex);
+            String punctuationRegex = "[.,!?:;]";
+            int punctuationCount = countMatches(text, punctuationRegex);
             System.out.println("Количество знаков препинания: " + punctuationCount);
             long endPunctuationCountTime = System.nanoTime();
             long durationPunctuationCountTime = (endPunctuationCountTime - startPunctuationCountTime) / 1_000_000;
