@@ -9,6 +9,7 @@ public class PartialSearchContact {
         if (name.contains("_")) {
             String regex = convertToPartialRegex(name);
             Pattern pattern = Pattern.compile(regex);
+            Logger.addRecord("Поиск по имени: \"" + name + "\"");
             System.out.println("------------------------------------");
             System.out.println(" Найденные контакты по шаблону имени \"" + name + "\"");
             System.out.println("------------------------------------");
@@ -19,9 +20,11 @@ public class PartialSearchContact {
                 }
             }
             System.out.println("Всего найдено: " + count);
+            Logger.addRecord("Всего найдено контактов: " + count);
         } else if (name.contains("%")) {
             String regex = convertToFullRegex(name);
             Pattern pattern = Pattern.compile(regex);
+            Logger.addRecord("Поиск по имени: \"" + name + "\"");
             System.out.println("------------------------------------");
             System.out.println(" Найденные контакты по шаблону имени \"" + name + "\"");
             System.out.println("------------------------------------");
@@ -32,8 +35,10 @@ public class PartialSearchContact {
                 }
             }
             System.out.println("Всего найдено: " + count);
+            Logger.addRecord("Всего найдено контактов: " + count);
         } else {
             System.out.println("По заданному шаблону ничего не найдено");
+            Logger.addRecord("По заданному шаблону ничего не найдено");
         }
     }
 
@@ -42,6 +47,7 @@ public class PartialSearchContact {
         if (surname.contains("_")) {
             String regex = convertToPartialRegex(surname);
             Pattern pattern = Pattern.compile(regex);
+            Logger.addRecord("Поиск по фамилии: \"" + surname + "\"");
             System.out.println("------------------------------------");
             System.out.println(" Найденные контакты по шаблону фамилии \"" + surname + "\"");
             System.out.println("------------------------------------");
@@ -52,9 +58,11 @@ public class PartialSearchContact {
                 }
             }
             System.out.println("Всего найдено: " + count);
+            Logger.addRecord("Всего найдено контактов: " + count);
         } else if (surname.contains("%")) {
             String regex = convertToFullRegex(surname);
             Pattern pattern = Pattern.compile(regex);
+            Logger.addRecord("Поиск по фамилии: \"" + surname + "\"");
             System.out.println("------------------------------------");
             System.out.println(" Найденные контакты по шаблону фамилии \"" + surname + "\"");
             System.out.println("------------------------------------");
@@ -65,8 +73,10 @@ public class PartialSearchContact {
                 }
             }
             System.out.println("Всего найдено: " + count);
+            Logger.addRecord("Всего найдено контактов: " + count);
         } else {
             System.out.println("По заданному шаблону ничего не найдено");
+            Logger.addRecord("По заданному шаблону ничего не найдено");
         }
     }
 
@@ -75,6 +85,7 @@ public class PartialSearchContact {
         if (phone.contains("_")) {
             String regex = convertToPartialRegex(phone);
             Pattern pattern = Pattern.compile(regex);
+            Logger.addRecord("Поиск по номеру телефона: \"" + phone + "\"");
             System.out.println("------------------------------------");
             System.out.println(" Найденные контакты по шаблону телефона \"" + phone + "\"");
             System.out.println("------------------------------------");
@@ -85,9 +96,11 @@ public class PartialSearchContact {
                 }
             }
             System.out.println("Всего найдено: " + count);
+            Logger.addRecord("Всего найдено контактов: " + count);
         } else if (phone.contains("%")) {
             String regex = convertToFullRegex(phone);
             Pattern pattern = Pattern.compile(regex);
+            Logger.addRecord("Поиск по номеру телефона: \"" + phone + "\"");
             System.out.println("------------------------------------");
             System.out.println(" Найденные контакты по шаблону телефона \"" + phone + "\"");
             System.out.println("------------------------------------");
@@ -98,8 +111,10 @@ public class PartialSearchContact {
                 }
             }
             System.out.println("Всего найдено: " + count);
+            Logger.addRecord("Всего найдено контактов: " + count);
         } else {
             System.out.println("По заданному шаблону ничего не найдено");
+            Logger.addRecord("По заданному шаблону ничего не найдено");
         }
     }
 
@@ -118,6 +133,7 @@ public class PartialSearchContact {
         boolean isFound = false;
         int count = 0;
         if (direction.equals("1")) {
+            Logger.addRecord("Поиск по возрасту больше \"" + age + "\"");
             System.out.println("------------------------------------");
             System.out.println(" Найденные контакты по возрасту больше \"" + age + "\"");
             System.out.println("------------------------------------");
@@ -131,11 +147,14 @@ public class PartialSearchContact {
             if (isFound) {
                 System.out.println("Всего найдено: " + count);
                 System.out.println();
+                Logger.addRecord("Всего найдено контактов: " + count);
             } else {
                 System.out.println("По заданным критериям ничего не найдено");
                 System.out.println();
+                Logger.addRecord("По заданным критериям ничего не найдено");
             }
         } else if (direction.equals("2")) {
+            Logger.addRecord("Поиск по возрасту меньше \"" + age + "\"");
             System.out.println("------------------------------------");
             System.out.println(" Найденные контакты по возрасту меньше \"" + age + "\"");
             System.out.println("------------------------------------");
@@ -149,13 +168,16 @@ public class PartialSearchContact {
             if (isFound) {
                 System.out.println("Всего найдено: " + count);
                 System.out.println();
+                Logger.addRecord("Всего найдено контактов: " + count);
             } else {
                 System.out.println("По заданным критериям ничего не найдено");
                 System.out.println();
+                Logger.addRecord("По заданным критериям ничего не найдено");
             }
         } else {
             System.out.println("Неверное значение поиска");
             System.out.println();
+            Logger.addRecord("Неверное значение поиска");
         }
     }
 }

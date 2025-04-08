@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 class Login {
     private String name;
@@ -65,20 +66,37 @@ class Login {
     public static String generateLogin(String name, String surname) {
         return name.substring(0, 2).concat("-").concat(surname);
     }
-//    private static boolean isLoginExists(String login){
-//        try (BufferedReader reader = new BufferedReader(new FileReader(ProgrammPaths.USERS_FILE))){
-//            String line;
-//            while ((line = reader.readLine())!=null){
-//                String[] readedLine = line.split("\\s+");
-//                if (readedLine[2].equals(login)){
-//                    return true;
-//                }
-//            }
-//        }catch (IOException e){
-//            System.out.println("Не удалось прочитать файл пользователей");
-//        }
-//        return false;
-//    }
+
+    public static boolean isLoginExists(String login) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(ProgrammPaths.USERS_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] readedLine = line.split("\\s+");
+                if (readedLine[2].equals(login)) {
+                    System.out.println("Такой логин уже зарегистрирован");
+                    System.out.println();
+                    Logger.addRecord("Такой логин уже зарегистрирован");
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Не удалось прочитать файл пользователей");
+        }
+        return false;
+    }
+
+    public static String manualCreateLogin() {
+        Scanner scanner = new Scanner(System.in);
+        String manualLogin;
+        do {
+            System.out.print("Придумайте и введите свой логин: ");
+            manualLogin = scanner.nextLine().trim();
+            System.out.println();
+        } while (isLoginExists(manualLogin));
+        Logger.addRecord("Ручное создание логина выполнено успешно");
+        return manualLogin;
+    }
+
     @Override
     public String toString() {
         return name + " " + surname + " " + login + " " + password;

@@ -21,21 +21,52 @@ public class Authorization {
         String passwd2 = scanner.nextLine().trim();
 
         if (passwd1.equals(passwd2)) {
-            Login login = new Login(name, surname, Login.generateLogin(name, surname), passwd1); //todo добавить проверок для логина/пароля ?
-            try {
-                LoginFileManager manager = new LoginFileManager();
-                manager.createLoginContacts(login.getLogin());
-                manager.addLogin(login);
-                Logger.addRecord("Регистрация нового пользователя \"" + login.getLogin() + "\" выполнена успешно");
+            Logger.addRecord("Начало генерации нового логина");
+            String userLogin = Login.generateLogin(name, surname);
+            Logger.addRecord("Конец генерации нового логина");
+            if (!Login.isLoginExists(userLogin)) {
+                Login login = new Login(name, surname, userLogin, passwd1);
+                try {
+                    LoginFileManager manager = new LoginFileManager();
+                    manager.createLoginContacts(login.getLogin());
+                    manager.addLogin(login);
+                    Logger.addRecord("Регистрация нового пользователя \"" + login.getLogin() + "\" выполнена успешно");
+                    System.out.println("""
+                            ------------------------------------
+                            |       Вы зарегистрированы!       |
+                            ------------------------------------""");
+                    System.out.println();
+                } catch (IOException e) {
+                    System.out.println("Ошибка, не удалось зарегистрировать нового пользователя: " + e.getMessage());
+                }
+            } else {
                 System.out.println("""
                         ------------------------------------
-                        |       Вы зарегистрированы!       |
+                        |     Не удалось автоматически     |
+                        | сгенерировать логин пользователя.|
+                        |  Найден пользователь с таким же  |
+                        |             логином.             |
+                        |       Необходимо придумать       |
+                        |      свой логин и ввести его     |
                         ------------------------------------""");
                 System.out.println();
-            } catch (IOException e) {
-                System.out.println("Ошибка, не удалось зарегистрировать нового пользователя: " + e.getMessage());
+                Logger.addRecord("Не удалось автоматически сгенерировать логин пользователя. Переход на ручное создание логина.");
+                userLogin = Login.manualCreateLogin();
+                Login login = new Login(name,surname,userLogin,passwd1);
+                try {
+                    LoginFileManager manager = new LoginFileManager();
+                    manager.createLoginContacts(login.getLogin());
+                    manager.addLogin(login);
+                    Logger.addRecord("Регистрация нового пользователя \"" + login.getLogin() + "\" выполнена успешно");
+                    System.out.println("""
+                            ------------------------------------
+                            |       Вы зарегистрированы!       |
+                            ------------------------------------""");
+                    System.out.println();
+                } catch (IOException e) {
+                    System.out.println("Ошибка, не удалось зарегистрировать нового пользователя: " + e.getMessage());
+                }
             }
-
         } else {
             Logger.addRecord("Ошибка регистрации");
             System.out.println("""
@@ -50,15 +81,12 @@ public class Authorization {
     public static void authorization() {
         Login user;
         Session currentSession;
-        //todo раскомментировать и удалить тестовые данные
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите логин: ");
         String login = scanner.nextLine().trim();
         System.out.print("Введите пароль: ");
         String password = scanner.nextLine().trim();
-//        //тестовые данные
-//        String login = "Ди-Тяллев";
-//        String password = "123";
+
         if (LoginFileManager.checkLogin(login, password)) {
             System.out.println("""
                     ------------------------------------
@@ -79,7 +107,7 @@ public class Authorization {
                     |          Попробуйте снова        |
                     ------------------------------------""");
             System.out.println();
-            Logger.addRecord("Неудачная авторизация, неверный логин/пароль или пользователь не существует");
+            Logger.addRecord("Ошибка авторизации: неверный логин/пароль или пользователь не существует");
         }
     }
 }

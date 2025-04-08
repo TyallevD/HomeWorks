@@ -23,8 +23,8 @@ public class ProgrammPaths {
 
         if (!ProgrammPaths.CONTACTS_DIR.exists()) {
             System.out.println(ProgrammPaths.CONTACTS_DIR.mkdir() ? "Папка контактов создана" : "Папка контактов не создана");
-
         }
+
         if (!ProgrammPaths.LOGS_DIR.exists()) {
             System.out.println(ProgrammPaths.LOGS_DIR.mkdir() ? "Папка логов создана" : "Папка логов не создана");
 
@@ -37,6 +37,7 @@ public class ProgrammPaths {
                 System.out.println("Ошибка создания файла users.txt " + e.getMessage());
             }
         }
+
         if (!ProgrammPaths.LOGS_FILE.exists()) {
             try {
                 ProgrammPaths.LOGS_FILE.createNewFile();

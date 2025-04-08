@@ -39,11 +39,13 @@ class ContactFileManager {
     }
 
     public static void viewAllContacts(List<Contact> contactsList) {
+        int count = 0;
         System.out.println("""
                 ------------------------------------
                 |          Ваши контакты           |
                 ------------------------------------""");
         if (contactsList.isEmpty()) {
+            Logger.addRecord("Список контактов пуст");
             System.out.println("""
                     ------------------------------------
                     |       Список контактов пуст      |
@@ -52,7 +54,9 @@ class ContactFileManager {
         }
         for (Contact contact : contactsList) {
             System.out.println(contact);
+            count++;
         }
+        Logger.addRecord("Всего контактов: " + count);
         System.out.println();
     }
 
@@ -61,6 +65,7 @@ class ContactFileManager {
         if (!contactFile.exists()) {
             System.out.println("Файл контактов не найден");
             System.out.println();
+            Logger.addRecord("Ошибка. Файл контактов не найден");
             return;
         }
         List<Contact> contactList = new ArrayList<>();

@@ -11,11 +11,13 @@ public class DeleteContact {
                 userContactList.remove(contact);
                 System.out.println("Контакт с id \"" + id + "\" был удалён");
                 System.out.println();
+                Logger.addRecord("Контакт с id \"" + id + "\" был удалён");
                 return;
             }
         }
         System.out.println("Контакт с id \"" + id + "\" не найден");
         System.out.println();
+        Logger.addRecord("Контакт с id \"" + id + "\" не найден");
     }
 
     public static void deleteContactByName(List<Contact> userContactList, String name) {
@@ -27,11 +29,13 @@ public class DeleteContact {
                     userContactList.remove(contact);
                     System.out.println("Контакт с именем \"" + name + "\" был удалён");
                     System.out.println();
+                    Logger.addRecord("Контакт с именем \"" + name + "\" был удалён");
                     return;
                 }
             }
         } else if (contactCount > 1) {
             System.out.println("Найдено несколько записей с именем \"" + name + "\"");
+            Logger.addRecord("Найдено несколько записей с именем \"" + name + "\"");
             try {
                 System.out.print("Введите id для удаления: ");
                 int contactId = scanner.nextInt();
@@ -41,10 +45,12 @@ public class DeleteContact {
                 System.out.println("Некорректное значение id");
                 System.out.println();
                 scanner.nextLine();
+                Logger.addRecord("Некорректное значение id");
             }
         } else {
             System.out.println("Контакт с именем \"" + name + "\" не найден");
             System.out.println();
+            Logger.addRecord("Контакт с именем \"" + name + "\" не найден");
         }
     }
 
@@ -57,11 +63,13 @@ public class DeleteContact {
                     userContactList.remove(contact);
                     System.out.println("Контакт с фамилией \"" + surname + "\" был удалён");
                     System.out.println();
+                    Logger.addRecord("Контакт с фамилией \"" + surname + "\" был удалён");
                     return;
                 }
             }
         } else if (contactCount > 1) {
             System.out.println("Найдено несколько записей с фамилией \"" + surname + "\"");
+            Logger.addRecord("Найдено несколько записей с фамилией \"" + surname + "\"");
             try {
                 System.out.print("Введите id для удаления: ");
                 int contactId = scanner.nextInt();
@@ -71,10 +79,12 @@ public class DeleteContact {
                 System.out.println("Некорректное значение id");
                 System.out.println();
                 scanner.nextLine();
+                Logger.addRecord("Некорректное значение id");
             }
         } else {
             System.out.println("Контакт с фамилией \"" + surname + "\" не найден");
             System.out.println();
+            Logger.addRecord("Контакт с фамилией \"" + surname + "\" не найден");
         }
     }
 
@@ -87,10 +97,13 @@ public class DeleteContact {
                     userContactList.remove(contact);
                     System.out.println("Контакт с номером телефона \"" + phone + "\" был удалён");
                     System.out.println();
+                    Logger.addRecord("Контакт с номером телефона \"" + phone + "\" был удалён");
+                    return;
                 }
             }
         } else if (contactCount > 1) {
             System.out.println("Найдено несколько записей с номером телефона \"" + phone + "\"");
+            Logger.addRecord("Найдено несколько записей с номером телефона \"" + phone + "\"");
             try {
                 System.out.print("Введите id для удаления: ");
                 int contactId = scanner.nextInt();
@@ -100,10 +113,12 @@ public class DeleteContact {
                 System.out.println("Некорректное значение id");
                 System.out.println();
                 scanner.nextLine();
+                Logger.addRecord("Некорректное значение id");
             }
         } else {
             System.out.println("Контакт с номером телефона \"" + phone + "\" не найден");
             System.out.println();
+            Logger.addRecord("Контакт с номером телефона \"" + phone + "\" не найден");
         }
     }
 }

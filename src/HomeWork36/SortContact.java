@@ -17,6 +17,7 @@ public class SortContact {
                 for (Contact contact : sortedByNameAZ) {
                     System.out.println(contact);
                 }
+                Logger.addRecord("Сортировка по имени (A-Z) выполнена успешно");
                 break;
             }
             case 2: {
@@ -29,6 +30,7 @@ public class SortContact {
                 for (Contact contact : sortedByNameZA) {
                     System.out.println(contact);
                 }
+                Logger.addRecord("Сортировка по имени (Z-A) выполнена успешно");
                 break;
             }
             case 3: {
@@ -41,6 +43,7 @@ public class SortContact {
                 for (Contact contact : sortedBySurnameAZ) {
                     System.out.println(contact);
                 }
+                Logger.addRecord("Сортировка по фамилии (A-Z) выполнена успешно");
                 break;
             }
             case 4: {
@@ -53,6 +56,7 @@ public class SortContact {
                 for (Contact contact : sortedBySurnameZA) {
                     System.out.println(contact);
                 }
+                Logger.addRecord("Сортировка по фамилии (Z-A) выполнена успешно");
                 break;
             }
             case 5: {
@@ -65,6 +69,7 @@ public class SortContact {
                 for (Contact contact : sortedByPhoneForward) {
                     System.out.println(contact);
                 }
+                Logger.addRecord("Сортировка по номеру (0-9) выполнена успешно");
                 break;
             }
             case 6: {
@@ -77,6 +82,7 @@ public class SortContact {
                 for (Contact contact : sortedByPhoneBackward) {
                     System.out.println(contact);
                 }
+                Logger.addRecord("Сортировка по номеру (9-0) выполнена успешно");
                 break;
             }
             case 7: {
@@ -89,6 +95,7 @@ public class SortContact {
                 for (Contact contact : sortedByAgeForward) {
                     System.out.println(contact);
                 }
+                Logger.addRecord("Сортировка по возрасту (0-9) выполнена успешно");
                 break;
             }
             case 8: {
@@ -101,11 +108,13 @@ public class SortContact {
                 for (Contact contact : sortedByAgeBackward) {
                     System.out.println(contact);
                 }
+                Logger.addRecord("Сортировка по возрасту (9-0) выполнена успешно");
                 break;
             }
             default: {
                 System.out.println("Непредвиденная ошибка, попробуйте снова");
                 System.out.println();
+                Logger.addRecord("Непредвиденная ошибка, попробуйте снова");
             }
         }
     }

@@ -17,8 +17,10 @@ public class UpdateContact {
                 }
             }
             System.out.println("Запись обновлена");
+            Logger.addRecord("Запись успешно обновлена");
         } else if (contactCount > 1) {
             System.out.println("Найдено несколько записей с именем \"" + name + "\"");
+            Logger.addRecord("Найдено несколько записей с именем \"" + name + "\". Переход на удаление по id");
             try {
                 System.out.print("Введите id для изменения имени: ");
                 int contactId = scanner.nextInt();
@@ -27,13 +29,16 @@ public class UpdateContact {
                 String newName = scanner.nextLine().trim();
                 updateById(userContactList, contactId, 1, newName);
                 System.out.println("Запись обновлена");
+                Logger.addRecord("Запись успешно обновлена");
             } catch (InputMismatchException e) {
                 System.out.println("Некорректное значение id");
                 System.out.println();
                 scanner.nextLine();
+                Logger.addRecord("Некорректное значение id");
             }
         } else {
             System.out.println("Не удалось изменить контакт: Контакт не найден по имени \"" + name + "\"");
+            Logger.addRecord("Не удалось изменить контакт: Контакт не найден по имени \"" + name + "\"");
         }
 
     }
@@ -50,8 +55,10 @@ public class UpdateContact {
                 }
             }
             System.out.println("Запись обновлена");
+            Logger.addRecord("Запись успешно обновлена");
         } else if (contactCount > 1) {
             System.out.println("Найдено несколько записей с фамилией \"" + surname + "\"");
+            Logger.addRecord("Найдено несколько записей с фамилией \"" + surname + "\". Переход на удаление по id");
             try {
                 System.out.print("Введите id для изменения фамилии: ");
                 int contactId = scanner.nextInt();
@@ -60,13 +67,16 @@ public class UpdateContact {
                 String newSurname = scanner.nextLine().trim();
                 updateById(userContactList, contactId, 2, newSurname);
                 System.out.println("Запись обновлена");
+                Logger.addRecord("Запись успешно обновлена");
             } catch (InputMismatchException e) {
                 System.out.println("Некорректное значение id");
                 System.out.println();
                 scanner.nextLine();
+                Logger.addRecord("Некорректное значение id");
             }
         } else {
             System.out.println("Не удалось изменить контакт: Контакт не найден по фамилии");
+            Logger.addRecord("Не удалось изменить контакт: Контакт не найден по фамилии");
         }
     }
 
@@ -82,8 +92,10 @@ public class UpdateContact {
                 }
             }
             System.out.println("Запись обновлена");
+            Logger.addRecord("Запись успешно обновлена");
         } else if (contactCount > 1) {
             System.out.println("Найдено несколько записей с номером \"" + phone + "\"");
+            Logger.addRecord("Найдено несколько записей с номером \"" + phone + "\". Переход на удаление по id");
             try {
                 System.out.print("Введите id для изменения номера телефона: ");
                 int contactId = scanner.nextInt();
@@ -92,13 +104,16 @@ public class UpdateContact {
                 String newPhone = scanner.nextLine().trim();
                 updateById(userContactList, contactId, 3, newPhone);
                 System.out.println("Запись обновлена");
+                Logger.addRecord("Запись успешно обновлена");
             } catch (InputMismatchException e) {
                 System.out.println("Некорректное значение id");
                 System.out.println();
                 scanner.nextLine();
+                Logger.addRecord("Некорректное значение id");
             }
         } else {
             System.out.println("Не удалось изменить контакт: Контакт не найден по номеру телефона");
+            Logger.addRecord("Не удалось изменить контакт: Контакт не найден по номеру телефона");
         }
     }
 
@@ -114,8 +129,10 @@ public class UpdateContact {
                 }
             }
             System.out.println("Запись обновлена");
+            Logger.addRecord("Запись успешно обновлена");
         } else if (contactCount > 1) {
             System.out.println("Найдено несколько записей с возрастом \"" + age + "\"");
+            Logger.addRecord("Найдено несколько записей с возрастом \"" + age + "\". Переход на удаление по id");
             try {
                 System.out.print("Введите id для изменения возраста: ");
                 int contactId = scanner.nextInt();
@@ -125,13 +142,16 @@ public class UpdateContact {
                 scanner.nextLine();
                 updateById(userContactList, contactId, 4, String.valueOf(newAge));
                 System.out.println("Запись обновлена");
+                Logger.addRecord("Запись успешно обновлена");
             } catch (InputMismatchException e) {
                 System.out.println("Некорректное значение id");
                 System.out.println();
                 scanner.nextLine();
+                Logger.addRecord("Некорректное значение id");
             }
         } else {
             System.out.println("Не удалось изменить контакт: Контакт не найден по возрасту");
+            Logger.addRecord("Не удалось изменить контакт: Контакт не найден по возрасту");
         }
     }
 
@@ -169,6 +189,7 @@ public class UpdateContact {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Ошибка. Некорректное значение возраста");
+                Logger.addRecord("Ошибка. Некорректное значение возраста");
             }
         }
     }

@@ -5,11 +5,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Logger {
-    //логгер должен записывать все действия:
-    //1) запуск программы, остановка программы +
-    //2) авторизация, регистрация
-    //3) добавление, удаление, изменение контактов, сохранение контактов
-    //4) просмотр контактов (отображение всех контактов, поиск контактов, сортировка контактов
     public static void addRecord(String message) {
         LocalDateTime date = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
