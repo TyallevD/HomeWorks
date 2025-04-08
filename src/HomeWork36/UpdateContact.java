@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class UpdateContact {
+class UpdateContact {
     public static void updateContactByName(List<Contact> userContactList, String name) {
         Scanner scanner = new Scanner(System.in);
         int contactCount = SearchContact.searchContactByName(userContactList, name);

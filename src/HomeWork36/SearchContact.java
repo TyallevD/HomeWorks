@@ -2,7 +2,7 @@ package HomeWork36;
 
 import java.util.List;
 
-public class SearchContact {
+class SearchContact {
     public static int searchContactByName(List<Contact> userContactList, String name) {
         boolean isFound = false;
         int count = 0;

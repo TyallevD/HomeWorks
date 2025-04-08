@@ -3,7 +3,7 @@ package HomeWork36;
 import java.io.File;
 import java.io.IOException;
 
-public class ProgrammPaths {
+class ProgrammPaths {
     //    public static final File PROJECT_DIR = new File(System.getProperty("user.dir"));
     //Путь на компе
     public static final File PROJECT_DIR = new File("E:\\Projects\\TopAcademyStudy\\src\\HomeWork36");

@@ -3,7 +3,7 @@ package HomeWork36;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class PartialSearchContact {
+class PartialSearchContact {
     public static void partialSearchByName(List<Contact> userContactList, String name) {
         int count = 0;
         if (name.contains("_")) {

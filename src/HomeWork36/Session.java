@@ -2,7 +2,7 @@ package HomeWork36;
 
 import java.util.List;
 
-public class Session {
+class Session {
     private static String currentLogin;
     private static List<Contact> currentLoginContacts;
 

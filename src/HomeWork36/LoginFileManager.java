@@ -4,7 +4,7 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class LoginFileManager {
+class LoginFileManager {
     public void createLoginContacts(String login) throws IOException {
         Path contactsFilePath = Paths.get(ProgrammPaths.CONTACTS_DIR.getPath());
         File file = new File(contactsFilePath + "/" + login.concat("Contacts.txt"));

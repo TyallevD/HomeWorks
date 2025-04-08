@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class DeleteContact {
+class DeleteContact {
     public static void deleteContactById(List<Contact> userContactList, int id) {
         for (Contact contact : userContactList) {
             if (contact.getId() == id) {
