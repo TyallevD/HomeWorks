@@ -1,11 +1,20 @@
 --✅ 1. Вывести названия всех книг и имена их авторов, отсортированных по имени автора (по возрастанию).
 --Используй: SELECT, JOIN, ORDER BY
+--select Name as 'Название книги', FirstName +' '+LastName as 'Имя автора'
+--from Books
+--join Authors on Books.Id_Author = Authors.id
+--order by FirstName +' '+LastName
 
 --✅ 2. Вывести всех студентов, у которых ещё нет читательских билетов (S_Cards).
 --Используй: LEFT JOIN, WHERE, IS NULL
+--select FirstName +' '+ LastName as 'Студенты без карточки', S_Cards.id as 'ID карточки'
+--from Students
+--left join S_Cards on Students.id = S_Cards.Id_Student
+--where S_Cards.Id is null
 
 --✅ 3. Посчитать, сколько книг издаёт каждое издательство (Press) и отсортировать по убыванию.
 --Используй: JOIN, GROUP BY, COUNT, ORDER BY
+
 
 --✅ 4. Вывести имена и фамилии всех преподавателей, которых нет среди студентов.
 --Используй: EXCEPT
