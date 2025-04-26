@@ -48,9 +48,13 @@ surname NVARCHAR(30) NOT NULL
 CREATE TABLE Departments
 (
 id INT PRIMARY KEY IDENTITY,
-financing MONEY NOT NULL,
+financing MONEY NOT NULL DEFAULT(0),
 name NVARCHAR(100) NOT NULL UNIQUE,
-faculty_id INT NOT NULL
+faculty_id INT NOT NULL,
+
+CONSTRAINT CK_Departments_financing CHECK(financing>=0),
+CONSTRAINT FK_Departments_Faculties FOREIGN KEY (faculty_id)
+REFERENCES Faculties(id)
 );
 
 --3. Факультеты (Faculties)
@@ -72,8 +76,10 @@ faculty_id INT NOT NULL
 CREATE TABLE Faculties
 (
 id INT PRIMARY KEY IDENTITY,
-financing MONEY NOT NULL,
-name NVARCHAR(100) NOT NULL UNIQUE
+financing MONEY NOT NULL DEFAULT(0),
+name NVARCHAR(100) NOT NULL UNIQUE,
+
+CONSTRAINT CK_Faculties_financing CHECK(financing>=0)
 );
 
 --4. Группы (Groups)
@@ -101,6 +107,10 @@ id INT PRIMARY KEY IDENTITY,
 name NVARCHAR(10) NOT NULL UNIQUE,
 year INT NOT NULL,
 department_id INT NOT NULL,
+
+CONSTRAINT CK_Groups_year CHECK(year BETWEEN 1 and 5),
+CONSTRAINT FK_Groups_Departments FOREIGN KEY(department_id)
+REFERENCES Departments(id)
 );
 
 --5. Группы и кураторы (GroupsCurators)
@@ -122,6 +132,11 @@ CREATE TABLE GroupsCurators
 id INT PRIMARY KEY IDENTITY,
 curator_id INT NOT NULL,
 group_id INT NOT NULL,
+
+CONSTRAINT FK_GroupsC_Curators FOREIGN KEY(curator_id)
+REFERENCES Curators(id),
+CONSTRAINT FK_GroupsC_Groups FOREIGN KEY(group_id)
+REFERENCES Groups(id)
 );
 
 --6. Группы и лекции (GroupsLectures)
@@ -142,7 +157,12 @@ CREATE TABLE GroupsLectures
 (
 id INT PRIMARY KEY IDENTITY,
 group_id INT NOT NULL,
-lecture_id INT NOT NULL
+lecture_id INT NOT NULL,
+
+CONSTRAINT FK_GroupsL_Groups FOREIGN KEY (group_id)
+REFERENCES Groups(id),
+CONSTRAINT FK_GroupsL_Lectures FOREIGN KEY (lecture_id)
+REFERENCES Lectures(id)
 );
 
 --7. Лекции (Lectures)
@@ -168,7 +188,12 @@ CREATE TABLE Lectures
 id INT PRIMARY KEY IDENTITY,
 lecture_room NVARCHAR(30) NOT NULL,
 subject_id INT NOT NULL,
-teacher_id INT NOT NULL
+teacher_id INT NOT NULL,
+
+CONSTRAINT FK_Lectures_Subjects FOREIGN KEY (subject_id)
+REFERENCES Subjects(id),
+CONSTRAINT FK_Lectures_Teachers FOREIGN KEY (teacher_id)
+REFERENCES Teachers(id)
 );
 
 --8. Дисциплины (Subjects)
@@ -211,7 +236,9 @@ CREATE TABLE Teachers
 id INT PRIMARY KEY IDENTITY,
 name NVARCHAR(50) NOT NULL,
 surname NVARCHAR(50) NOT NULL,
-salary MONEY NOT NULL
+salary MONEY NOT NULL,
+
+CONSTRAINT CK_Teachers_salary CHECK(salary>0)
 );
 
 --Запросы
