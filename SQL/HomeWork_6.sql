@@ -629,7 +629,7 @@ SELECT Lectures.lecture_room as 'Аудитория', COUNT (Lectures.id) as 'К
 FROM Lectures
 GROUP BY lecture_room;
 
---5. Вывести количество студентов (групп?), посещающих лекции преподавателя “Cherry Dalliwatr”.
+--5. Вывести количество студентов, посещающих лекции преподавателя “Cherry Dalliwatr”.
 SELECT COUNT(*) as 'Количество студентов'
 FROM Students s
 JOIN Groups g ON g.id = s.group_id
@@ -692,4 +692,8 @@ JOIN Lectures l ON l.id = gl.lecture_id
 JOIN Subjects s ON l.subject_id = s.id
 GROUP BY f.name;
 
---13. Вывести количество лекций для каждой пары преподаватель-аудитория. //todo
+--13. Вывести количество лекций для каждой пары преподаватель-аудитория.
+SELECT t.name + ' ' + t.surname AS 'Имя преподавателя', l.lecture_room, COUNT(*) as 'Количество лекций'
+FROM Lectures l
+JOIN Teachers t ON t.id = l.teacher_id
+GROUP BY t.name + ' ' + t.surname, l.lecture_room
