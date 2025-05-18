@@ -579,32 +579,146 @@ insert into Sales (ClientId, StorageId, [Date], Quantity, EmployeeId) values (96
 insert into Sales (ClientId, StorageId, [Date], Quantity, EmployeeId) values (48, 46, '2018-05-17',  10, 16);
 insert into Sales (ClientId, StorageId, [Date], Quantity, EmployeeId) values (54, 14, '2018-12-16',  6, 17);
 
---
+
 --Задание 1: Архивирование удалённых товаров
 --Таблицы: Products, ArchiveProducts
 --Условие:
 --При удалении товара из таблицы Products, информация о нём должна переноситься в ArchiveProducts.
---
---
+
+--создание таблицы, куда будут переноситься удаленные товары
+CREATE TABLE ArchiveProducts
+(
+id INT PRIMARY KEY IDENTITY,
+product_id INT,
+name NVARCHAR(50),
+prime_cost MONEY,
+type_id INT,
+fabricator_id INT,
+cost MONEY
+);
+
+--удаление таблицы
+DROP TABLE ArchiveProducts;
+
+-- todo Создание триггера (есть проблемы, если в sales есть storage_id, то удаление не работает, так же удаление не работает из Products, если есть запись в Storage
+--соответственно эту проблему надо как-то решить более сложным способом
+CREATE TRIGGER ReplaceProductsToArchive
+ON Products
+INSTEAD OF DELETE
+AS
+BEGIN
+	DECLARE @product_id INT = (SELECT id FROM deleted)
+	INSERT INTO ArchiveProducts (product_id,name,prime_cost,type_id,fabricator_id,cost)
+	SELECT Id,Name,PrimeCost,TypeId,FabricatorId,Cost
+	FROM
+	deleted;
+	DELETE FROM Products WHERE id = @product_id;
+END;
+
+--удаление триггера
+DROP TRIGGER ReplaceProductsToArchive
+
+--блок проверки
+SELECT * FROM Products
+select * from Storage
+-- insert into Storage ( 1, 1, 95)
+delete from Storage where id =2;
+delete from Products where id =2;
+
+SELECT * FROM ArchiveProducts;
+
 --Задание 2: Запрет скидки больше 30%
 --Таблица: Clients
 --Условие:
 --Создай триггер, который не позволяет вставлять нового клиента, если значение Discount больше 30.
---
---
+
+--Создание триггера
+CREATE TRIGGER CheckDiscountMore30
+ON Clients
+INSTEAD OF INSERT
+AS
+BEGIN
+	DECLARE @discount FLOAT;
+	SELECT @discount = Discount FROM inserted;
+
+	IF @discount>30
+		PRINT ('Скидка более 30% запрещена политикой компании');
+	ELSE
+		INSERT INTO Clients
+		SELECT FullName, Email, Phone, Gender, Discount, IsSubcribe, DateSubcribe
+		FROM inserted;
+END;
+
+--Удаление триггера
+DROP TRIGGER CheckDiscountMore30;
+
+--проверка триггера
+INSERT INTO Clients
+VALUES ('Егор Скидочный','egor@gmail.com','8-800-555-35-35','Man',45,1,GETDATE());
+
+--корректный вариант вставки
+INSERT INTO Clients
+VALUES ('Егор Нескидочный','egor2@gmail.com','8-800-555-35-35','Man',30,1,GETDATE());
+
 --Задание 3: Логирование обновления зарплаты
 --Таблицы: Employees, EmployeeLog
 --Условие:
 --При обновлении записи в таблице Employees, если изменяется поле Salary, записывать:
---
 --старую зарплату,
---
 --новую зарплату,
---
 --имя сотрудника,
---
 --дату изменения
 --в таблицу EmployeeLog.
+
+--создание таблицы, куда будут вписываться изменения ЗП из Employees
+CREATE TABLE EmployeeLogs
+(
+id INT PRIMARY KEY IDENTITY,
+old_salary MONEY,
+new_salary MONEY,
+employee_full_name NVARCHAR (50),
+salary_change_date DATE
+);
+
+--удаление таблицы
+DROP TABLE EmployeeLogs;
+
+--создание триггера
+CREATE TRIGGER CheckEmployeesSalaryChanging
+ON Employees
+INSTEAD OF UPDATE
+AS
+BEGIN
+	DECLARE @employee_id INT;
+	DECLARE @old_salary MONEY;
+	DECLARE @new_salary MONEY;
+	DECLARE @employee_full_name NVARCHAR(50);
+
+	SELECT @employee_id = id
+	FROM inserted;
+	SELECT @old_salary = Salary
+	FROM deleted;
+	SELECT @new_salary = Salary
+	FROM inserted;
+	SELECT @employee_full_name = FullName
+	FROM inserted;
+
+	INSERT INTO EmployeeLogs
+	VALUES (@old_salary,@new_salary,@employee_full_name,GETDATE())
+
+	UPDATE Employees
+	SET Salary = @new_salary
+	WHERE Employees.id = @employee_id;
+END;
+
+--проверка триггера
+UPDATE Employees
+SET Salary = 500.00
+WHERE Employees.Id = 1;
+
+--проверка, что запись попала в новую таблицу
+SELECT *
+FROM EmployeeLogs;
 
 
 
