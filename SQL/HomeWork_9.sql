@@ -585,20 +585,41 @@ insert into Sales (ClientId, StorageId, [Date], Quantity, EmployeeId) values (54
 --Условие:
 --При удалении товара из таблицы Products, информация о нём должна переноситься в ArchiveProducts.
 
+--При выполнении задания возникли проблемы, т.к. удаление товаров из Products возможен только после очистки данных по этому товару из Storage, Sales, History
+-- из Storage удаление оправдано, т.к. допустим это склад, если у нас больше нет товара - то на складе его тоже не должно быть
+-- из Sales (продаж) можно перенести данные к примеру в ArchiveSales, что будет как бы историей прода
+-- соответственно таков порядок удаления данных из таблиц:
+--DELETE FROM Sales
+--DELETE FROM Storage
+--DELETE FROM History
+--DELETE FROM Products
 --создание таблицы, куда будут переноситься удаленные товары
 CREATE TABLE ArchiveProducts
 (
 id INT PRIMARY KEY IDENTITY,
-product_id INT,
-name NVARCHAR(50),
-prime_cost MONEY,
-type_id INT,
-fabricator_id INT,
-cost MONEY
+product_id INT NOT NULL,
+name NVARCHAR(50) NOT NULL,
+prime_cost MONEY NOT NULL,
+type_id INT NOT NULL,
+fabricator_id INT NOT NULL,
+cost MONEY NOT NULL
+);
+
+--создание таблицы, куда будут переноситься устаревшие продажи
+CREATE TABLE ArchiveSales
+(
+id INT PRIMARY KEY IDENTITY,
+sale_id INT NOT NULL,
+quantity INT NOT NULL,
+sale_date DATE NOT NULL,
+employee_id INT NOT NULL,
+client_id INT NOT NULL,
+storage_id INT NOT NULL
 );
 
 --удаление таблицы
 DROP TABLE ArchiveProducts;
+DROP TABLE ArchiveSales;
 
 -- todo Создание триггера (есть проблемы, если в sales есть storage_id, то удаление не работает, так же удаление не работает из Products, если есть запись в Storage
 --соответственно эту проблему надо как-то решить более сложным способом
