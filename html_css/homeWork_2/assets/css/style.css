@@ -1,6 +1,6 @@
 /* TASK 1 */
 .task1__list {
-    border-left: 5px  solid #f5f9f8;
+    border-left: 5px solid #f5f9f8;
     border-top: 2px solid #f5f9f8;
     border-right: 5px solid #f5f9f8;
     border-bottom: 2px solid #f5f9f8;
@@ -11,65 +11,73 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.task1__list__element{
+.task1__list__element {
     background-color: #c66376;
     color: #fff;
     margin: 10px 15px;
-    padding:5px 10px;
+    padding: 5px 10px;
 }
 
-.task1__text{
+.task1__text {
     background-color: #9d3449;
     margin-left: 5px;
     padding: 5px 10px;
 }
 
 /* TASK 2 */
-.task2__background{
+.task2__background {
     background-color: #f5f5f5;
     margin: 0px 65% 0px 0px;
     padding: 0px 10px 10px 10px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
 }
 
-.task2__h2{
+.task2__h2 {
     margin: 0px;
     padding: 5px 0px 10px 10px;
     text-transform: capitalize;
 }
 
-.task2__list{
+.task2__list {
     margin: 5px 10px 10px 10px;
     padding: 0px;
     list-style-position: inside;
 }
 
-.task2__list_element_unchecked_odd{
+.task2__list_element_unchecked_odd {
     padding: 10px 0px 10px 15px;
     background-color: #a5ccda;
     list-style-image: url(../img/unchecked_16.png);
 }
 
-.task2__list_element_checked{
-    padding: 10px 0px 10px 15px;
-    background-color: #e2e2e2;
-    list-style-image: url(../img/checked_16.png);
-    text-decoration: line-through;
-}
-
-.task2__list_element_unchecked_even{
+.task2__list_element_unchecked_even {
     padding: 10px 0px 10px 15px;
     background-color: #add8e6;
     list-style-image: url(../img/unchecked_16.png);
 }
-.task2__text{
+
+.task2__list_element_checked {
+    padding: 10px 0px 10px 15px;
+    background-color: #e2e2e2;
+    list-style-image: url(../img/checked_16.png);
+}
+
+.task2__text_checked {
+    padding-left: 10px;
+    text-decoration: line-through;
+}
+
+.task2__text_unchecked {
     padding-left: 10px;
 }
 
-.task2__cross{
-    margin-left: 10px;
-    font-weight: 700;
-    color: red;
-    
+.task2__cross {
+    margin-left: 30px;
+    color: #880308;
+}
+
+/* TASK_3 */
+
+.task3__background {
+    background-color: #f5f5f5;
 }
