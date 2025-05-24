@@ -586,13 +586,11 @@ insert into Sales (ClientId, StorageId, [Date], Quantity, EmployeeId) values (54
 --При удалении товара из таблицы Products, информация о нём должна переноситься в ArchiveProducts.
 
 --При выполнении задания возникли проблемы, т.к. удаление товаров из Products возможен только после очистки данных по этому товару из Storage, Sales, History
--- из Storage удаление оправдано, т.к. допустим это склад, если у нас больше нет товара - то на складе его тоже не должно быть
--- из Sales (продаж) можно перенести данные к примеру в ArchiveSales, что будет как бы историей прода
--- соответственно таков порядок удаления данных из таблиц:
---DELETE FROM Sales
---DELETE FROM Storage
---DELETE FROM History
---DELETE FROM Products
+-- 1) из Storage (Склад) удаление оправдано, т.к. допустим это склад, если у нас больше нет товара - то на складе его тоже не должно быть,
+-- поэтому удаление полное и не переносится в другую таблицу
+-- 2) из Sales (продаж) можно перенести данные к примеру в ArchiveSales
+-- 3) из History (истории продаж) так же данные переносятся в ArchiveHistory
+
 --создание таблицы, куда будут переноситься удаленные товары
 CREATE TABLE ArchiveProducts
 (
@@ -617,36 +615,100 @@ client_id INT NOT NULL,
 storage_id INT NOT NULL
 );
 
---удаление таблицы
-DROP TABLE ArchiveProducts;
-DROP TABLE ArchiveSales;
+--создание таблицы с архивной историей продаж
+CREATE TABLE ArchiveHistory
+(
+id INT PRIMARY KEY IDENTITY,
+history_id INT NOT NULL,
+client_id INT NOT NULL,
+product_id INT NOT NULL,
+history_date DATE NOT NULL
+);
 
--- todo Создание триггера (есть проблемы, если в sales есть storage_id, то удаление не работает, так же удаление не работает из Products, если есть запись в Storage
---соответственно эту проблему надо как-то решить более сложным способом
+--удаление таблиц
+--DROP TABLE ArchiveProducts;
+--DROP TABLE ArchiveSales;
+--DROP TABLE ArchiveHistory;
+
+--1) Триггер для переноса продаж (Sales) в архивные продажи (ArchiveSales)
+CREATE TRIGGER ReplaceSalesToArchive
+ON Sales
+INSTEAD OF DELETE
+AS
+BEGIN
+	DECLARE @storage_id INT = (SELECT DISTINCT StorageId FROM deleted);
+
+	INSERT INTO ArchiveSales (sale_id, quantity, sale_date,employee_id,client_id,storage_id)
+	SELECT Id, Quantity, Date, EmployeeId,ClientId,StorageId
+	FROM
+	deleted;
+
+	DELETE FROM Sales WHERE StorageId = @storage_id;
+END;
+
+--Удаление триггера
+--DROP TRIGGER ReplaceSalesToArchive
+
+--Создание триггера для удаления данных со склада (Storage), удаление происходит полностью, т.к. смысла нет в архивном складе, товар на складе либо есть либо его нет.
+CREATE TRIGGER DeleteFromStorage
+ON Storage
+INSTEAD OF DELETE
+AS
+BEGIN
+	DECLARE @storage_id INT = (SELECT Id FROM deleted);
+
+	DELETE FROM Sales WHERE Sales.StorageId = @storage_id;
+	DELETE FROM Storage WHERE Storage.Id = @storage_id;
+END;
+
+--DROP TRIGGER DeleteFromStorage;
+
+--Создание триггера на перенос истории (History) в архивную историю (ArchiveHistory)
+CREATE TRIGGER ReplaceHistoryToArchiveHistory
+ON History
+INSTEAD OF DELETE
+AS
+BEGIN
+	DECLARE @product_id INT = (SELECT DISTINCT ProductId FROM deleted);
+
+	INSERT INTO ArchiveHistory (history_id, client_id, product_id, history_date)
+	SELECT Id, ClientId, ProductId, Date
+	FROM
+	deleted;
+
+	DELETE FROM History WHERE History.ProductId = @product_id;
+END;
+
+--Удаление триггера
+--DROP TRIGGER ReplaceHistoryToArchiveHistory;
+
+--Создание основного триггера для переноса продуктов (Products) в архивные продукты (ArchiveProducts)
+--Перенос продукта будет осуществляться под одному, т.к. для очистки Products нужно почистить Историю (History), склад (Storage),
+--а в свою очередь Склад можно почистить, если почистить продажи (Sales) и перенести их в архивные продажи (ArchiveSales)
 CREATE TRIGGER ReplaceProductsToArchive
 ON Products
 INSTEAD OF DELETE
 AS
 BEGIN
-	DECLARE @product_id INT = (SELECT id FROM deleted)
+	DECLARE @product_id INT = (SELECT id FROM deleted);
+	DECLARE @storage_id INT = (SELECT Id FROM Storage WHERE Storage.ProductId = @product_id);
+
 	INSERT INTO ArchiveProducts (product_id,name,prime_cost,type_id,fabricator_id,cost)
 	SELECT Id,Name,PrimeCost,TypeId,FabricatorId,Cost
 	FROM
 	deleted;
+
+	DELETE FROM Sales WHERE Sales.StorageId = @storage_id;
+	DELETE FROM Storage WHERE Storage.ProductID = @product_id;
+	DELETE FROM History WHERE History.ProductId = @product_id;
 	DELETE FROM Products WHERE id = @product_id;
 END;
 
 --удаление триггера
-DROP TRIGGER ReplaceProductsToArchive
+--DROP TRIGGER ReplaceProductsToArchive;
 
---блок проверки
-SELECT * FROM Products
-select * from Storage
--- insert into Storage ( 1, 1, 95)
-delete from Storage where id =2;
-delete from Products where id =2;
-
-SELECT * FROM ArchiveProducts;
+--Проверка работы триггера на товаре, информация о котором есть во всех указанных таблицах:
+DELETE FROM Products WHERE Id = 43;
 
 --Задание 2: Запрет скидки больше 30%
 --Таблица: Clients
