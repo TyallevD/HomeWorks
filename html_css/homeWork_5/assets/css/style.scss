@@ -1,0 +1,237 @@
+$text-color: #6c757d;
+$lines-color: #f8f9fa;
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+// Настройка хедера
+.header {
+    background-color: #1b5589;
+    display: flex;
+    height: 70px;
+
+    .left {
+        display: flex;
+        width: 80%;
+
+        a {
+            margin: 0px 15px;
+            display: flex;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: $text-color;
+        }
+
+        .active {
+            color: white;
+        }
+
+        a:hover {
+            color: white;
+        }
+    }
+
+    .right {
+        width: 20%;
+        display: flex;
+        justify-content: flex-end;
+
+        img {
+            display: flex;
+            margin: 5px 50px;
+        }
+    }
+}
+
+// страница Home
+.home-container {
+    height: auto;
+    display: flex;
+    padding: 0px 30px;
+    flex-wrap: wrap;
+    color: $text-color;
+
+    .title {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        color: $text-color;
+        border-bottom: 2px solid $lines-color;
+    }
+
+    // левый блок 
+    .home-left {
+        display: flex;
+        width: 50%;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        h2 {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .news-container{
+            width: 90%;
+            border: 5px solid $lines-color;
+            border-radius: 10px;
+            hr {
+                border: 2px solid $lines-color;
+            }
+        .news-box {
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+            .img-box {
+                display: flex;
+                width: 20%;
+                height: 100%;
+                align-content: center;
+                justify-content: center;
+                img {
+                    margin: 20px 0px;
+                    height: 120px;
+                    width: 120px;
+                }
+            }
+
+            .content-box {
+                display: flex;
+                flex-wrap: wrap;
+                width: 80%;
+                // тут надо подумать над растягиванием второй новости на весь блок
+                .news-head {
+                    display: flex;
+                    width: 100%;
+                    height: 30%;
+
+                    .news-title {
+                        width: 70%;
+                        display: flex;
+                        align-content: start;
+                        justify-content: start;
+                        margin: 20px;
+                    }
+
+                    .news-date {
+                        width: 30%;
+                        display: flex;
+                        align-content: end;
+                        justify-content: end;
+                        margin: 20px 30px;
+                    }
+                }
+
+                .news-content {
+                    display: flex;
+                    width: 100%;
+                    height: 50%;
+                    margin: 20px 20px;
+
+                    p {
+                        margin: 0px;
+                    }
+                }
+            }
+
+            .content-box-without-img{
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                .news-head {
+                    display: flex;
+                    width: 100%;
+                    height: 30%;
+
+                    .news-title {
+                        width: 70%;
+                        display: flex;
+                        align-content: start;
+                        justify-content: start;
+                        margin: 20px;
+                    }
+
+                    .news-date {
+                        width: 30%;
+                        display: flex;
+                        align-content: end;
+                        justify-content: end;
+                        margin: 20px 30px;
+                    }
+                }
+
+                .news-content {
+                    display: flex;
+                    width: 100%;
+                    height: 50%;
+                    margin: 20px 20px;
+
+                    p {
+                        margin: 0px;
+                    }
+                }
+            }
+        }
+}
+        .more-button {
+            width: 90%;
+            margin: 20px;
+
+            input {
+                width: 100%;
+                height: 40px;
+                color: $text-color;
+                text-transform: capitalize;
+                background-color: #f8f9fa;
+                border: none;
+                border-radius: 5px;
+            }
+
+            input:hover {
+                background-color: #6c757d;
+                border-color: #6c757d;
+                color: white;
+            }
+        }
+    }
+
+    // правый блок
+    .home-right {
+        display: flex;
+        width: 50%;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        h2 {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        // тут блок с наградами
+        .more-button {
+            width: 90%;
+            margin: 30px;
+
+            input {
+                width: 100%;
+                height: 40px;
+                color: $text-color;
+                text-transform: capitalize;
+                background-color: #f8f9fa;
+                border: none;
+                border-radius: 5px;
+            }
+
+            input:hover {
+                background-color: #6c757d;
+                border-color: #6c757d;
+                color: white;
+            }
+        }
+    }
+}

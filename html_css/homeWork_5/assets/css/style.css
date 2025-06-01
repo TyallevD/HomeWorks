@@ -1,0 +1,203 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  background-color: #1b5589;
+  display: flex;
+  height: 70px;
+}
+.header .left {
+  display: flex;
+  width: 80%;
+}
+.header .left a {
+  margin: 0px 15px;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #6c757d;
+}
+.header .left .active {
+  color: white;
+}
+.header .left a:hover {
+  color: white;
+}
+.header .right {
+  width: 20%;
+  display: flex;
+  justify-content: flex-end;
+}
+.header .right img {
+  display: flex;
+  margin: 5px 50px;
+}
+
+.home-container {
+  height: auto;
+  display: flex;
+  padding: 0px 30px;
+  flex-wrap: wrap;
+  color: #6c757d;
+}
+.home-container .title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: #6c757d;
+  border-bottom: 2px solid #f8f9fa;
+}
+.home-container .home-left {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.home-container .home-left h2 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.home-container .home-left .news-container {
+  width: 90%;
+  border: 5px solid #f8f9fa;
+  border-radius: 10px;
+}
+.home-container .home-left .news-container hr {
+  border: 2px solid #f8f9fa;
+}
+.home-container .home-left .news-container .news-box {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.home-container .home-left .news-container .news-box .img-box {
+  display: flex;
+  width: 20%;
+  height: 100%;
+  align-content: center;
+  justify-content: center;
+}
+.home-container .home-left .news-container .news-box .img-box img {
+  margin: 20px 0px;
+  height: 120px;
+  width: 120px;
+}
+.home-container .home-left .news-container .news-box .content-box {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+}
+.home-container .home-left .news-container .news-box .content-box .news-head {
+  display: flex;
+  width: 100%;
+  height: 30%;
+}
+.home-container .home-left .news-container .news-box .content-box .news-head .news-title {
+  width: 70%;
+  display: flex;
+  align-content: start;
+  justify-content: start;
+  margin: 20px;
+}
+.home-container .home-left .news-container .news-box .content-box .news-head .news-date {
+  width: 30%;
+  display: flex;
+  align-content: end;
+  justify-content: end;
+  margin: 20px 30px;
+}
+.home-container .home-left .news-container .news-box .content-box .news-content {
+  display: flex;
+  width: 100%;
+  height: 50%;
+  margin: 20px 20px;
+}
+.home-container .home-left .news-container .news-box .content-box .news-content p {
+  margin: 0px;
+}
+.home-container .home-left .news-container .news-box .content-box-without-img {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.home-container .home-left .news-container .news-box .content-box-without-img .news-head {
+  display: flex;
+  width: 100%;
+  height: 30%;
+}
+.home-container .home-left .news-container .news-box .content-box-without-img .news-head .news-title {
+  width: 70%;
+  display: flex;
+  align-content: start;
+  justify-content: start;
+  margin: 20px;
+}
+.home-container .home-left .news-container .news-box .content-box-without-img .news-head .news-date {
+  width: 30%;
+  display: flex;
+  align-content: end;
+  justify-content: end;
+  margin: 20px 30px;
+}
+.home-container .home-left .news-container .news-box .content-box-without-img .news-content {
+  display: flex;
+  width: 100%;
+  height: 50%;
+  margin: 20px 20px;
+}
+.home-container .home-left .news-container .news-box .content-box-without-img .news-content p {
+  margin: 0px;
+}
+.home-container .home-left .more-button {
+  width: 90%;
+  margin: 20px;
+}
+.home-container .home-left .more-button input {
+  width: 100%;
+  height: 40px;
+  color: #6c757d;
+  text-transform: capitalize;
+  background-color: #f8f9fa;
+  border: none;
+  border-radius: 5px;
+}
+.home-container .home-left .more-button input:hover {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: white;
+}
+.home-container .home-right {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.home-container .home-right h2 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.home-container .home-right .more-button {
+  width: 90%;
+  margin: 30px;
+}
+.home-container .home-right .more-button input {
+  width: 100%;
+  height: 40px;
+  color: #6c757d;
+  text-transform: capitalize;
+  background-color: #f8f9fa;
+  border: none;
+  border-radius: 5px;
+}
+.home-container .home-right .more-button input:hover {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: white;
+}/*# sourceMappingURL=style.css.map */
