@@ -89,9 +89,9 @@ body {
   width: 120px;
 }
 .home-container .home-left .news-container .news-box .content-box {
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
-  width: 80%;
 }
 .home-container .home-left .news-container .news-box .content-box .news-head {
   display: flex;
@@ -116,7 +116,7 @@ body {
   display: flex;
   width: 100%;
   height: 50%;
-  margin: 20px 20px;
+  margin: 0px 40px 20px 20px;
 }
 .home-container .home-left .news-container .news-box .content-box .news-content p {
   margin: 0px;
@@ -136,7 +136,7 @@ body {
   display: flex;
   align-content: start;
   justify-content: start;
-  margin: 20px;
+  margin: 20px 20px 28px 20px;
 }
 .home-container .home-left .news-container .news-box .content-box-without-img .news-head .news-date {
   width: 30%;
@@ -149,7 +149,7 @@ body {
   display: flex;
   width: 100%;
   height: 50%;
-  margin: 20px 20px;
+  margin: 10px 40px 20px 20px;
 }
 .home-container .home-left .news-container .news-box .content-box-without-img .news-content p {
   margin: 0px;
@@ -183,6 +183,146 @@ body {
   display: flex;
   justify-content: center;
 }
+.home-container .home-right .rewards-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.home-container .home-right .rewards-container ul {
+  list-style: none;
+  padding: 0px;
+  width: 100%;
+}
+.home-container .home-right .rewards-container ul li:nth-child(odd) {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.home-container .home-right .rewards-container ul li:nth-child(odd) .reward {
+  display: inline-flex;
+  align-content: center;
+  justify-content: center;
+  padding: 4px;
+  margin: 10px 56px 10px 0px;
+  border: 3px solid #f8f9fa;
+  border-right: transparent;
+  border-radius: 8px;
+  position: relative;
+}
+.home-container .home-right .rewards-container ul li:nth-child(odd) .reward .arrow {
+  height: 18px;
+  width: 18px;
+  border: 2px solid #f8f9fa;
+  border-bottom: transparent;
+  border-left: transparent;
+  transform: rotate(45deg);
+  position: absolute;
+  right: -9px;
+}
+.home-container .home-right .rewards-container ul li:nth-child(odd) .reward-date {
+  display: inline-flex;
+  border: 3px solid #f8f9fa;
+  padding: 4px;
+  align-content: center;
+  margin: 10px 0px 10px 24px;
+  border-left: transparent;
+  border-radius: 8px;
+  position: relative;
+}
+.home-container .home-right .rewards-container ul li:nth-child(odd) .reward-date .arrow {
+  height: 18px;
+  width: 18px;
+  border: 2px solid #f8f9fa;
+  border-top: transparent;
+  border-right: transparent;
+  transform: rotate(45deg);
+  position: absolute;
+  left: -8px;
+}
+.home-container .home-right .rewards-container ul li:nth-child(odd) .reward-img-container {
+  align-content: center;
+  margin: 10px 0px;
+  position: relative;
+  height: 30px;
+  width: 30px;
+}
+.home-container .home-right .rewards-container ul li:nth-child(odd) .reward-img-container img {
+  width: 100%;
+}
+.home-container .home-right .rewards-container ul li:nth-child(odd) .reward-img-container .img-text {
+  position: absolute;
+  top: 0%;
+  right: 100%;
+  font-size: 24px;
+  font-weight: 700;
+  align-content: center;
+}
+.home-container .home-right .rewards-container ul li:nth-child(even) {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: row-reverse;
+}
+.home-container .home-right .rewards-container ul li:nth-child(even) .reward {
+  display: inline-flex;
+  align-content: center;
+  justify-content: center;
+  padding: 4px;
+  margin: 10px 0px 10px 24px;
+  border: 3px solid #f8f9fa;
+  border-left: transparent;
+  border-radius: 8px;
+  position: relative;
+}
+.home-container .home-right .rewards-container ul li:nth-child(even) .reward .arrow {
+  height: 18px;
+  width: 18px;
+  border: 2px solid #f8f9fa;
+  border-top: transparent;
+  border-right: transparent;
+  transform: rotate(45deg);
+  position: absolute;
+  left: -9px;
+}
+.home-container .home-right .rewards-container ul li:nth-child(even) .reward-date {
+  display: inline-flex;
+  border: 3px solid #f8f9fa;
+  padding: 4px;
+  align-content: center;
+  margin: 10px 56px;
+  border-right: transparent;
+  border-radius: 8px;
+  position: relative;
+}
+.home-container .home-right .rewards-container ul li:nth-child(even) .reward-date .arrow {
+  height: 18px;
+  width: 18px;
+  border: 2px solid #f8f9fa;
+  border-bottom: transparent;
+  border-left: transparent;
+  transform: rotate(45deg);
+  position: absolute;
+  right: -8px;
+}
+.home-container .home-right .rewards-container ul li:nth-child(even) .reward-img-container {
+  align-content: center;
+  justify-content: center;
+  margin: 10px 0px;
+  position: relative;
+  height: 30px;
+  width: 30px;
+}
+.home-container .home-right .rewards-container ul li:nth-child(even) .reward-img-container img {
+  width: 100%;
+}
+.home-container .home-right .rewards-container ul li:nth-child(even) .reward-img-container .img-text {
+  position: absolute;
+  top: 0%;
+  right: 100%;
+  font-size: 24px;
+  font-weight: 700;
+  align-content: center;
+}
 .home-container .home-right .more-button {
   width: 90%;
   margin: 30px;
@@ -200,4 +340,10 @@ body {
   background-color: #6c757d;
   border-color: #6c757d;
   color: white;
+}
+
+* {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }/*# sourceMappingURL=style.css.map */
