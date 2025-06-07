@@ -1,0 +1,810 @@
+$text-color: #7e8183;
+$lines-color: #e5e5e7;
+$current-color: #eeecec;
+$reveiewed-color: #6fd084;
+$under-reveiew-color: #37b0c1;
+$overdue-color: #f98691;
+
+* {
+    user-select: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+// Настройка хедера
+.header {
+    background-color: #1b5589;
+    display: flex;
+    height: 70px;
+
+    .left {
+        display: flex;
+        width: 80%;
+        padding-left: 30px;
+        a {
+            margin: 0px 15px;
+            display: flex;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: $text-color;
+        }
+
+        .active {
+            color: white;
+        }
+
+        a:hover {
+            color: white;
+        }
+    }
+
+    .right {
+        padding-right: 30px;
+        width: 20%;
+        display: flex;
+        justify-content: flex-end;
+
+        img {
+            display: flex;
+            margin: 5px 50px;
+        }
+    }
+}
+
+// страница Home
+.home-container {
+    height: auto;
+    display: flex;
+    padding: 0px 30px;
+    flex-wrap: wrap;
+    color: $text-color;
+
+    .title {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        color: $text-color;
+        border-bottom: 2px solid $lines-color;
+
+        h1 {
+            font-weight: normal;
+        }
+    }
+
+    // левый блок Home
+    .home-left {
+        display: flex;
+        width: 50%;
+        justify-content: center;
+        flex-wrap: wrap;
+        min-width: 500px;
+
+        h2 {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .news-container {
+            width: 90%;
+            border: 5px solid $lines-color;
+            border-radius: 10px;
+
+            hr {
+                border: 2px solid $lines-color;
+            }
+
+            .news-box {
+                display: flex;
+                width: 100%;
+                flex-wrap: wrap;
+
+                .img-box {
+                    display: flex;
+                    width: 20%;
+                    height: 100%;
+                    align-content: center;
+                    justify-content: center;
+
+                    img {
+                        margin: 20px 20px;
+                        height: 120px;
+                        width: 120px;
+                        min-width: 70%;
+                    }
+                }
+
+                .content-box {
+                    width: 80%;
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    .news-head {
+                        display: flex;
+                        width: 100%;
+                        height: 30%;
+
+                        .news-title {
+                            width: 70%;
+                            display: flex;
+                            align-content: start;
+                            justify-content: start;
+                            margin: 20px;
+                            min-width: 60%;
+                        }
+
+                        .news-date {
+                            width: 30%;
+                            display: flex;
+                            align-content: end;
+                            justify-content: end;
+                            margin: 20px 30px;
+                            min-width: 10%;
+                        }
+                    }
+
+                    .news-content {
+                        display: flex;
+                        width: 100%;
+                        height: 50%;
+                        margin: 20px 40px 20px 20px;
+
+                        p {
+                            margin: 0px;
+                        }
+                    }
+                }
+
+                .content-box-without-img {
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    .news-head {
+                        display: flex;
+                        width: 100%;
+                        height: 30%;
+
+                        .news-title {
+                            width: 70%;
+                            display: flex;
+                            align-content: start;
+                            justify-content: start;
+                            margin: 20px 20px 28px 20px;
+                        }
+
+                        .news-date {
+                            width: 30%;
+                            display: flex;
+                            align-content: end;
+                            justify-content: end;
+                            margin: 20px 30px;
+                        }
+                    }
+
+                    .news-content {
+                        display: flex;
+                        width: 100%;
+                        height: 50%;
+                        margin: 10px 40px 20px 20px;
+
+                        p {
+                            margin: 0px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .more-button {
+            width: 90%;
+            margin: 20px;
+
+            input {
+                width: 100%;
+                height: 40px;
+                color: $text-color;
+                text-transform: capitalize;
+                background-color: $lines-color;
+                border: none;
+                border-radius: 5px;
+            }
+
+            input:hover {
+                background-color: #6c757d;
+                border-color: #6c757d;
+                color: white;
+            }
+        }
+    }
+
+    // правый блок Home
+    .home-right {
+        display: flex;
+        width: 50%;
+        justify-content: center;
+        flex-wrap: wrap;
+        min-width: 500px;
+
+        h2 {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        // блок с наградами
+        .rewards-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            ul {
+                list-style: none;
+                padding: 0px;
+                width: 100%;
+
+                li:nth-child(odd) {
+                    display: flex;
+                    align-content: center;
+                    justify-content: center;
+
+                    .reward {
+                        display: inline-flex;
+                        align-content: center;
+                        justify-content: center;
+                        padding: 4px;
+                        margin: 10px 56px 10px 0px;
+                        border: 3px solid $lines-color;
+                        border-right: transparent;
+                        border-radius: 8px;
+                        position: relative;
+
+                        .arrow {
+                            height: 18px;
+                            width: 18px;
+                            border: 2px solid $lines-color;
+                            border-bottom: transparent;
+                            border-left: transparent;
+                            transform: rotate(45deg);
+                            position: absolute;
+                            right: -9px;
+                        }
+
+                    }
+
+                    .reward-date {
+                        display: inline-flex;
+                        border: 3px solid $lines-color;
+                        padding: 4px;
+                        align-content: center;
+                        margin: 10px 0px 10px 24px;
+                        border-left: transparent;
+                        border-radius: 8px;
+                        position: relative;
+
+                        .arrow {
+                            height: 18px;
+                            width: 18px;
+                            border: 2px solid $lines-color;
+                            border-top: transparent;
+                            border-right: transparent;
+                            transform: rotate(45deg);
+                            position: absolute;
+                            left: -8px;
+                        }
+                    }
+
+                    .reward-img-container {
+                        align-content: center;
+                        margin: 10px 0px;
+                        position: relative;
+                        height: 30px;
+                        width: 30px;
+
+                        img {
+                            width: 100%;
+                        }
+
+                        .img-text {
+                            position: absolute;
+                            top: 0%;
+                            right: 100%;
+                            font-size: 24px;
+                            font-weight: 700;
+                            align-content: center;
+                        }
+                    }
+                }
+
+                li:nth-child(even) {
+                    display: flex;
+                    align-content: center;
+                    justify-content: center;
+                    flex-direction: row-reverse;
+
+                    .reward {
+                        display: inline-flex;
+                        align-content: center;
+                        justify-content: center;
+                        padding: 4px;
+                        margin: 10px 0px 10px 24px;
+                        border: 3px solid $lines-color;
+                        border-left: transparent;
+                        border-radius: 8px;
+                        position: relative;
+
+                        .arrow {
+                            height: 18px;
+                            width: 18px;
+                            border: 2px solid $lines-color;
+                            border-top: transparent;
+                            border-right: transparent;
+                            transform: rotate(45deg);
+                            position: absolute;
+                            left: -9px;
+
+                        }
+
+                    }
+
+                    .reward-date {
+                        display: inline-flex;
+                        border: 3px solid $lines-color;
+                        padding: 4px;
+                        align-content: center;
+                        margin: 10px 56px;
+                        border-right: transparent;
+                        border-radius: 8px;
+                        position: relative;
+
+                        .arrow {
+                            height: 18px;
+                            width: 18px;
+                            border: 2px solid $lines-color;
+                            border-bottom: transparent;
+                            border-left: transparent;
+                            transform: rotate(45deg);
+                            position: absolute;
+                            right: -8px;
+                        }
+
+                    }
+
+                    .reward-img-container {
+                        align-content: center;
+                        justify-content: center;
+                        margin: 10px 0px;
+                        position: relative;
+                        height: 30px;
+                        width: 30px;
+
+                        img {
+                            width: 100%;
+                        }
+
+                        .img-text {
+                            position: absolute;
+                            top: 0%;
+                            right: 100%;
+                            font-size: 24px;
+                            font-weight: 700;
+                            align-content: center;
+                        }
+                    }
+                }
+            }
+        }
+
+        .more-button {
+            width: 90%;
+            margin: 30px;
+
+            input {
+                width: 100%;
+                height: 40px;
+                color: $text-color;
+                text-transform: capitalize;
+                background-color: $lines-color;
+                border: none;
+                border-radius: 5px;
+            }
+
+            input:hover {
+                background-color: #6c757d;
+                border-color: #6c757d;
+                color: white;
+            }
+        }
+    }
+}
+
+@media (max-width:1050px) {
+    .home-left {
+        width: 100% !important;
+    }
+
+    .home-right {
+        width: 100% !important;
+    }
+}
+
+// страница Homework
+.homework-container {
+    display: flex;
+    padding: 0px 50px;
+    flex-wrap: wrap;
+    color: $text-color;
+
+    .homework-title {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        width: 100%;
+        height: 130px;
+        border-bottom: 2px solid $lines-color;
+
+        h1 {
+            font-weight: normal;
+        }
+
+        .subject-block {
+            display: flex;
+            width: 33%;
+            height: 100%;
+            align-items: end;
+            justify-content: start;
+            border-bottom: 2px solid $lines-color;
+
+            h2 {
+                margin: 5px;
+                font-weight: normal;
+            }
+        }
+
+        .title-block {
+            display: flex;
+            width: 33%;
+            height: 100%;
+            align-items: start;
+            justify-content: center;
+
+            h2 {
+                margin: 20px;
+                font-weight: normal;
+            }
+        }
+
+        .legend-block {
+            display: flex;
+            width: 33%;
+            justify-content: end;
+
+            ul {
+                margin: 0;
+                padding: 0px;
+                list-style: none;
+
+                li {
+                    display: flex;
+                    margin: 10px 0px;
+                    align-items: center;
+                    justify-content: end;
+                }
+
+                .current::after {
+                    content: "";
+                    margin-left: 5px;
+                    display: inline-block;
+                    background-color: $current-color;
+                    border-radius: 100%;
+                    width: 15px;
+                    height: 15px;
+                    border: 1px solid $lines-color;
+
+                }
+
+                .reveiewed::after {
+                    content: "";
+                    display: inline-block;
+                    margin-left: 5px;
+                    background-color: $reveiewed-color;
+                    border-radius: 100%;
+                    width: 15px;
+                    height: 15px;
+                    border: 1px solid $lines-color;
+                }
+
+                .under-reveiew::after {
+                    content: "";
+                    display: inline-block;
+                    margin-left: 5px;
+                    background-color:
+                        $under-reveiew-color;
+                    border-radius: 100%;
+                    width: 15px;
+                    height: 15px;
+                    border: 1px solid $lines-color;
+                }
+
+                .overdue::after {
+                    content: "";
+                    display: inline-block;
+                    margin-left: 5px;
+                    background-color:
+                        $overdue-color;
+                    border-radius: 100%;
+                    width: 15px;
+                    height: 15px;
+                    border: 1px solid $lines-color;
+                }
+            }
+        }
+    }
+
+    .subject-block {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: end;
+        justify-content: start;
+        border-bottom: 2px solid $lines-color;
+
+        h2 {
+            margin: 5px;
+            font-weight: normal;
+        }
+    }
+
+    .subject-labels {
+        display: grid;
+        width: 100%;
+        grid-template: 100% / 33% 33% 33%;
+
+        .label {
+            margin: 15px 20px;
+            min-width: 390px;
+            height: 180px;
+            border: 2px solid $lines-color;
+            border-radius: 7px;
+
+            .subject-title {
+                display: flex;
+                align-content: center;
+                margin: 15px 20px;
+
+                h4 {
+                    display: flex;
+                    width: 90%;
+                    margin: 0;
+                    font-weight: 700;
+                    font-size: 24px;
+                }
+
+                .subject-rating {
+                    display: flex;
+                    align-content: center;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 15px;
+                    width: 35px;
+                    height: 28px;
+                    border-radius: 40%;
+                }
+
+                .subject-rating:empty {
+                    display: none;
+                }
+            }
+
+            .subject-date {
+                font-size: 20px;
+                margin: 10px 20px;
+            }
+
+            .subject-action-menu {
+                height: 50px;
+                margin: 20px;
+                display: flex;
+                align-content: center;
+                justify-content: start;
+
+                // todo
+                input.choose-file {
+                    display: flex;
+                    align-content: end;
+                    justify-content: end;
+                    color: inherit !important;
+                    background-color: inherit !important;
+                    // убрать границу
+                    border: 5px solid black;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        .label.current-label {
+            background-color: $current-color;
+            color: black;
+
+            .subject-rating {
+                background-color: darken($color: $current-color, $amount: 20%);
+            }
+        }
+
+        .label.reveiewed-label {
+            background-color: $reveiewed-color;
+            color: white;
+
+            .subject-rating {
+                background-color: darken($color: $reveiewed-color, $amount: 20%);
+            }
+
+            #your-file {
+                background-image: url(../img/images1.png);
+                background-repeat: no-repeat;
+                background-position: 25% 50%;
+                background-size: 25px 25px;
+            }
+
+            #your-file:hover {
+                background-color: darken($color: $reveiewed-color, $amount: 20%);
+                border-color: darken($color: white, $amount: 20%);
+                transition: 0.5s;
+            }
+
+            #your-file:active {
+                background-color: darken($color: $reveiewed-color, $amount: 20%);
+                border-color: darken($color: white, $amount: 20%);
+                transition: 0.5s;
+            }
+
+
+            #remove:hover {
+                background-color: darken($color: $reveiewed-color, $amount: 20%);
+                border-color: darken($color: white, $amount: 20%);
+                transition: 0.5s;
+            }
+
+            #remove:active {
+                background-color: darken($color: $reveiewed-color, $amount: 20%);
+                border-color: darken($color: white, $amount: 20%);
+                transition: 0.5s;
+            }
+
+            #resend:hover {
+                background-color: darken($color: $reveiewed-color, $amount: 20%);
+                border-color: darken($color: white, $amount: 20%);
+                transition: 0.5s;
+            }
+
+            #resend:active {
+                background-color: darken($color: $reveiewed-color, $amount: 20%);
+                border-color: darken($color: white, $amount: 20%);
+                transition: 0.5s;
+            }
+        }
+
+        .label.under-reveiew-label {
+            background-color: $under-reveiew-color;
+            color: white;
+
+            .subject-rating {
+                background-color: darken($color: $under-reveiew-color, $amount: 20%);
+            }
+
+            #your-file {
+                background-image: url(../img/images.png);
+                background-repeat: no-repeat;
+                background-position: 25% 50%;
+                background-size: 25px 25px;
+            }
+
+            #your-file:hover {
+                background-color: darken($color: $under-reveiew-color, $amount: 20%);
+                border-color: darken($color: white, $amount: 20%);
+                transition: 0.5s;
+            }
+
+            #your-file:active {
+                background-color: darken($color: $under-reveiew-color, $amount: 20%);
+                border-color: darken($color: white, $amount: 20%);
+                transition: 0.5s;
+            }
+
+            #remove:hover {
+                background-color: darken($color: $under-reveiew-color, $amount: 20%);
+                border-color: darken($color: white, $amount: 20%);
+                transition: 0.5s;
+            }
+
+            #remove:active {
+                background-color: darken($color: $under-reveiew-color, $amount: 20%);
+                border-color: darken($color: white, $amount: 20%);
+                transition: 0.5s;
+            }
+        }
+
+        .label.overdue-label {
+            background-color: $overdue-color;
+            color: white;
+
+            .subject-rating {
+                background-color: darken($color: $overdue-color, $amount: 20%);
+            }
+        }
+
+        #your-file {
+            height: 50px;
+            width: 50%;
+            padding-left: 20px;
+            background-color: inherit;
+            color: inherit;
+            border: 2px solid white;
+            border-right: 1px solid white;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            font-size: 18px;
+        }
+
+        #remove {
+            height: 50px;
+            width: 50%;
+            padding-left: 20px;
+            background-color: inherit;
+            color: inherit;
+            border: 2px solid white;
+            border-left: 1px solid white;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            font-size: 18px;
+            background-image: url(../img/dust.png);
+            background-repeat: no-repeat;
+            background-position: 25% 50%;
+            background-size: 25px 25px;
+        }
+
+        #resend {
+            height: 50px;
+            width: 50%;
+            padding-left: 20px;
+            background-color: inherit;
+            color: inherit;
+            border: 2px solid white;
+            border-left: 1px solid white;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            font-size: 18px;
+            background-image: url(../img/reset.png);
+            background-repeat: no-repeat;
+            background-position: 25% 50%;
+            background-size: 25px 25px;
+        }
+    }
+}
+
+// страница Settings
+.settings-container {
+    height: auto;
+    display: flex;
+    padding: 0px 30px;
+    flex-wrap: wrap;
+    color: $text-color;
+
+    .title {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        color: $text-color;
+
+        h1 {
+            font-weight: normal;
+        }
+    }
+}
