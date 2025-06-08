@@ -90,7 +90,7 @@ body {
 }
 .home-container .home-left .news-container .news-box .img-box {
   display: flex;
-  width: 20%;
+  width: 25%;
   height: 100%;
   align-content: center;
   justify-content: center;
@@ -102,7 +102,7 @@ body {
   min-width: 70%;
 }
 .home-container .home-left .news-container .news-box .content-box {
-  width: 80%;
+  width: 75%;
   display: flex;
   flex-wrap: wrap;
 }
@@ -716,12 +716,25 @@ body {
   justify-content: center;
   width: 40%;
 }
+.settings-container .save-button {
+  margin: 10px;
+  width: 60%;
+  height: 50px;
+  color: white;
+  background-color: #7e8183;
+  border: 2px solid #e5e5e7;
+  border-radius: 5px;
+  font-size: 18px;
+}
+.settings-container .save-button:hover {
+  background-color: #4c4e4f;
+}
 .settings-container .avatar-box {
   margin: 10px 0px;
   display: flex;
   flex-wrap: wrap;
   width: 20%;
-  align-content: center;
+  align-content: start;
   justify-content: center;
 }
 .settings-container .avatar-box img {
@@ -740,4 +753,38 @@ body {
 }
 .settings-container .avatar-box input:hover {
   background-color: #4c4e4f;
+}
+.settings-container .students-info-box {
+  display: flex;
+  flex-wrap: wrap;
+  width: 40%;
+  margin: 10px 0px;
+  align-content: start;
+  justify-content: start;
+}
+.settings-container .students-info-box input {
+  margin: 10px;
+  padding: 0px 10px;
+  width: 100%;
+  height: 40px;
+  border: 2px solid #e5e5e7;
+  border-radius: 5px;
+  font-size: 18px;
+}
+.settings-container .change-password-box {
+  display: flex;
+  flex-wrap: wrap;
+  width: 40%;
+  margin: 10px 0px;
+  align-content: start;
+  justify-content: start;
+}
+.settings-container .change-password-box input {
+  margin: 10px;
+  padding: 0px 10px;
+  width: 100%;
+  height: 40px;
+  border: 2px solid #e5e5e7;
+  border-radius: 5px;
+  font-size: 18px;
 }/*# sourceMappingURL=style.css.map */
