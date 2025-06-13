@@ -1,8 +1,8 @@
 $text-color: #7e8183;
 $lines-color: #e5e5e7;
 $current-color: #eeecec;
-$reveiewed-color: #6fd084;
-$under-reveiew-color: #37b0c1;
+$reviewed-color: #6fd084;
+$under-review-color: #37b0c1;
 $overdue-color: #f98691;
 
 * {
@@ -510,23 +510,23 @@ body {
 
                 }
 
-                .reveiewed::after {
+                .reviewed::after {
                     content: "";
                     display: inline-block;
                     margin-left: 5px;
-                    background-color: $reveiewed-color;
+                    background-color: $reviewed-color;
                     border-radius: 100%;
                     width: 15px;
                     height: 15px;
                     border: 1px solid $lines-color;
                 }
 
-                .under-reveiew::after {
+                .under-review::after {
                     content: "";
                     display: inline-block;
                     margin-left: 5px;
                     background-color:
-                        $under-reveiew-color;
+                        $under-review-color;
                     border-radius: 100%;
                     width: 15px;
                     height: 15px;
@@ -615,17 +615,52 @@ body {
                 align-content: center;
                 justify-content: start;
 
-                // todo
-                input.choose-file {
+                .input-file {
                     display: flex;
-                    align-content: end;
-                    justify-content: end;
-                    color: inherit !important;
-                    background-color: inherit !important;
-                    // убрать границу
-                    border: 5px solid black;
+                    position: relative;
                     width: 100%;
-                    height: 100%;
+                    align-content: center;
+                    justify-content: center;
+                    font-size: 18px;
+                    color: $text-color;
+                }
+
+                .input-file-text {
+                    width: 70%;
+                    align-content: center;
+                    padding: 0px 10px;
+                    background-color: white;
+                    border-radius: 5px 0px 0px 5px;
+                    border: 2px solid $lines-color;
+                    border-right: 1px solid $lines-color;
+                }
+
+                .input-file-btn {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    width: 30%;
+                    border-radius: 0px 5px 5px 0px;
+                    border: 2px solid $lines-color;
+                    border-left: 1px solid $lines-color;
+                    background-color: #e9ecef;
+                    margin: 0px;
+
+                    &:hover,
+                    &:active {
+                        color: white;
+                        background-color: darken($color: #e9ecef, $amount: 20%);
+                    }
+                }
+
+                .input-file input[type=file] {
+                    position: absolute;
+                    display: block;
+                    width: 0px;
+                    height: 0px;
+                    opacity: 0;
+                    z-index: -1;
                 }
             }
         }
@@ -640,11 +675,11 @@ body {
         }
 
         .label.reveiewed-label {
-            background-color: $reveiewed-color;
+            background-color: $reviewed-color;
             color: white;
 
             .subject-rating {
-                background-color: darken($color: $reveiewed-color, $amount: 20%);
+                background-color: darken($color: $reviewed-color, $amount: 20%);
             }
 
             #your-file {
@@ -652,52 +687,29 @@ body {
                 background-repeat: no-repeat;
                 background-position: 25% 50%;
                 background-size: 25px 25px;
+
+                &:hover,
+                &:active {
+                    background-color: darken($color: $reviewed-color, $amount: 20%);
+                    transition: 0.5s;
+                }
             }
 
-            #your-file:hover {
-                background-color: darken($color: $reveiewed-color, $amount: 20%);
-                border-color: darken($color: white, $amount: 20%);
-                transition: 0.5s;
-            }
-
-            #your-file:active {
-                background-color: darken($color: $reveiewed-color, $amount: 20%);
-                border-color: darken($color: white, $amount: 20%);
-                transition: 0.5s;
-            }
-
-
-            #remove:hover {
-                background-color: darken($color: $reveiewed-color, $amount: 20%);
-                border-color: darken($color: white, $amount: 20%);
-                transition: 0.5s;
-            }
-
-            #remove:active {
-                background-color: darken($color: $reveiewed-color, $amount: 20%);
-                border-color: darken($color: white, $amount: 20%);
-                transition: 0.5s;
-            }
-
-            #resend:hover {
-                background-color: darken($color: $reveiewed-color, $amount: 20%);
-                border-color: darken($color: white, $amount: 20%);
-                transition: 0.5s;
-            }
-
+            #remove:hover,
+            #remove:active,
+            #resend:hover,
             #resend:active {
-                background-color: darken($color: $reveiewed-color, $amount: 20%);
-                border-color: darken($color: white, $amount: 20%);
+                background-color: darken($color: $reviewed-color, $amount: 20%);
                 transition: 0.5s;
             }
         }
 
         .label.under-reveiew-label {
-            background-color: $under-reveiew-color;
+            background-color: $under-review-color;
             color: white;
 
             .subject-rating {
-                background-color: darken($color: $under-reveiew-color, $amount: 20%);
+                background-color: darken($color: $under-review-color, $amount: 20%);
             }
 
             #your-file {
@@ -705,29 +717,17 @@ body {
                 background-repeat: no-repeat;
                 background-position: 25% 50%;
                 background-size: 25px 25px;
+
+                &:hover,
+                &:active {
+                    background-color: darken($color: $under-review-color, $amount: 20%);
+                    transition: 0.5s;
+                }
             }
 
-            #your-file:hover {
-                background-color: darken($color: $under-reveiew-color, $amount: 20%);
-                border-color: darken($color: white, $amount: 20%);
-                transition: 0.5s;
-            }
-
-            #your-file:active {
-                background-color: darken($color: $under-reveiew-color, $amount: 20%);
-                border-color: darken($color: white, $amount: 20%);
-                transition: 0.5s;
-            }
-
-            #remove:hover {
-                background-color: darken($color: $under-reveiew-color, $amount: 20%);
-                border-color: darken($color: white, $amount: 20%);
-                transition: 0.5s;
-            }
-
+            #remove:hover,
             #remove:active {
-                background-color: darken($color: $under-reveiew-color, $amount: 20%);
-                border-color: darken($color: white, $amount: 20%);
+                background-color: darken($color: $under-review-color, $amount: 20%);
                 transition: 0.5s;
             }
         }
@@ -786,6 +786,13 @@ body {
             background-repeat: no-repeat;
             background-position: 25% 50%;
             background-size: 25px 25px;
+        }
+
+        @media (max-width:1300px) {
+            grid-template: 33% 33% 33% /50% 50%;
+        }
+        @media (max-width:895px) {
+            grid-template: 33% 33% 33% /70%;
         }
     }
 }
@@ -857,6 +864,7 @@ body {
         border: 2px solid $lines-color;
         border-radius: 5px;
         font-size: 18px;
+
         &:hover {
             background-color: darken($color: $text-color, $amount: 20%);
         }
