@@ -1,0 +1,16 @@
+body {
+  margin: 0px;
+}
+
+.box {
+  margin: 0px;
+  position: relative;
+  height: 150px;
+  width: 150px;
+  background-color: red;
+  border: 5px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+}/*# sourceMappingURL=style.css.map */
