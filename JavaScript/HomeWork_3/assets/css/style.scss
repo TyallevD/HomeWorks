@@ -1,22 +1,51 @@
-body{
+body {
     margin: 0;
+    user-select: none;
 }
-.header{
-    height:100px;
+
+.header {
+    height: 100px;
     background-color: #d9d7aa;
     display: flex;
     border: 2px solid black;
     font-size: 20px;
-    .status{
+    position: relative;
+
+    .status {
         width: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    .timer{
+
+    .timer {
         display: flex;
         width: 50%;
         align-items: center;
         justify-content: center;
     }
 }
+
+.container {
+    display: flex;
+    height: 85%;
+    width: 100%;
+    // position: relative;
+    // top:104px;
+    // border: 10px solid black;
+}
+.box {
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+        max-width: 60px;
+        margin: 0;
+        padding: 0;
+        border: 1px solid gray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 34px;
+        position: relative;
+        // border-radius: 50%; //может кружки это интереснее
+    }

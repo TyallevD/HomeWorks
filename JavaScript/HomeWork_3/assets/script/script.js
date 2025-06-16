@@ -2,15 +2,16 @@
 1) при старте запрашивается количество коробок +
 2) при старте запрашивается время на игру +
 3) на экране создается то количество коробок, что ввел пользователь (минимум 5, максимум 1000):
-- коробки с разным номером (от 1 до введенного количества)
-- коробки с разным цветом
-- коробки двигаются "хаотично"
-4) расчитывается время на выполнения
+- коробки с разным номером (от 1 до введенного количества) +
+- коробки с разным цветом +
+- коробки двигаются "хаотично" -
+4) расcчитывается время на выполнения +-
 5) после старта начинается обратный отсчет:
- - если пользователь успел уничтожить все коробки - время останавливается, отображается статус "победа"
- - если пользователь не успел уничтожить все коробки - время останавливается, коробки останавливаются, отображается статус "поражение"
+ - если пользователь успел уничтожить все коробки - время останавливается, отображается статус "победа" +-
+ - если пользователь не успел уничтожить все коробки - время останавливается, коробки останавливаются, отображается статус "поражение" +-
 */
 
+//запрос количества коробок у пользователя
 let num_boxes;
 while (true) {
     num_boxes = prompt("Введите количество контейнеров от 5 до 1000");
@@ -27,10 +28,11 @@ while (true) {
         break;
     }
 }
-
+//добавление в статус стартового значения коробок
 let status = document.querySelector('.status');
 status.innerText = 'Осталось коробок: ' + num_boxes;
 
+//запрос таймера у пользователя
 let timer_input;
 let timer_value;
 while (true) {
@@ -43,12 +45,12 @@ while (true) {
         alert("Ввод отменён");
         break;
     }
-    switch(timer_input){
+    switch (timer_input) {
         case '1':
             timer_value = 60 * 1000;
             break;
         case '2':
-            timer_value = 2* 60 * 1000;
+            timer_value = 2 * 60 * 1000;
             break;
         case '3':
             timer_value = 5 * 60 * 1000;
@@ -57,19 +59,66 @@ while (true) {
             timer_value = 10 * 60 * 1000;
             break;
     }
-    if (timer_input=='1' || timer_input =='2' || timer_input == '3' || timer_input == '4'){
+    if (timer_input == '1' || timer_input == '2' || timer_input == '3' || timer_input == '4') {
         break;
     }
 }
 
+//добавление события для удаления коробок при клике 
+let container = document.querySelector('.container');
+container.addEventListener('click', boxClickRemove);
+
+//создание коробок после старта
+for (let i = 1; i <= num_boxes; i++) {
+    let container = document.querySelector('.container');
+    let box = document.createElement('div');
+    box.className = 'box';
+    box.style.backgroundColor = randomColor();
+    box.innerText = parseInt(i);
+    //todo создать рандомное появление на экране
+
+    container.appendChild(box);
+}
+
+
+
+//добавление таймера (надо переписать)
 let timer = document.querySelector('.timer');
 timer.innerText = 'Времени осталось: ' + timer_value;
 
-gameTime = setInterval(()=>{
-    timer_value -=10000; //пока ускорение нужно значение 1000
+gameTime = setInterval(() => {
+    timer_value -= 10000; //todo пока ускорение нужно значение 1000
     timer.innerText = 'Времени осталось: ' + timer_value;
-    if (timer_value==0){
-        status.innerText = 'Поражение! Осталось коробок: '+ num_boxes;
+    if (num_boxes == 0) {
+        status.innerText = 'Победа!'
         clearInterval(gameTime);
+        container.removeEventListener('click', boxClickRemove);
     }
-}, 1 * 1000)
+    if (timer_value == 0) {
+        status.innerText = 'Поражение! Осталось коробок: ' + num_boxes;
+        clearInterval(gameTime);
+        container.removeEventListener('click', boxClickRemove);
+    }
+}, 1 * 1000);
+
+//функция удаления коробок при нажатии
+function boxClickRemove(event) {
+    if (event.target.className == 'box') {
+        event.target.remove();
+        num_boxes--;
+        status.innerText = 'Осталось коробок: ' + num_boxes;
+    }
+};
+
+//функция задания рандомного цвета для коробок
+function randomColor() {
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    return `rgb(${r}, ${g}, ${b})`
+}
+
+//осталось прописать:
+//появление в рандомном месте на экране
+//движени в рамках .container
+//переписать таймер
