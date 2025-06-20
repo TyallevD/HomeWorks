@@ -1,16 +1,3 @@
-/*
-1) при старте запрашивается количество коробок +
-2) при старте запрашивается время на игру +
-3) на экране создается то количество коробок, что ввел пользователь (минимум 5, максимум 1000):
-- коробки с разным номером (от 1 до введенного количества) +
-- коробки с разным цветом +
-- коробки двигаются "хаотично" -
-4) расcчитывается время на выполнения +-
-5) после старта начинается обратный отсчет:
- - если пользователь успел уничтожить все коробки - время останавливается, отображается статус "победа" +-
- - если пользователь не успел уничтожить все коробки - время останавливается, коробки останавливаются, отображается статус "поражение" +-
-*/
-
 //запрос количества коробок у пользователя
 let numBoxes;
 while (true) {
@@ -75,12 +62,14 @@ for (let i = 1; i <= numBoxes; i++) {
     box.style.backgroundColor = randomColor();
     box.innerText = parseInt(i);
 
-    //todo создать рандомное появление на экране
+    //добавление на экран
     container.appendChild(box);
 
+    //определение позиции
     let position = randomPosition(box);
     box.style.top = position.top + 'px';
     box.style.left = position.left + 'px';
+    box.dataset.direction = randomDirection();
 }
 
 //добавление таймера
@@ -89,25 +78,38 @@ timer.innerText = 'Времени осталось: ' + beautifulTimer(timerValu
 
 //запуск игрового времени
 gameTime = setInterval(() => {
-    timerValue -= 10000; //todo пока ускорение нужно значение 1000
+    timerValue -= 1000;
     timer.innerText = 'Времени осталось: ' + beautifulTimer(timerValue);
+    //если пользователь ничего не ввёл - остановка игры, появление кнопки перезапуска
+    if (numBoxes==null || timerValue==NaN){
+        clearInterval(gameTime);
+        clearInterval(boxMove);
+        container.removeEventListener('click', boxClickRemove);
+        createReloadButton();
+    }
+    //если пользователь успел уничтожить все коробки - победа, остановка игры и появление кнопки перезапуска
     if (numBoxes == 0) {
         status.innerText = 'Победа!'
         clearInterval(gameTime);
-        // clearInterval(boxMove);
+        clearInterval(boxMove);
         container.removeEventListener('click', boxClickRemove);
+        createReloadButton();
     }
+    //если пользователь не успел уничтожить все коробки - поражение, остановка игры и появление кнопки перезапуска
     if (timerValue == 0) {
         status.innerText = 'Поражение! Осталось коробок: ' + numBoxes;
         clearInterval(gameTime);
-        // clearInterval(boxMove);
+        clearInterval(boxMove);
         container.removeEventListener('click', boxClickRemove);
+        createReloadButton();
     }
 }, 1 * 1000);
 
 //движение коробок
-let boxSpeed = 30; // скорость в пикселях за шаг
-// boxMove = setInterval(moveBoxes(), 30);
+let boxSpeed = 4; // скорость в пикселях
+boxMove = setInterval(() => {
+    moveBoxes();
+}, 30);
 
 //функция удаления коробок при нажатии
 function boxClickRemove(event) {
@@ -126,6 +128,7 @@ function randomColor() {
     return `rgb(${r}, ${g}, ${b})`
 }
 
+//функция форматирования таймера
 function beautifulTimer(timerValue) {
     let minutes = Math.floor(timerValue / 60000);
     let seconds = Math.floor((timerValue % 60000) / 1000);
@@ -133,11 +136,13 @@ function beautifulTimer(timerValue) {
     return minutes + ":" + secondsFormat;
 }
 
+//функциоя c определением случайного направления движения
 function randomDirection() {
-    let directions = ['down', 'up', 'left', 'right'];
+    let directions = ['upright', 'downright', 'upleft', 'downleft'];
     return directions[Math.floor(Math.random() * directions.length)];
 }
 
+//функция определения случайного положения коробок
 function randomPosition(box) {
     let container = document.querySelector('.container');
 
@@ -152,64 +157,86 @@ function randomPosition(box) {
 
     return { top: randomY, left: randomX };
 }
-//осталось прописать:
-//движени в рамках .container
 
+//функция движения коробок
+function moveBoxes() {
+    document.querySelectorAll('.box').forEach(box => {
+        let X = parseInt(box.style.left);
+        let Y = parseInt(box.style.top);
 
-// function moveBoxes() {
-//     let containerRect = container.getBoundingClientRect();
+        let direction = box.dataset.direction;
 
-//     document.querySelectorAll('.box').forEach(box => {
-//         let posX = parseInt(box.style.left);
-//         let posY = parseInt(box.style.top);
+        //определение направления
+        switch (direction) {
+            case 'upright':
+                X += boxSpeed;
+                Y -= boxSpeed;
+                break;
+            case 'upleft':
+                X -= boxSpeed;
+                Y -= boxSpeed;
+                break;
+            case 'downright':
+                X += boxSpeed;
+                Y += boxSpeed;
+                break;
+            case 'downleft':
+                X -= boxSpeed;
+                Y += boxSpeed;
+                break;
+        }
 
-//         // Получаем или создаём направление для кубика
-//         if (!box.dataset.direction) {
-//             box.dataset.direction = randomDirection();
-//         }
+        let boxRect = box.getBoundingClientRect();
+        let boxWidth = boxRect.width;
+        let boxHeight = boxRect.height;
 
-//         let direction = box.dataset.direction;
-//         console.log(direction);
+        //Движение по оси X с изменением направлений
+        if (X < 0 && box.dataset.direction == 'upleft') {
+            X = 0;
+            box.dataset.direction = 'upright';
+        } else if (X < 0 && box.dataset.direction == 'downleft') {
+            X = 0;
+            box.dataset.direction = 'downright';
+        }
+        else if (X + boxWidth > window.innerWidth && box.dataset.direction == 'upright') {
+            X = window.innerWidth - boxWidth;
+            box.dataset.direction = 'upleft';
+        }
+        else if (X + boxWidth > window.innerWidth && box.dataset.direction == 'downright') {
+            X = window.innerWidth - boxWidth;
+            box.dataset.direction = 'downleft';
+        }
 
-//         // Обновляем координаты в зависимости от направления
-//         switch (direction) {
-//             case 'up':
-//                 posY -= boxSpeed;
-//                 break;
-//             case 'down':
-//                 posY += boxSpeed;
-//                 break;
-//             case 'left':
-//                 posX -= boxSpeed;
-//                 break;
-//             case 'right':
-//                 posX += boxSpeed;
-//                 break;
-//         }
+        //Движение по оси Y с изменением направлений
+        if (Y < 0 && box.dataset.direction == 'upright') {
+            Y = 0;
+            box.dataset.direction = 'downright';
+        } else if (Y < 0 && box.dataset.direction == 'upleft') {
+            Y = 0;
+            box.dataset.direction = 'downleft';
+        }
+        else if (Y + boxHeight + 110 > window.innerHeight && box.dataset.direction == 'downright') {
+            Y = window.innerHeight - boxHeight - 110;
+            box.dataset.direction = 'upright';
+        } else if (Y + boxHeight + 110 > window.innerHeight && box.dataset.direction == 'downleft') {
+            Y = window.innerHeight - boxHeight - 110;
+            box.dataset.direction = 'upleft';
+        }
 
-//         // Проверяем выход за границы и меняем направление при столкновении
-//         let boxRect = box.getBoundingClientRect();
-//         let boxWidth = boxRect.width;
-//         let boxHeight = boxRect.height;
+        //движение по X и Y
+        box.style.left = `${X}px`;
+        box.style.top = `${Y}px`;
+    });
+}
 
-//         if (posX < 0) {
-//             posX = 0;
-//             box.dataset.direction = 'right';
-//         } else if (posX + boxWidth > window.innerWidth) {
-//             posX = window.innerWidth - boxWidth;
-//             box.dataset.direction = 'left';
-//         }
+//кнопка рестарта
+function createReloadButton() {
+    let reloadButton = document.createElement('button');
+    reloadButton.tagName = 'button';
+    reloadButton.innerText = "Начать заново";
+    container.appendChild(reloadButton);
 
-//         if (posY < 0) {
-//             posY = 0;
-//             box.dataset.direction = 'down';
-//         } else if (posY + boxHeight > window.innerHeight) {
-//             posY = window.innerHeight - boxHeight;
-//             box.dataset.direction = 'up';
-//         }
-
-//         // Обновляем позицию
-//         box.style.left = `${posX}px`;
-//         box.style.top = `${posY}px`;
-//     });
-// }
+    reloadButton.addEventListener('click', () => {
+        location.reload();
+    });
+}
