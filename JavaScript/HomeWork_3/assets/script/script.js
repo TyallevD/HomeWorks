@@ -53,7 +53,7 @@ while (true) {
 
 //добавление события для удаления коробок при клике 
 let container = document.querySelector('.container');
-container.addEventListener('click', boxClickRemove);
+container.addEventListener('mousedown', boxClickRemove);
 
 //создание коробок после старта
 for (let i = 1; i <= numBoxes; i++) {
@@ -84,7 +84,7 @@ gameTime = setInterval(() => {
     if (numBoxes==null || timerValue==NaN){
         clearInterval(gameTime);
         clearInterval(boxMove);
-        container.removeEventListener('click', boxClickRemove);
+        container.removeEventListener('mousedown', boxClickRemove);
         createReloadButton();
     }
     //если пользователь успел уничтожить все коробки - победа, остановка игры и появление кнопки перезапуска
@@ -92,7 +92,7 @@ gameTime = setInterval(() => {
         status.innerText = 'Победа!'
         clearInterval(gameTime);
         clearInterval(boxMove);
-        container.removeEventListener('click', boxClickRemove);
+        container.removeEventListener('mousedown', boxClickRemove);
         createReloadButton();
     }
     //если пользователь не успел уничтожить все коробки - поражение, остановка игры и появление кнопки перезапуска
@@ -100,7 +100,7 @@ gameTime = setInterval(() => {
         status.innerText = 'Поражение! Осталось коробок: ' + numBoxes;
         clearInterval(gameTime);
         clearInterval(boxMove);
-        container.removeEventListener('click', boxClickRemove);
+        container.removeEventListener('mousedown', boxClickRemove);
         createReloadButton();
     }
 }, 1 * 1000);
