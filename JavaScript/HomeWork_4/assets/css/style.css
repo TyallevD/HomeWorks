@@ -29,6 +29,11 @@
   padding-right: 5px;
 }
 
+.checked {
+  background-color: grey !important;
+  color: white;
+}
+
 * {
   -webkit-user-select: none;
      -moz-user-select: none;

@@ -16,28 +16,28 @@ myForm.title.addEventListener('keyup', () => {
 
 myForm.addEventListener('submit', () => {
     event.preventDefault();
-
     let title = myForm.title.value;
-
+    
     if (title && title.trim()) {
         errorText.style.display = 'none';
         myList.innerHTML += `<div class="list-group-item list-group-item-action item">
-                <div class="content">
-                    ${title}
-                </div>
-                <div class="btns">
-                    <div class="done">
-                        ✔
-                    </div>
-                    <div class="remove">
-                        ❌
-                    </div>
-                </div>
-            </div>`;
+        <div class="content">
+        ${title}
+        </div>
+        <div class="btns">
+        <div class="done">
+        ✔
+        </div>
+        <div class="remove">
+        ❌
+        </div>
+        </div>
+        </div>`;
     } else {
         errorText.style.display = 'block';
     }
-
+    
+    checkContent();
     myForm.reset();
 });
 
@@ -47,19 +47,27 @@ myList.addEventListener('click', () => {
     } else if (event.target.tagName == 'DIV' && event.target.classList.contains('done')) {
         if (event.target.parentElement.parentElement.style.backgroundColor != 'green') {
             event.target.parentElement.parentElement.style.backgroundColor = 'green';
-            event.target.parentElement.parentElement.style.color='white';
+            event.target.parentElement.parentElement.style.color = 'white';
             event.target.style.color = 'white';
         } else {
             event.target.parentElement.parentElement.removeAttribute('style');
             event.target.style.color = 'green';
         }
-    }
+    } else if (event.target.tagName == 'DIV' && event.target.classList.contains('item')) {
+        event.target.classList.contains('checked') ? event.target.classList.remove('checked') : event.target.classList.add('checked');
+    };
 });
 
 btnClear.addEventListener('click', () => {
-    // сделать кнопку очистки, изначально должна быть задизейблена, если нет айтемов
+    myList.innerHTML='';
+    checkContent();
 });
 
-btnClearSelected.addEventListener('click', ()=>{
+btnClearSelected.addEventListener('click', () => {
     //сделать кнопку удаления выделенных строк, если строки не выделены - кнопка задизейблена
 });
+
+function checkContent(){
+    myList.firstElementChild?
+        btnClear.disabled=false: btnClear.disabled=true;
+}
