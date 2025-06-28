@@ -12,14 +12,14 @@
 
 <body>
     <!-- 
-    1) Добавить кнопку deleteAll если нечего удалять, то кнопка должна быть disabled.
+    1) Добавить кнопку deleteAll если нечего удалять, то кнопка должна быть disabled. +
     2) Добавить кнопку isDone если нажать на кнопку то item(li) становиться зеленым или повторно нажать то зеленый цвет спадает +
-    3) Добавить кнопку selectedRemove можно удалить выбранный  item(li) , если ничего не выбрано  то кнопка должна быть disabled
+    3) Добавить кнопку selectedRemove можно удалить выбранный  item(li) , если ничего не выбрано  то кнопка должна быть disabled +
     -->
     <div class="container">
         <form name="toDoForm" class="m-3">
             <div class="input-group mb-3">
-                <input name="title" type="text" class="form-control" placeholder="Recipient's username"
+                <input name="title" type="text" class="form-control" placeholder="Add a task"
                     aria-label="Recipient’s username" aria-describedby="button-addon2">
 
                 <button class="btn btn-outline-secondary my-btn" type="submit" id="button-addon2">Add</button>
@@ -34,20 +34,7 @@
         <span class="m-3 error-text">Please enter something</span>
 
         <div class="list-group m-3 my-list">
-            <!-- удалить блок -->
-            <div class="list-group-item list-group-item-action item">
-                <div class="content">
-                    ${title}
-                </div>
-                <div class="btns">
-                    <div class="done">
-                        ✔
-                    </div>
-                    <div class="remove">
-                        ❌
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
