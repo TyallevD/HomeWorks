@@ -1,13 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>HomeWork6</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
+
 <body>
-    
+    <div class="search-container my-3 mx-auto">
+        <div class="head p-2">
+            <h1 class="m-0">Search:</h1>
+        </div>
+        <form name="search-form" class="search-form my-2 p-4">
+            <div class="row mb-3">
+                <label for="searchTitle" class="col-sm-2 col-form-label">Title:</label>
+                <div class="col-sm-10">
+                    <input id="searchTitle" type="text" class="form-control" placeholder="Search title">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="selectType" class="col-sm-2 col-form-label">Type:</label>
+                <div class="col-sm-10">
+                    <select id="selectType" class="form-select">
+                        <option>Movie</option>
+                        <option>Series</option>
+                        <option>Episode</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary search-button">Search</button>
+        </form>
+    </div>
+
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="First">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#" aria-current="page">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Last">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
     <script src="./assets/script/script.js"></script>
 </body>
+
 </html>
