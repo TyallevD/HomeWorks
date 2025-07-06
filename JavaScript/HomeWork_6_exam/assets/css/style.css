@@ -37,6 +37,10 @@ body {
   border-color: #757676;
 }
 
+img {
+  width: 100px;
+}
+
 * {
   -webkit-user-select: none;
      -moz-user-select: none;
