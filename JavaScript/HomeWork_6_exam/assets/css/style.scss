@@ -1,7 +1,24 @@
 body {
     background-color: #fbf2e9;
 }
+.search-button, .details-button {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        background-color: #e1e1e1;
+        border-color: #a8a9a9;
+        color: black;
 
+        &:hover {
+            background-color: darken($color: #e1e1e1, $amount: 20%);
+            border-color: darken($color: #a8a9a9, $amount: 20%);
+        }
+
+        &:active {
+            background-color: darken($color: #e1e1e1, $amount: 20%);
+            border-color: darken($color: #a8a9a9, $amount: 20%);
+        }
+    }
 .search-container {
     display: flex;
     width: 400px;
@@ -20,33 +37,52 @@ body {
     }
 
     .search-form {
-        border: 3px solid grey;
+        border: 2px solid #a8a9a9;
         border-radius: 10px;
         font-size: 18px;
     }
+}
+.films-head{
+    display: flex;
+    justify-content: center;
+}
+.film-data {
+    justify-content: center;
+    
+    .film-card {
+        border: 2px solid #a8a9a9;
+        border-radius: 10px;
+        margin: 10px;
+        height: 330px;
+        padding: 10px;
 
-    .search-button {
-        display: flex;
-        width: 100%;
-        justify-content: center;
-        background-color: #e1e1e1;
-        border-color: #a8a9a9;
-        color: black;
+        width: 450px;
 
-        &:hover {
-            background-color: darken($color: #e1e1e1, $amount: 20%);
+        .card {
+            height: 100%;
+            border: none;
+            background-color: transparent;
         }
 
-        &:active {
-            background-color: darken($color: #e1e1e1, $amount: 20%);
-            border-color: darken($color: #a8a9a9, $amount: 20%);
+        img {
+            width: 180px;
+            background-color: transparent;
+        }
+
+        .film-type{
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .film-title{
+            margin: 10px 0px;
+            font-weight: 600;
+        }
+        .film-year{
+            margin: 30px 0px;
         }
     }
 }
-// тут потом размер пересмотреть
-img{
-    width: 100px;
-}
-*{
+
+* {
     user-select: none;
 }
