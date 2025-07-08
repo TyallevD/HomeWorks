@@ -50,6 +50,9 @@ body {
     display: flex;
     width: 100%;
     justify-content: center;
+    .error{
+        color: red !important;
+    }
 }
 
 .film-data {
@@ -96,6 +99,7 @@ body {
     width: 100%;
 
     .details-card {
+        position: relative;
         display: flex;
         align-items: center;
         border: 2px solid #a8a9a9;
@@ -125,11 +129,29 @@ body {
                 min-width: 80px;
                 height: 100%;
                 align-items: center;
-                font-size: 14px;
+                font-size: 16px;
+                font-weight: 700;
             }
 
             .details-value {
-                font-size: 18px;
+                font-size: 19px;
+            }
+        }
+        .close{
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            top: 2%;
+            left: 95%;
+            border: 1px solid #e1e1e1;
+            border-radius: 50%;
+            transition: 0.1s;
+            &:hover{
+                background-color: darken($color: #e1e1e1, $amount: 20%);
+                border-color: darken($color: #a8a9a9, $amount: 20%);
             }
         }
     }

@@ -16,34 +16,47 @@ let navigation = document.querySelector('nav');
 let pageObjects = document.querySelector('.pagination');
 let detailsContainer = document.querySelector('.details-container');
 
+
 submitForm.addEventListener('submit', async () => {
     event.preventDefault();
 
     filmsList.innerHTML = ''; //очищаем результат при повторном поиске
-    detailsContainer.hidden=true;
-    detailsHeader.hidden=true;
+    detailsContainer.hidden = true;
+    detailsHeader.hidden = true;
     paging.currentPage = 1; //явно устанавливаем на 1-ю страницу
 
     titleName = submitForm.title.value;
     titleType = submitForm.selectType.value;
 
     if (titleName && titleName.trim()) {
-        filmsData = await omdbApi.searchByTitle(titleName, titleType, paging.fisrtPage);
-        drawFilms(filmsData);
-        paging.maxPages = Math.ceil(filmsData.totalResults / 10);
-        drawPagination(paging);
-        changeActivePage(paging.currentPage);
+        try {
+            filmsData = await omdbApi.searchByTitle(titleName, titleType, paging.fisrtPage);
+            drawFilms(filmsData);
+            paging.maxPages = Math.ceil(filmsData.totalResults / 10);
+            drawPagination(paging);
+            changeActivePage(paging.currentPage);
+        } catch {
+            filmsHeader.hidden = false;
+            filmsHeader.innerHTML = `
+                <h2 class="error">Movie not found</h2>
+            `;
+            navigation.hidden = true;
+        }
+
     } else {
         filmsHeader.hidden = true;
         navigation.hidden = true;
     }
-    filmsHeader.scrollIntoView({behavior:'smooth'});
+    filmsHeader.scrollIntoView({ behavior: 'smooth' });
     submitForm.reset();
 });
 
 function drawFilms(filmsData) {
     filmsList.innerHTML = '';
     filmsHeader.hidden = false;
+    filmsHeader.innerHTML = `
+    <h2>Films:</h2>
+    `;
 
     for (const film of filmsData.Search) {
         let tempDiv = document.createElement('div');
@@ -71,11 +84,14 @@ function drawFilms(filmsData) {
 
 function drawPagination(paging) {
     pageObjects.innerHTML = '';
-    if (paging.maxPages > 1) {
+    if (paging.maxPages > paging.fisrtPage) {
         navigation.hidden = false;
         pageObjects.insertAdjacentHTML('beforeend', `
             <li class="page-item">
                 <a class="page-link first" href="#" aria-label="First">&laquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link prev" href="#" aria-label="Previous"><</a>
             </li>
             `);
         for (let i = paging.fisrtPage; i <= paging.maxPages; i++) {
@@ -86,6 +102,9 @@ function drawPagination(paging) {
             `);
         }
         pageObjects.insertAdjacentHTML('beforeend', `
+            <li class="page-item">
+                <a class="page-link next" href="#" aria-label="Next">></a>
+            </li>
             <li class="page-item">
                 <a class="page-link last" href="#" aria-label="Last">&raquo;</a>
             </li>
@@ -99,17 +118,29 @@ navigation.addEventListener('click', async () => {
         paging.currentPage = paging.maxPages;
     } else if (event.target.classList.contains('first')) {
         paging.currentPage = paging.fisrtPage;
+    } else if (event.target.classList.contains('prev')) {
+        if (paging.currentPage > paging.fisrtPage) {
+            paging.currentPage--;
+        } else {
+            paging.currentPage = paging.fisrtPage;
+        }
+    } else if (event.target.classList.contains('next')) {
+        if (paging.currentPage < paging.maxPages) {
+            paging.currentPage++;
+        } else {
+            paging.currentPage = paging.maxPages;
+        }
     } else {
         paging.currentPage = event.target.innerHTML;
     }
 
     filmsData = await omdbApi.searchByTitle(titleName, titleType, paging.currentPage);
-    detailsContainer.hidden=true;
-    detailsHeader.hidden=true;
+    detailsContainer.hidden = true;
+    detailsHeader.hidden = true;
     drawFilms(filmsData);
     drawPagination(paging);
     changeActivePage(paging.currentPage);
-    filmsHeader.scrollIntoView({behavior:'smooth'});
+    filmsHeader.scrollIntoView({ behavior: 'smooth' });
 });
 
 function changeActivePage(currentPage) {
@@ -127,11 +158,11 @@ async function showFilmDetails(id) {
     drawInfo(filmDetails);
 }
 
-function drawInfo(filmDetails){
+function drawInfo(filmDetails) {
     detailsContainer.innerHTML = '';
-    detailsContainer.hidden=false;
-    detailsHeader.hidden=false;
-    detailsContainer.insertAdjacentHTML('beforeend',`
+    detailsContainer.hidden = false;
+    detailsHeader.hidden = false;
+    detailsContainer.insertAdjacentHTML('beforeend', `
         <div class="details-card">
             <img src="${filmDetails.Poster}" onerror="this.src='./assets/img/1.png'" alt="">
             <div class="details-body">
@@ -168,7 +199,18 @@ function drawInfo(filmDetails){
                     <span class="details-value">${filmDetails.Awards}</span>
                 </div>
             </div>
+            <div class="close">
+                ❌
+            </div>
         </div>
         `);
-        detailsContainer.scrollIntoView({behavior:'smooth'});
+
+    let closeButton = detailsContainer.querySelector('.close');
+    closeButton.addEventListener('click', () => {
+        detailsContainer.innerHTML = '';
+        detailsHeader.hidden = true;
+        filmsHeader.scrollIntoView({ behavior: 'smooth' });
+    })
+    detailsContainer.scrollIntoView({ behavior: 'smooth' });
 }
+
