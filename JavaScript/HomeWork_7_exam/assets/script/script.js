@@ -44,7 +44,10 @@ submitForm.addEventListener('submit', async () => {
         }
 
     } else {
-        filmsHeader.hidden = true;
+        filmsHeader.hidden = false;
+        filmsHeader.innerHTML = `
+                <h2 class="error">Please enter title</h2>
+            `;
         navigation.hidden = true;
     }
     filmsHeader.scrollIntoView({ behavior: 'smooth' });
@@ -259,3 +262,16 @@ function drawInfo(filmDetails) {
     })
     detailsContainer.scrollIntoView({ behavior: 'smooth' });
 }
+
+//отсебятина, кнопка "наверх"
+let backToTopBtn = document.querySelector('.backToTop');
+let searchContainer = document.querySelector('.search-container');
+backToTopBtn.addEventListener('click', () => {
+    event.preventDefault();
+    searchContainer.scrollIntoView({ behavior: 'smooth' });
+})
+
+window.addEventListener('scroll', () => {
+    let scrollPosition = window.scrollY;
+    scrollPosition >= 400 ? backToTopBtn.hidden = false : backToTopBtn.hidden = true;
+})
