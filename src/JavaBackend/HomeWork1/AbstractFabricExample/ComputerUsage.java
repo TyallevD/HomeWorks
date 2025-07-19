@@ -1,6 +1,6 @@
 package JavaBackend.HomeWork1.AbstractFabricExample;
 
-import JavaBackend.HomeWork1.AbstractFabricExample.ComputerFactory.Computer;
+import JavaBackend.HomeWork1.AbstractFabricExample.ComputerFactory.ComputerFactory;
 import JavaBackend.HomeWork1.AbstractFabricExample.ComputerTypes.GamerComputer;
 import JavaBackend.HomeWork1.AbstractFabricExample.ComputerTypes.HomeComputer;
 import JavaBackend.HomeWork1.AbstractFabricExample.ComputerTypes.OfficeComputer;
@@ -10,7 +10,7 @@ public class ComputerUsage {
     private HomeComputer homeComputer;
     private OfficeComputer officeComputer;
 
-    public ComputerUsage(Computer computer) {
+    public ComputerUsage(ComputerFactory computer) {
         gamerComputer = computer.createGamerComputer();
         homeComputer = computer.createHomeComputer();
         officeComputer = computer.createOfficeComputer();
