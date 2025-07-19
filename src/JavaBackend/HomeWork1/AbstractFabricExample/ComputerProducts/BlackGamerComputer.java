@@ -4,7 +4,7 @@ import JavaBackend.HomeWork1.AbstractFabricExample.ComputerTypes.GamerComputer;
 
 public class BlackGamerComputer implements GamerComputer {
     @Override
-    public void playCoolGames(){
+    public void playCoolGames() {
         System.out.println("Геймер играет на черном компьютере");
     }
 }

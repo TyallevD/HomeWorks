@@ -10,15 +10,17 @@ import JavaBackend.HomeWork1.AbstractFabricExample.ComputerTypes.OfficeComputer;
 
 public class RGBComputer implements Computer {
     @Override
-    public OfficeComputer createOfficeComputer(){
+    public OfficeComputer createOfficeComputer() {
         return new RGBOfficeComputer();
     }
+
     public @Override
-    GamerComputer createGamerComputer(){
+    GamerComputer createGamerComputer() {
         return new RGBGamerComputer();
     }
+
     public @Override
-    HomeComputer createHomeComputer(){
+    HomeComputer createHomeComputer() {
         return new RGBHomeComputer();
     }
 

@@ -7,6 +7,8 @@ import JavaBackend.HomeWork1.AbstractFabricExample.ComputerTypes.OfficeComputer;
 
 public interface Computer {
     OfficeComputer createOfficeComputer();
+
     GamerComputer createGamerComputer();
+
     HomeComputer createHomeComputer();
 }

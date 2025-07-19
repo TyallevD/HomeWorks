@@ -4,22 +4,23 @@ import JavaBackend.HomeWork1.AbstractFabricExample.ComputerFactory.Computer;
 import JavaBackend.HomeWork1.AbstractFabricExample.ComputerProducts.BlackGamerComputer;
 import JavaBackend.HomeWork1.AbstractFabricExample.ComputerProducts.BlackHomeComputer;
 import JavaBackend.HomeWork1.AbstractFabricExample.ComputerProducts.BlackOfficeComputer;
-import JavaBackend.HomeWork1.AbstractFabricExample.ComputerProducts.RGBOfficeComputer;
 import JavaBackend.HomeWork1.AbstractFabricExample.ComputerTypes.GamerComputer;
 import JavaBackend.HomeWork1.AbstractFabricExample.ComputerTypes.HomeComputer;
 import JavaBackend.HomeWork1.AbstractFabricExample.ComputerTypes.OfficeComputer;
 
 public class BlackComputer implements Computer {
     @Override
-    public OfficeComputer createOfficeComputer(){
+    public OfficeComputer createOfficeComputer() {
         return new BlackOfficeComputer();
     }
+
     @Override
-    public GamerComputer createGamerComputer(){
+    public GamerComputer createGamerComputer() {
         return new BlackGamerComputer();
     }
+
     @Override
-    public HomeComputer createHomeComputer(){
+    public HomeComputer createHomeComputer() {
         return new BlackHomeComputer();
     }
 }
