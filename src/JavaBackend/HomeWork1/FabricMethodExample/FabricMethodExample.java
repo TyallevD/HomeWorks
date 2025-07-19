@@ -1,82 +1,11 @@
 package JavaBackend.HomeWork1.FabricMethodExample;
 
-interface Transport {
-    void ride();
-}
+import JavaBackend.HomeWork1.FabricMethodExample.Creators.BusCreator;
+import JavaBackend.HomeWork1.FabricMethodExample.Creators.CarCreator;
+import JavaBackend.HomeWork1.FabricMethodExample.Creators.TruckCreator;
+import JavaBackend.HomeWork1.FabricMethodExample.TransportDrivers.TransportDriver;
+import JavaBackend.HomeWork1.FabricMethodExample.Interface.Transport;
 
-class Car implements Transport {
-
-    @Override
-    public void ride() {
-        System.out.println("Car riding");
-    }
-}
-
-class Bus implements Transport {
-    @Override
-    public void ride() {
-        System.out.println("Bus riding");
-    }
-}
-
-class Truck implements Transport {
-    @Override
-    public void ride() {
-        System.out.println("Truck riding");
-    }
-}
-
-abstract class TransportCreator {
-    public abstract Transport createTransport();
-}
-
-class CarCreator extends TransportCreator {
-    @Override
-    public Transport createTransport() {
-        return new Car();
-    }
-}
-
-class BusCreator extends TransportCreator {
-    @Override
-    public Transport createTransport() {
-        return new Bus();
-    }
-}
-
-class TruckCreator extends TransportCreator {
-    @Override
-    public Transport createTransport() {
-        return new Truck();
-    }
-}
-class TransportDriver{
-    private String driverName;
-    private Transport transport;
-
-    public TransportDriver() {
-    }
-
-    public TransportDriver(String driverName) {
-        this.driverName = driverName;
-    }
-
-    public Transport getTransport() {
-        return transport;
-    }
-
-    public void setTransport(Transport transport) {
-        this.transport = transport;
-    }
-
-    public String getDriverName() {
-        return driverName;
-    }
-
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
-    }
-}
 public class FabricMethodExample {
     static final String CAR_DRIVER = "car driver";
     static final String BUS_DRIVER = "bus driver";
@@ -106,7 +35,7 @@ public class FabricMethodExample {
         transportDriver3.getTransport().ride();
 
     }
-
+    //метод для получения транспорта по типу водителя
     static Transport getTransportByDriverType(String driverType) {
         return switch (driverType) {
             case CAR_DRIVER -> new CarCreator().createTransport();
@@ -116,5 +45,3 @@ public class FabricMethodExample {
         };
     }
 }
-
-//todo надо б подразобраться, правильно ли я понял эту конструкцию
