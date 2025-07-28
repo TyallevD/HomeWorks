@@ -13,6 +13,6 @@ public final class ConcreteFlyweight implements SymbolFlyweight {
     public void drawSymbol(PositionExternalContext position) {
         System.out.println("Отображаем символ: \"" + symbol
                 + "\", в стиле: \"" + symbolStyle
-                + "\", в координатах: x и y, как \"" + position.getX() + ":" + position.getY()+"\"");
+                + "\", в координатах x и y:\" " + position.getX() + ":" + position.getY()+"\"");
     }
 }
