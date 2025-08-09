@@ -9,10 +9,10 @@ public class HomeWork6Application {
     public static void main(String[] args) {
         SpringApplication.run(HomeWork6Application.class, args);
         //Написать CRUD операции
-        //create +-
+        //create +
         //read +
-        //update
-        //delete
+        //update +
+        //delete +
     }
 
 }
