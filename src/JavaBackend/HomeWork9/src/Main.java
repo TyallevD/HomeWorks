@@ -57,9 +57,30 @@ public class Main {
         }
     }
 
-    //3. Update имени
+    //3.1 Update имени (версия с preparedStatement)
     //Создай метод updateCityName, который изменяет название города в таблице Cities с OldName на NewName.
     public static void updateCityName(String oldName, String newName) {
+        try {
+            Class.forName(driver).getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, userName, password)) {
+                String updateQuery = "UPDATE City " +
+                        "SET city_name = ? " +
+                        "WHERE city_name = ?";
+                try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+                    preparedStatement.setString(1, newName);
+                    preparedStatement.setString(2, oldName);
+
+                    int updatedRows = preparedStatement.executeUpdate();
+                    System.out.println("Изменено строк в таблице City: " + updatedRows);
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    //3.2 Update имени (версия со statement)
+    //Создай метод updateCityName, который изменяет название города в таблице Cities с OldName на NewName.
+    public static void updateCityName2(String oldName, String newName) {
         try {
             Class.forName(driver).getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, userName, password)) {
@@ -67,10 +88,9 @@ public class Main {
                 String updateQuery = "UPDATE City " +
                         "SET city_name = '" + newName + "' " +
                         "WHERE city_name = '" + oldName + "'";
-
                 int updatedRows = statement.executeUpdate(updateQuery);
-
                 System.out.println("Изменено строк в таблице City: " + updatedRows);
+
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -146,16 +166,35 @@ public class Main {
         }
     }
 
-    //7. Update зарплаты
+    //7.1 Update зарплаты (версия с preparedStatement)
     //Напиши метод increaseSalary, который увеличивает зарплату всем сотрудникам из таблицы Employees на 10%.
     public static void increaseSalary() {
         try {
             Class.forName(driver).getDeclaredConstructor().newInstance();
             try (Connection connection = DriverManager.getConnection(url, userName, password)) {
-                Statement statement = connection.createStatement();
-
                 String sqlUpdateSalaryQuery = "UPDATE Employees " +
                         "SET salary = salary + (salary * 0.1)";
+
+                try (PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdateSalaryQuery)) {
+                    int updatedRows = preparedStatement.executeUpdate();
+                    System.out.println("Обновлено строк: " + updatedRows);
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    //7.2 Update зарплаты (версия со statement)
+    //Напиши метод increaseSalary, который увеличивает зарплату всем сотрудникам из таблицы Employees на 10%.
+    public static void increaseSalary2() {
+        try {
+            Class.forName(driver).getDeclaredConstructor().newInstance();
+            try (Connection connection = DriverManager.getConnection(url, userName, password)) {
+                Statement statement = connection.createStatement();
+                String sqlUpdateSalaryQuery = "UPDATE Employees " +
+                        "SET salary = salary + (salary * 0.1)";
+
                 int updatedRows = statement.executeUpdate(sqlUpdateSalaryQuery);
                 System.out.println("Обновлено строк: " + updatedRows);
             }
@@ -266,7 +305,11 @@ public class Main {
         System.out.println("Задание 3. Обновление имени города в City");
         String oldName = "Санкт Петербург";
         String newName = "Ленинград";
-        updateCityName(oldName, newName);
+        updateCityName(oldName, newName); //запуск метода с preparedStatement
+
+        String oldName2="Москва";
+        String newName2 ="Moscow";
+        updateCityName2(oldName2,newName2); //запуск метода со statement
         System.out.println();
 
         //Задание 4
@@ -290,7 +333,8 @@ public class Main {
 
         //Задание 7
         System.out.println("Задание 7. Увеличение зарплаты на 10% в Employees");
-        increaseSalary();
+        increaseSalary(); //запуск метода с preparedStatement
+        increaseSalary2(); //запуск метода со statement
         System.out.println();
 
         //Задание 8
