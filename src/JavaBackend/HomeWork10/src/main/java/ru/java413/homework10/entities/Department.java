@@ -24,7 +24,7 @@ import org.hibernate.validator.constraints.Range;
 //Тип данных — nvarchar(100).  +
 //Не может содержать null-значения. +
 //Не может быть пустым. +
-//Должно быть уникальным. +- //todo надо проверять
+//Должно быть уникальным. +
 
 @Entity
 @Table(name = "departments")

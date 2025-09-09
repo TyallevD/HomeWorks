@@ -20,7 +20,7 @@ import jakarta.validation.constraints.NotEmpty;
 //Тип данных — nvarchar(100). +
 //Не может содержать null-значения. +
 //Не может быть пустым. +
-//Должно быть уникальным. +- //todo надо проверять
+//Должно быть уникальным. +
 
 @Entity
 @Table(name = "faculties")

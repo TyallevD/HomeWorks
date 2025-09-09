@@ -3,6 +3,7 @@ package ru.java413.homework10.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import org.hibernate.annotations.Check;
 import org.hibernate.validator.constraints.Range;
 
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 //Не может содержать null-значения. +
 //Первичный ключ. +
 
-//- Дата трудоустройства (EmploymentDate). Дата приема преподавателя на работу. - //todo надо разобраться с датой
+//- Дата трудоустройства (EmploymentDate). Дата приема преподавателя на работу. +
 //Тип данных — date. ▷ Не может содержать null-значения.
 //Не может быть меньше 01.01.1990.
 
@@ -61,10 +62,9 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //todo
-//    @Column(name = "employment_date", nullable = false)
-//    @Range(min = 1990)
-//    private LocalDate employmentDate;
+    @Column(name = "employment_date", nullable = false)
+    @Check(constraints = "employment_date >= '1990-01-01'")
+    private LocalDate employmentDate;
 
     @Column(name = "is_assistant", nullable = false, columnDefinition = "BIT DEFAULT 0")
     private Byte isAssistant;
