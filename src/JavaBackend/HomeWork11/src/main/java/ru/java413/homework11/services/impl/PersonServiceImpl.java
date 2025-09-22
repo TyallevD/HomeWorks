@@ -6,7 +6,6 @@ import ru.java413.homework11.entities.Person;
 import ru.java413.homework11.repositories.PersonRepository;
 import ru.java413.homework11.services.PersonService;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,8 +47,8 @@ public class PersonServiceImpl implements PersonService {
 
     //findAllById
     @Override
-    public List<Person> findAllById(Long id) {
-        return (List<Person>) personRepository.findAllById(Collections.singleton(id));
+    public Iterable<Person> findAllById(Iterable<Long> ids) {
+        return personRepository.findAllById(ids);
     }
 
     //count

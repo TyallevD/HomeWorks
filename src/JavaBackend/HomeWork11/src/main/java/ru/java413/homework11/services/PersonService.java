@@ -22,7 +22,7 @@ public interface PersonService {
     List<Person> findAll();
 
     //findAllById
-    List<Person> findAllById(Long id);
+    Iterable<Person> findAllById(Iterable<Long> id);
 
     //count
     Long count();

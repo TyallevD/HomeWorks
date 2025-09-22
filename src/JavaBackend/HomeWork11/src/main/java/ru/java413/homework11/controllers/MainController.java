@@ -1,6 +1,7 @@
 package ru.java413.homework11.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.java413.homework11.entities.Person;
 import ru.java413.homework11.services.impl.PersonServiceImpl;
@@ -24,8 +25,8 @@ public class MainController {
     //    "age": 34
     //}
     @PostMapping("/save")
-    public Person savePerson(@RequestBody Person person) {
-        return personServiceImpl.save(person);
+    public ResponseEntity<Person> savePerson(@RequestBody Person person) {
+        return ResponseEntity.ok(personServiceImpl.save(person));
     }
 
     //saveAll
@@ -53,62 +54,68 @@ public class MainController {
 //    }
 //]
     @PostMapping("/saveAll")
-    public List<Person> saveAllPersons(@RequestBody List<Person> persons) {
-        return personServiceImpl.saveAll(persons);
+    public ResponseEntity<List<Person>> saveAllPersons(@RequestBody List<Person> persons) {
+        return ResponseEntity.ok(personServiceImpl.saveAll(persons));
     }
 
     //findById
-    //http://127.0.0.1:8080/main/findById/1
+    //curl -L -X GET "http://127.0.0.1:8080/main/findById/1"
     @GetMapping("/findById/{id}")
-    public Optional<Person> findPersonById(@PathVariable Long id) {
-        return personServiceImpl.findById(id);
+    public ResponseEntity<Optional<Person>> findPersonById(@PathVariable Long id) {
+        return ResponseEntity.ok(personServiceImpl.findById(id));
     }
 
     //existById
-    //http://127.0.0.1:8080/main/existsById/1
+    //curl -L -X GET "http://127.0.0.1:8080/main/existsById/1"
     @GetMapping("/existsById/{id}")
-    public Boolean existsPersonById(@PathVariable Long id) {
-        return personServiceImpl.existById(id);
+    public ResponseEntity<Boolean> existsPersonById(@PathVariable Long id) {
+        return personServiceImpl.existById(id) ?
+                ResponseEntity.ok(true) :
+                ResponseEntity.notFound().build();
     }
 
     //findAll
-    //http://127.0.0.1:8080/main/
+    //curl -L -X GET "http://127.0.0.1:8080/main/"
     @GetMapping("/")
-    public List<Person> findAll() {
-        return personServiceImpl.findAll();
+    public ResponseEntity<List<Person>> findAll() {
+        return ResponseEntity.ok(personServiceImpl.findAll());
     }
 
-    //findAllById //todo не понял
-    //http://127.0.0.1:8080/main/all/1
-    @GetMapping("/all/{id}")
-    public List<Person> findAllPersonsById(@PathVariable Long id) {
-        return personServiceImpl.findAllById(id);
+    //findAllById
+    //curl -L -X GET "http://127.0.0.1:8080/main/allByIds?ids=1&ids=2&ids=3"
+    @GetMapping("/allByIds")
+    public ResponseEntity<Iterable<Person>> findAllPersonsById(@RequestParam("ids") List<Long> ids) {
+        return ResponseEntity.ok(personServiceImpl.findAllById(ids));
     }
 
     //count
-    //http://127.0.0.1:8080/main/count
+    //curl -L -X GET "http://127.0.0.1:8080/main/count"
     @GetMapping("/count")
-    public Long countPersons() {
-        return personServiceImpl.count();
+    public ResponseEntity<Long> countPersons() {
+        return ResponseEntity.ok(personServiceImpl.count());
     }
 
     //deleteById
-    //http://127.0.0.1:8080/main/1
+    //curl -L -X DELETE "http://127.0.0.1:8080/main/1"
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         personServiceImpl.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
-    //delete //todo не понял
+    //delete
+    //curl -L -X DELETE "http://127.0.0.1:8080/main/" -H "Content-Type: application/json" -d "{\"id\": 1,\"firstName\": \"Oleg\",\"lastName\": \"Sidorov\",\"age\": 36}"
     @DeleteMapping("/")
-    public void delete(Person person) {
+    public ResponseEntity<Void> delete(@RequestBody Person person) {
         personServiceImpl.delete(person);
+        return ResponseEntity.ok().build();
     }
 
     //deleteAll
-    //http://127.0.0.1:8080/main/deleteAll
+    //curl -L -X DELETE "http://127.0.0.1:8080/main/deleteAll"
     @DeleteMapping("/deleteAll")
-    public void deleteAll() {
+    public ResponseEntity<Void> deleteAll() {
         personServiceImpl.deleteAll();
+        return ResponseEntity.ok().build();
     }
 }
