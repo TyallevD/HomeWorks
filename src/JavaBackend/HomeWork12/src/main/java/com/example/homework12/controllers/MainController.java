@@ -73,7 +73,7 @@ public class MainController {
     }
 
     //7. Реализовать метод, который возвращает все записи с несколькими сортировками (по age и lastName).
-    //todo надо доделать
+    //todo надо доделать сортировку (или проверить)
     @GetMapping("/getSortedByAgeAndLastName")
     public List<Person> getSortedPersonByAgeAndLastName(
             @RequestParam Integer age,
@@ -119,7 +119,7 @@ public class MainController {
         return personService.findPersonsByGmail();
     }
 
-    //todo сначала разобраться как сразу заполнить 2 таблицы со связкой (первым города, потом людей)
+    //todo запрос работает, но нужно разобраться как сразу заполнить 2 таблицы со связкой (первым города, потом людей)
     //2.SELECT + JOIN (native):
     //Верни список Person вместе с названием их города из таблицы cities через JOIN
     //(верни только поля person.id, person.firstName, cities.name AS cityName — маппинг в интерфейс-проекцию).
@@ -153,22 +153,66 @@ public class MainController {
     //5.UPDATE (native @Modifying):
     //Метод репозитория @Modifying @Query(nativeQuery = true),
     //который увеличивает age на :delta у всех, у кого age < :maxAge. Верни количество обновлённых строк.
+    //curl -L -X PUT "http://127.0.0.1:8080/main/nativeUpdatePersonAge?delta=2&maxAge=33"
+    @PutMapping("/nativeUpdatePersonAge")
+    public Integer updatePersonAge(
+            @RequestParam Integer delta,
+            @RequestParam Integer maxAge) {
+        return personService.updatePersonsAge(delta, maxAge);
+    }
 
     //6.DELETE (native @Modifying):
     //Метод @Modifying @Query(nativeQuery = true), который удаляет всех Person,
     //у кого age < :age. Верни количество удалённых строк.
+    //curl -L -X DELETE "http://127.0.0.1:8080/main/deletePersonByAge?age=25"
+    @DeleteMapping("/deletePersonByAge")
+    public Integer deletePersonByAge(@RequestParam Integer age) {
+        return personService.deletePersonsByAge(age);
+    }
 
     //7.INSERT (native @Modifying):
     //Метод @Modifying @Query(nativeQuery = true), который вставляет новую запись в
     //таблицу persons (значения приходят из параметров метода). Проверить, что метод возвращает 1.
+    //http://127.0.0.1:8080/main/createNewPerson
+    //{
+    //    "firstName": "Dmitry",
+    //    "lastName": "Tyallev",
+    //    "age": 35,
+    //    "email": "wow.friesen@hotmail.com"
+    //}
+    @PostMapping("/createNewPerson")
+    public Integer createNewPerson(
+            @RequestBody Person person) {
+        return personService.insertPerson(person);
+    }
 
     //8.EXEC без параметров (native):
     //Создай в БД процедуру GetPersonsAbove10, возвращающую SELECT * FROM persons WHERE age > 10.
     //В репозитории сделай метод с @Query(value = "EXEC GetPersonsAbove10", nativeQuery = true) и верни List<Person>.
+    //CREATE PROCEDURE GetPersonsAbove10
+    //AS
+    //BEGIN
+    //	SELECT * FROM person WHERE age > 10
+    //END
+    //curl -L "http://127.0.0.1:8080/main/execPersonsAboveTen"
+    @GetMapping("/execPersonsAboveTen")
+    public List<Person> execPersonsAboveTen() {
+        return personService.findPersonAboveTen();
+    }
 
     //9.EXEC с IN-параметром (native):
     //Процедура GetPersonsAboveAge @minAge INT → SELECT * FROM persons WHERE age > @minAge.
     //В репозитории метод @Query(value = "EXEC GetPersonsAboveAge :minAge",
     //nativeQuery = true) с параметром @Param("minAge").
-
+    //CREATE PROCEDURE GetPersonsAboveAge
+    //@minAge INT
+    //AS
+    //BEGIN
+    //	SELECT * FROM person WHERE age > @minAge
+    //END
+    //curl -L "http://127.0.0.1:8080/main/execPersonsAboveAge?minAge=81"
+    @GetMapping("/execPersonsAboveAge")
+    public List<Person> execPersonsAboveAge(@RequestParam Integer minAge) {
+        return personService.findPersonAboveAge(minAge);
+    }
 }

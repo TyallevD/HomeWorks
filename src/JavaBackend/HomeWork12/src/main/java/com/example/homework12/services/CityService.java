@@ -5,7 +5,7 @@ import com.example.homework12.repository.CityRepository;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
+
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,11 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
@@ -45,7 +43,8 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     //2.5
     @Modifying
-    @Query(value = " UPDATE person SET age + :delta WHERE age < :maxAge ", nativeQuery = true)
+    @Transactional
+    @Query(value = " UPDATE person SET age = (age + :delta) WHERE age < :maxAge ", nativeQuery = true)
     Integer updatePersonsAge(int delta, int maxAge);
 
     //2.6
@@ -57,8 +56,8 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     //2.7
     @Modifying
     @Transactional
-    @Query(value = " INSERT INTO person(first_name, last_name, email, age) VALUES (:firstname, :lastname, :email, :age)", nativeQuery = true)
-    Integer insertPerson(String firstname, String lastname, String email, int age); //todo проверить ещё...
+    @Query(value = " INSERT INTO person(first_name, last_name, age, email) VALUES (:firstname, :lastname, :age, :email) ", nativeQuery = true)
+    Integer insertPerson(String firstname, String lastname,int age, String email); //todo проверить ещё...
 
     //2.8
     @Query(value = " exec GetPersonsAbove10 ", nativeQuery = true)

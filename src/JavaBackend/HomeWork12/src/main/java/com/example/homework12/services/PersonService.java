@@ -125,15 +125,29 @@ public class PersonService {
         return personRepository.selectPersonsWithPagination(page, size);
     }
 
-    //todo
     //2.5
+    public Integer updatePersonsAge(int delta, int maxAge) {
+        return personRepository.updatePersonsAge(delta, maxAge);
+    }
 
     //2.6
+    public Integer deletePersonsByAge(int age) {
+        return personRepository.deletePersonByAgeBefore(age);
+    }
 
     //2.7
+    public Integer insertPerson(Person person) {
+        return personRepository.insertPerson(person.getFirstName(), person.getLastName(), person.getAge(), person.getEmail());
+    }
 
     //2.8
+    public List<Person> findPersonAboveTen() {
+        return personRepository.executeGetPersonsAboveTen();
+    }
 
     //2.9
+    public List<Person> findPersonAboveAge(int minAge) {
+        return personRepository.executeGetPersonAboveAge(minAge);
+    }
 
 }
