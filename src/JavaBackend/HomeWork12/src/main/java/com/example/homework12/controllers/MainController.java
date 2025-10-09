@@ -5,6 +5,7 @@ import com.example.homework12.projection.LastNameCountProjection;
 import com.example.homework12.projection.PersonCitiesProjection;
 import com.example.homework12.services.CityService;
 import com.example.homework12.services.PersonService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+//http://127.0.0.1:8080/swagger-ui/index.html
 @RestController
 @RequestMapping("/main")
 public class MainController {
@@ -25,6 +26,10 @@ public class MainController {
 
     //curl -L -X POST "http://127.0.0.1:8080/main/addPersons"
     @PostMapping("/addPersons")
+    @Operation(
+            summary = "Добавление случайных записей в Person",
+            description= "Добавляет 100 записей, если записей меньше 100"
+    )
     public ResponseEntity<List<Person>> addNewPersons() {
         return ResponseEntity.ok(personService.addNewPersons());
     }
@@ -33,6 +38,9 @@ public class MainController {
     //1. Получить все записи с сортировкой по firstName по возрастанию.
     //curl -L -X GET "http://127.0.0.1:8080/main/firstnameAsc"
     @GetMapping("/firstnameAsc")
+    @Operation(
+        summary = "Получение всех записей из таблицы Person с сортировкой по firstName по возрастанию"
+    )
     public List<Person> sortByFirstnameAsc() {
         return personService.findAllAndSortByFirstNameAsc();
     }
