@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class CityService {
@@ -28,5 +30,11 @@ public class CityService {
             return cityRepository.saveAll(cities);
         }
         return null;
+    }
+
+    public City getCityById() {
+        Random random = new Random();
+        Long id = random.nextLong(15) + 1;
+        return cityRepository.getReferenceById(id);
     }
 }

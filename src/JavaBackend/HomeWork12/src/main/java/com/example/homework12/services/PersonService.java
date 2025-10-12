@@ -1,5 +1,6 @@
 package com.example.homework12.services;
 
+import com.example.homework12.entities.City;
 import com.example.homework12.entities.Person;
 import com.example.homework12.projection.LastNameCountProjection;
 import com.example.homework12.projection.PersonCitiesProjection;
@@ -14,12 +15,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonService {
 
     @Autowired
     private PersonRepository personRepository;
+    @Autowired
+    private CityService cityService;
 
     //для подготовки данных
     @Autowired
@@ -33,8 +37,10 @@ public class PersonService {
                 String surname = faker.name().lastName();
                 int age = faker.number().numberBetween(1, 90);
                 String email = faker.internet().emailAddress();
-//                int city_id = faker.number().numberBetween(1, 15); //todo
-                persons.add(new Person(name, surname, age, email));
+                City city = cityService.getCityById();
+                Person newPerson = new Person(name, surname, age, email, city);
+
+                persons.add(newPerson);
             }
             return personRepository.saveAll(persons);
         }
@@ -76,11 +82,17 @@ public class PersonService {
     }
 
     //1.7
-    public List<Person> findSortedPersonByAgeAndLastName(Integer age, String lastName) {
-        return personRepository.findAll(Sort.by(String.valueOf(age)).descending().
-                and(Sort.by(String.valueOf(age)).ascending().
-                        and(Sort.by(lastName).ascending().
-                                and(Sort.by(lastName).descending()))));
+    public List<Person> findSortedPersonByAgeAndLastName(String ageSort, String lastNameSort) {
+        if (ageSort.equalsIgnoreCase("asc") && lastNameSort.equalsIgnoreCase("asc")) {
+            return personRepository.findAll(Sort.by("age").ascending().and(Sort.by("lastName").ascending()));
+        } else if (ageSort.equalsIgnoreCase("desc") && lastNameSort.equalsIgnoreCase("asc")) {
+            return personRepository.findAll(Sort.by("age").descending().and(Sort.by("lastName")).ascending());
+        } else if (ageSort.equalsIgnoreCase("asc") && lastNameSort.equalsIgnoreCase("desc")) {
+            return personRepository.findAll(Sort.by("age").ascending().and(Sort.by("lastName").descending()));
+        } else if (ageSort.equalsIgnoreCase("desc") && lastNameSort.equalsIgnoreCase("desc")) {
+            return personRepository.findAll(Sort.by("age").descending().and(Sort.by("lastName").descending()));
+        }
+        return personRepository.findAll();
     }
 
     //1.8
@@ -136,8 +148,8 @@ public class PersonService {
     }
 
     //2.7
-    public Integer insertPerson(Person person) {
-        return personRepository.insertPerson(person.getFirstName(), person.getLastName(), person.getAge(), person.getEmail());
+    public Integer insertPerson(String name, String lastName, int age, String email) {
+        return personRepository.insertPerson(name, lastName, age, email);
     }
 
     //2.8

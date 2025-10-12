@@ -26,6 +26,14 @@ public class Person {
         this.email = email;
     }
 
+    public Person(String firstName, String lastName, Integer age, String email, City city) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.city = city;
+    }
+
     public Long getId() {
         return id;
     }

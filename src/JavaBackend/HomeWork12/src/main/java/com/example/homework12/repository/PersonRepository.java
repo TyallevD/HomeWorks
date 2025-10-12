@@ -57,7 +57,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     @Modifying
     @Transactional
     @Query(value = " INSERT INTO person(first_name, last_name, age, email) VALUES (:firstname, :lastname, :age, :email) ", nativeQuery = true)
-    Integer insertPerson(String firstname, String lastname,int age, String email); //todo проверить ещё...
+    Integer insertPerson(String firstname, String lastname, int age, String email);
 
     //2.8
     @Query(value = " exec GetPersonsAbove10 ", nativeQuery = true)
