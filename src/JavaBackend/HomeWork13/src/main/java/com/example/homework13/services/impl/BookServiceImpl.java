@@ -25,11 +25,14 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findById(id);
     }
 
-    public Book createBook(Book book) {
-        if (book.getTitle() != null) {
-            return bookRepository.save(book);
+    public ResponseEntity<Book> createBook(Book book) {
+        if (book.getTitle() != null
+                && book.getIsbn() > 0
+                && book.getPrice() > 0
+                && book.getPublishedYear() <= 2025 && book.getPublishedYear() >= 1000) {
+            return ResponseEntity.ok(bookRepository.save(book));
         }
-        return null;
+        return ResponseEntity.badRequest().build();
     }
 
     public ResponseEntity<Book> updateBook(Long id, Book book) {
@@ -41,17 +44,17 @@ public class BookServiceImpl implements BookService {
                     if (book.getAuthor() != null) {
                         exist.setAuthor(book.getAuthor());
                     }
-                    if (book.getIsbn() != 0) {
+                    if (book.getIsbn() > 0) {
                         exist.setIsbn(book.getIsbn());
                     }
                     if (book.getPrice() > 0) {
                         exist.setPrice(book.getPrice());
                     }
-                    if (book.getPublishedYear() > 1900) {
+                    if (book.getPublishedYear() >= 1000 && book.getPublishedYear() <= 2025) {
                         exist.setPublishedYear(book.getPublishedYear());
                     }
                     return ResponseEntity.ok(bookRepository.save(exist));
-                }).orElse(ResponseEntity.status(400).build());
+                }).orElse(ResponseEntity.notFound().build());
     }
 
     public void deleteById(Long id) {

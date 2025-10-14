@@ -33,7 +33,7 @@ public class BookController {
 
     @PostMapping()
     public ResponseEntity<Book> create(@RequestBody Book book) {
-        return ResponseEntity.ok(bookService.createBook(book));
+        return bookService.createBook(book);
     }
 
     @PutMapping("/{id}")
