@@ -1,6 +1,7 @@
 package com.example.homework13.controllers;
 
 
+import com.example.homework13.entities.Book;
 import com.example.homework13.services.impl.BookServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
@@ -8,36 +9,104 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class BookControllerTest {
     @Autowired
-    BookServiceImpl bookService;
+    private BookServiceImpl bookService;
 
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Autowired
-    Faker faker;
+    private Faker faker;
 
     //Задание 1: Базовый CRUD для книг
     //Создайте тест-класс BookControllerTest для тестирования REST API управления книгами.
     // Модель Book содержит поля: id, title, author, isbn, publishedYear, price.
     // Напишите тесты:
     // для создания книги с валидными данными,
-    // получения книги по существующему ID,
-    // получения книги по несуществующему ID (должен возвращать 404).
+    @Test
+    public void create_book_with_valid_data_return_book() throws Exception {
+        Book book = new Book();
 
+        book.setTitle(faker.book().title());
+        book.setPublishedYear(faker.number().numberBetween(1900, 2026));
+        book.setIsbn(faker.number().numberBetween(100, 200));
+        book.setAuthor(faker.book().author());
+        book.setPrice(faker.number().randomDouble(4, 1, 9999));
+
+        mockMvc.perform(post("/api/book")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(book)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", is(book.getTitle())))
+                .andExpect(jsonPath("$.publishedYear", is(book.getPublishedYear())))
+                .andExpect(jsonPath("$.isbn", is(book.getIsbn())))
+                .andExpect(jsonPath("$.author", is(book.getAuthor())))
+                .andExpect(jsonPath("$.price", is(book.getPrice())));
+    }
+
+    // получения книги по существующему ID
+    @Test
+    public void get_book_by_existing_id_and_return_book() throws Exception {
+        Book book = new Book();
+
+        book.setTitle(faker.book().title());
+        book.setPublishedYear(faker.number().numberBetween(1900, 2026));
+        book.setIsbn(faker.number().numberBetween(100, 200));
+        book.setAuthor(faker.book().author());
+        book.setPrice(faker.number().randomDouble(4, 1, 9999));
+
+        Book result = bookService.createBook(book);
+
+        mockMvc.perform(get("/api/book/{id}", book.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(book)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", is(result.getTitle())))
+                .andExpect(jsonPath("$.publishedYear", is(result.getPublishedYear())))
+                .andExpect(jsonPath("$.isbn", is(result.getIsbn())))
+                .andExpect(jsonPath("$.author", is(result.getAuthor())))
+                .andExpect(jsonPath("$.price", is(result.getPrice())))
+                .andExpect(jsonPath("$.id").value(result.getId()));
+    }
+
+    // получения книги по несуществующему ID (должен возвращать 404)
+    @Test
+    public void get_book_by_not_existing_id_return_not_found() throws Exception {
+        mockMvc.perform(get("/api/book/{id}", -1))
+                .andExpect(status().isNotFound());
+    }
 
     //Задание 2: Тестирование валидации данных
     //Протестируйте валидацию при создании книги.
     // Напишите тесты для:
-    // создания книги с пустым title (должен возвращать 400),
+    // создания книги с пустым title (должен возвращать 400)
+    @Test
+    public void create_book_without_title_return_400() throws Exception {
+        Book book = new Book();
+//        book.setTitle(faker.book().title());
+        book.setPublishedYear(faker.number().numberBetween(1900, 2026));
+        book.setIsbn(faker.number().numberBetween(100, 200));
+        book.setAuthor(faker.book().author());
+        book.setPrice(faker.number().randomDouble(4, 1, 9999));
+
+        mockMvc.perform(post("/api/book")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(book)))
+                .andExpect(status().is(400));
+    }
     // создания книги с невалидным ISBN (должен возвращать 400),
     // создания книги с отрицательной ценой (должен возвращать 400),
     // создания книги с годом публикации из будущего (должен возвращать 400).
