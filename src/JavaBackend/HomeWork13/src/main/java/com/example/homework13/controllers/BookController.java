@@ -15,6 +15,8 @@ public class BookController {
     @Autowired
     BookServiceImpl bookService;
 
+    //http://127.0.0.1:8080/swagger-ui/index.html
+
     @GetMapping("/")
     public ResponseEntity<List<Book>> getAllBooks() {
         List<Book> books = bookService.findAll();
