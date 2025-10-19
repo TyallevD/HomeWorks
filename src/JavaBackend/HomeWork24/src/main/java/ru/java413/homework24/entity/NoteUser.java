@@ -19,17 +19,27 @@ public class NoteUser {
 
     private String fullName;
 
+    private String role;
+
     @OneToMany(mappedBy = "author")
     private List<Note> notes = new ArrayList<>();
 
     public NoteUser() {
     }
 
-    public NoteUser(String username, String password, String fullName, List<Note> notes) {
+    public NoteUser(String username, String password, String fullName, String role) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
-        this.notes = notes;
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Long getId() {
@@ -62,13 +72,5 @@ public class NoteUser {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public List<Note> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
     }
 }

@@ -2,8 +2,6 @@ package ru.java413.homework24.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import ru.java413.homework24.DTO.NoteDTO;
 import ru.java413.homework24.entity.Note;
 import ru.java413.homework24.entity.NoteUser;
@@ -12,6 +10,7 @@ import ru.java413.homework24.repository.UserRepository;
 import ru.java413.homework24.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,7 +20,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private NoteRepository noteRepository;
 
-//
+    //
     public List<Note> getUserNotes(String username) {
         return noteRepository.findByAuthorUsernameOrderByCreatedAtDesc(username);
     }
@@ -37,5 +36,18 @@ public class UserServiceImpl implements UserService {
         Note note = NoteDTO.toEntity(noteDTO, author);
 
         return noteRepository.save(note);
+    }
+
+    public Optional<Note> openNote(Long id) {
+        return noteRepository.findById(id);
+    }
+
+    public Boolean deleteNote(Long id) {
+        if (noteRepository.findById(id).isPresent()) {
+            noteRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
