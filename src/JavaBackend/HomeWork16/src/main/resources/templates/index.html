@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaBackend Lesson16 MVC</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <a class="addAll" th:href="@{/main/addAuthor}">Add All</a>
+    <a class="clear" th:href="@{/main/clear}">Clear</a>
+</div>
+<hr>
+<table th:if="${teachers.size()!=0}" border="1">
+    <thead>
+
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Btns</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="t , status : ${teachers}">
+        <td th:text="${t.getId()}"></td>
+        <td th:text="${t.getFirstName()}"></td>
+        <td th:text="${t.getLastName()}"></td>
+        <td th:text="${t.getAge()}"></td>
+        <td>
+            <div class="container">
+                <form onsubmit="return confirm('Вы уверены, что хотите удалить запись?')" class="del"
+                      th:action="@{/main/delete/{id}(id=${t.getId()})}" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <button class="del clear" type="submit">Delete</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h1 th:unless="${teachers.size()!=0}">Teachers empty</h1>
+
+</body>
+</html>

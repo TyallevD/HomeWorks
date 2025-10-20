@@ -1,0 +1,26 @@
+table {
+    font-size: 30px;
+}
+
+a, button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 5px black;
+    font-size: 25px;
+    text-decoration: none;
+    margin: 5px;
+    padding: 5px;
+}
+
+.addAll {
+    background-color: green;
+}
+
+.clear {
+    background-color: red;
+}
+
+.container {
+    display: flex;
+}
