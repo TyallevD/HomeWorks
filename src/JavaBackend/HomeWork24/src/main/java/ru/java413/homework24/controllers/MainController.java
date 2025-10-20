@@ -3,6 +3,8 @@ package ru.java413.homework24.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.java413.homework24.DTO.NoteDTO;
 import ru.java413.homework24.DTO.UserRegistrationDTO;
@@ -14,7 +16,8 @@ import ru.java413.homework24.service.Impl.UserServiceImpl;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+//@RestController
+@Controller
 @RequestMapping("/main")
 public class MainController {
     @Autowired
@@ -23,6 +26,10 @@ public class MainController {
     @Autowired
     RegistryServiceImpl registryService;
 
+    @GetMapping
+    public String homePage(Model model) {
+        return "index";
+    }
 
     //todo доработать ответы
     @GetMapping("/")
@@ -48,8 +55,11 @@ public class MainController {
         return ResponseEntity.ok(userService.deleteNote(id));
     }
 
-    @PostMapping("/registry")
-    public ResponseEntity<NoteUser> registryNewUser(@RequestBody UserRegistrationDTO user) {
-        return ResponseEntity.ok(registryService.createNewUser(user));
+    @GetMapping("/registry")
+    public String registryPage(Model model){
+        return "registry";
     }
+//    public ResponseEntity<NoteUser> registryNewUser(@RequestBody UserRegistrationDTO user) {
+//        return ResponseEntity.ok(registryService.createNewUser(user));
+//    }
 }
