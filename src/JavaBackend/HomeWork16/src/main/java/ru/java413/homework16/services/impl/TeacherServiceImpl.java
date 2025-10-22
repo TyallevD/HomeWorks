@@ -2,6 +2,7 @@ package ru.java413.homework16.services.impl;
 
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.java413.homework16.entities.Teacher;
 import ru.java413.homework16.repositories.TeacherRepository;
@@ -41,5 +42,12 @@ public class TeacherServiceImpl implements TeacherService {
 
     public void deleteById(Long id) {
         teacherRepository.deleteById(id);
+    }
+
+    public List<Teacher> sortByField(String field, String direction) {
+        Sort sort = direction.equalsIgnoreCase("desc")
+                ? Sort.by(field).descending()
+                : Sort.by(field).ascending();
+        return teacherRepository.findAll(sort);
     }
 }

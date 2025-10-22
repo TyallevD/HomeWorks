@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>JavaBackend Lesson16 MVC</title>
+    <title>JavaBackend HomeWork16 MVC</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
@@ -15,10 +15,38 @@
     <thead>
 
     <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Age</th>
+        <th>
+            <a style="border: none" th:href="@{/main/sort(field='id', direction=${sortField == 'id' && sortDirection == 'asc'} ? 'desc' : 'asc')}">
+                ID
+                <span th:if="${sortField == 'id'}">
+                        <span th:text="${sortDirection == 'asc'} ? '▲' : '▼'"></span>
+                    </span>
+            </a>
+        </th>
+        <th>
+            <a style="border: none" th:href="@{/main/sort(field='firstName', direction=${sortField == 'firstName' && sortDirection == 'asc'} ? 'desc' : 'asc')}">
+                Name
+                <span th:if="${sortField == 'firstName'}">
+                        <span th:text="${sortDirection == 'asc'} ? '▲' : '▼'"></span>
+                    </span>
+            </a>
+        </th>
+        <th>
+            <a style="border: none" th:href="@{/main/sort(field='lastName', direction=${sortField == 'lastName' && sortDirection == 'asc'} ? 'desc' : 'asc')}">
+                Surname
+                <span th:if="${sortField == 'lastName'}">
+                        <span th:text="${sortDirection == 'asc'} ? '▲' : '▼'"></span>
+                    </span>
+            </a>
+        </th>
+        <th>
+            <a style="border: none" th:href="@{/main/sort(field='age', direction=${sortField == 'age' && sortDirection == 'asc'} ? 'desc' : 'asc')}">
+                Age
+                <span th:if="${sortField == 'age'}">
+                        <span th:text="${sortDirection == 'asc'} ? '▲' : '▼'"></span>
+                    </span>
+            </a>
+        </th>
         <th>Btns</th>
     </tr>
     </thead>

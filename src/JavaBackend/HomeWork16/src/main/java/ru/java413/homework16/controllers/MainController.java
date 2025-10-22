@@ -3,18 +3,15 @@ package ru.java413.homework16.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ru.java413.homework16.services.impl.TeacherServiceImpl;
+import org.springframework.web.bind.annotation.*;
+import ru.java413.homework16.services.TeacherService;
 
 
 @Controller
 @RequestMapping("/main")
 public class MainController {
     @Autowired
-    private TeacherServiceImpl teacherService;
+    private TeacherService teacherService;
 
 
     @GetMapping("/list")
@@ -42,5 +39,13 @@ public class MainController {
         return "redirect:/main/list";
     }
 
-
+    @GetMapping("/sort")
+    public String sorting(@RequestParam String field,
+                          @RequestParam(defaultValue = "asc") String direction,
+                          Model model) {
+        model.addAttribute("teachers", teacherService.sortByField(field, direction));
+        model.addAttribute("sortField", field);
+        model.addAttribute("sortDirection", direction);
+        return "index";
+    }
 }

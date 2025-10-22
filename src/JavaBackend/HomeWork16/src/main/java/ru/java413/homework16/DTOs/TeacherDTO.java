@@ -6,17 +6,20 @@ public class TeacherDTO {
     private Long id;
     private String name;
     private String surname;
+    private Integer age;
 
-    public TeacherDTO(Long id, String name, String surname) {
+    public TeacherDTO(Long id, String name, String surname , Integer age) {
         this.id = id;
         this.name = name;
         this.surname = surname;
+        this.age =age;
     }
 
     public TeacherDTO(Teacher teacher) {
         id = teacher.getId();
         name = teacher.getFirstName();
         surname = teacher.getLastName();
+        age = teacher.getAge();
     }
 
     public Long getId() {
@@ -41,5 +44,13 @@ public class TeacherDTO {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }
