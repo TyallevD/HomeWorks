@@ -1,11 +1,11 @@
 package ru.java413.homework16.services;
 
-import ru.java413.homework16.entities.Teacher;
+import ru.java413.homework16.DTOs.TeacherDTO;
 
 import java.util.List;
 
 public interface TeacherService {
-    List<Teacher> findAll();
+    List<TeacherDTO> findAll();
 
     void generationData(int i);
 
@@ -13,6 +13,6 @@ public interface TeacherService {
 
     void deleteById(Long id);
 
-    List<Teacher> sortByField(String field, String direction);
+    List<TeacherDTO> sortByField(String field, String direction);
 
 }

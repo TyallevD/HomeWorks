@@ -16,7 +16,8 @@
 
     <tr>
         <th>
-            <a style="border: none" th:href="@{/main/sort(field='id', direction=${sortField == 'id' && sortDirection == 'asc'} ? 'desc' : 'asc')}">
+            <a style="border: none"
+               th:href="@{/main/sort(field='id', direction=${sortField == 'id' && sortDirection == 'asc'} ? 'desc' : 'asc')}">
                 ID
                 <span th:if="${sortField == 'id'}">
                         <span th:text="${sortDirection == 'asc'} ? '▲' : '▼'"></span>
@@ -24,23 +25,26 @@
             </a>
         </th>
         <th>
-            <a style="border: none" th:href="@{/main/sort(field='firstName', direction=${sortField == 'firstName' && sortDirection == 'asc'} ? 'desc' : 'asc')}">
+            <a style="border: none"
+               th:href="@{/main/sort(field='name', direction=${sortField == 'name' && sortDirection == 'asc'} ? 'desc' : 'asc')}">
                 Name
-                <span th:if="${sortField == 'firstName'}">
+                <span th:if="${sortField == 'name'}">
                         <span th:text="${sortDirection == 'asc'} ? '▲' : '▼'"></span>
                     </span>
             </a>
         </th>
         <th>
-            <a style="border: none" th:href="@{/main/sort(field='lastName', direction=${sortField == 'lastName' && sortDirection == 'asc'} ? 'desc' : 'asc')}">
+            <a style="border: none"
+               th:href="@{/main/sort(field='surname', direction=${sortField == 'surname' && sortDirection == 'asc'} ? 'desc' : 'asc')}">
                 Surname
-                <span th:if="${sortField == 'lastName'}">
+                <span th:if="${sortField == 'surname'}">
                         <span th:text="${sortDirection == 'asc'} ? '▲' : '▼'"></span>
                     </span>
             </a>
         </th>
         <th>
-            <a style="border: none" th:href="@{/main/sort(field='age', direction=${sortField == 'age' && sortDirection == 'asc'} ? 'desc' : 'asc')}">
+            <a style="border: none"
+               th:href="@{/main/sort(field='age', direction=${sortField == 'age' && sortDirection == 'asc'} ? 'desc' : 'asc')}">
                 Age
                 <span th:if="${sortField == 'age'}">
                         <span th:text="${sortDirection == 'asc'} ? '▲' : '▼'"></span>
@@ -54,8 +58,8 @@
     <tbody>
     <tr th:each="t , status : ${teachers}">
         <td th:text="${t.getId()}"></td>
-        <td th:text="${t.getFirstName()}"></td>
-        <td th:text="${t.getLastName()}"></td>
+        <td th:text="${t.getName()}"></td>
+        <td th:text="${t.getSurname()}"></td>
         <td th:text="${t.getAge()}"></td>
         <td>
             <div class="container">
