@@ -1,10 +1,16 @@
 package com.example.homework13.controllers;
 
+import com.example.homework13.DTOs.BookDTO;
 import com.example.homework13.entities.Book;
-import com.example.homework13.services.impl.BookServiceImpl;
+import com.example.homework13.services.BookService;
+
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -13,13 +19,13 @@ import java.util.List;
 public class BookController {
 
     @Autowired
-    BookServiceImpl bookService;
+    private BookService bookService;
 
     //http://127.0.0.1:8080/swagger-ui/index.html
 
     @GetMapping("/")
-    public ResponseEntity<List<Book>> getAllBooks() {
-        List<Book> books = bookService.findAll();
+    public ResponseEntity<List<BookDTO>> getAllBooks() {
+        List<BookDTO> books = bookService.findAll();
         if (books != null && !books.isEmpty()) {
             return ResponseEntity.ok(books);
         }
@@ -27,21 +33,47 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getOneBook(@PathVariable Long id) {
+    public ResponseEntity<BookDTO> getOneBook(@PathVariable Long id) {
         return bookService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping()
-    public ResponseEntity<Book> create(@RequestBody Book book) {
-        return bookService.createBook(book);
+    public ResponseEntity<Book> create(@RequestBody @Valid Book book) {
+        Book createdBook = bookService.createBook(book);
+        return ResponseEntity.status(HttpStatus.OK).body(createdBook);
+
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Book> update(@PathVariable Long id, @RequestBody Book book) {
-        return bookService.updateBook(id, book);
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Book> update(@PathVariable Long id, @Valid @RequestBody Book book) {
+//        Book updatedBook = bookService.updateBook(id, book);
+//        return ResponseEntity.ok(updatedBook);
+//    }
+@PutMapping("/{id}")
+public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid Book book) {
+    try {
+        Book updatedBook = bookService.updateBook(id, book);
+        return ResponseEntity.ok(updatedBook);
+    } catch (EntityNotFoundException ex) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+    } catch (IllegalArgumentException ex) {
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
+}
+
+//    @PatchMapping("/{id}")
+//    public ResponseEntity<?> partialUpdate(@PathVariable Long id, @RequestBody Book book) {
+//        try {
+//            Book updatedBook = bookService.updateBook(id, book);
+//            return ResponseEntity.ok(updatedBook);
+//        } catch (EntityNotFoundException ex) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+//        } catch (IllegalArgumentException ex) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+//        }
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

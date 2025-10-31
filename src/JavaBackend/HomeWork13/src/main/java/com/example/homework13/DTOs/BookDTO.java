@@ -10,13 +10,16 @@ public class BookDTO {
     private int publishedYear;
     private double price;
 
-    public BookDTO(Book book) {
-        id = book.getId();
-        title = book.getTitle();
-        author = book.getAuthor();
-        isbn = book.getIsbn();
-        publishedYear = book.getPublishedYear();
-        price = book.getPrice();
+    public BookDTO() {
+    }
+
+    public BookDTO(Long id, String title, String author, int isbn, int publishedYear, double price) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.publishedYear = publishedYear;
+        this.price = price;
     }
 
     public Long getId() {
@@ -65,5 +68,17 @@ public class BookDTO {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public static BookDTO fromEntity(Book book) {
+        BookDTO dto = new BookDTO();
+        dto.setId(book.getId());
+        dto.setTitle(book.getTitle());
+        dto.setAuthor(book.getAuthor());
+        dto.setIsbn(book.getIsbn());
+        dto.setPublishedYear(book.getPublishedYear());
+        dto.setPrice(book.getPrice());
+        return dto;
+
     }
 }

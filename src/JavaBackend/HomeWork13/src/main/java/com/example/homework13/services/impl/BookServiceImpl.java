@@ -1,65 +1,87 @@
 package com.example.homework13.services.impl;
 
+import com.example.homework13.DTOs.BookDTO;
 import com.example.homework13.entities.Book;
 import com.example.homework13.repositories.BookRepository;
 import com.example.homework13.services.BookService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImpl implements BookService {
     @Autowired
-    BookRepository bookRepository;
+    private BookRepository bookRepository;
 
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public List<BookDTO> findAll() {
+
+        return bookRepository.findAll()
+                .stream()
+                .map(BookDTO::fromEntity)
+                .collect(Collectors.toList());
     }
 
-    public Optional<Book> findById(Long id) {
-        return bookRepository.findById(id);
-    }
-
-    public ResponseEntity<Book> createBook(Book book) {
-        if (book.getTitle() != null
-                && book.getIsbn() > 0
-                && book.getPrice() > 0
-                && book.getPublishedYear() <= 2025 && book.getPublishedYear() >= 1000) {
-            return ResponseEntity.ok(bookRepository.save(book));
-        }
-        return ResponseEntity.badRequest().build();
-    }
-
-    public ResponseEntity<Book> updateBook(Long id, Book book) {
+    public Optional<BookDTO> findById(Long id) {
         return bookRepository.findById(id)
-                .map(exist -> {
-                    if (book.getTitle() != null) {
-                        exist.setTitle(book.getTitle());
-                    }
-                    if (book.getAuthor() != null) {
-                        exist.setAuthor(book.getAuthor());
-                    }
-                    if (book.getIsbn() > 0) {
-                        exist.setIsbn(book.getIsbn());
-                    }
-                    if (book.getPrice() > 0) {
-                        exist.setPrice(book.getPrice());
-                    }
-                    if (book.getPublishedYear() >= 1000 && book.getPublishedYear() <= 2025) {
-                        exist.setPublishedYear(book.getPublishedYear());
-                    }
-                    return ResponseEntity.ok(bookRepository.save(exist));
-                }).orElse(ResponseEntity.notFound().build());
+                .map(BookDTO::fromEntity);
     }
+
+    public Book createBook(Book book) {
+        return bookRepository.save(book);
+    }
+
+public Book updateBook(Long id, Book book) {
+    Book existingBook = bookRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Книга с id \"" + id +"\" не найдена"));
+
+
+    if (book.getTitle() != null) {
+        if (book.getTitle().trim().isEmpty()) {
+            throw new IllegalArgumentException("Название книги не может быть пустым");
+        }
+        existingBook.setTitle(book.getTitle());
+    }
+
+    if (book.getAuthor() != null) {
+        if (book.getAuthor().trim().isEmpty()) {
+            throw new IllegalArgumentException("Имя автора не может быть пустым");
+        }
+        existingBook.setAuthor(book.getAuthor());
+    }
+
+    if (book.getIsbn() > 0) {
+        existingBook.setIsbn(book.getIsbn());
+    } else if (book.getIsbn() < 0) {
+        throw new IllegalArgumentException("ISBN должен быть положительным");
+    }
+
+    if (book.getPrice() > 0) {
+        existingBook.setPrice(book.getPrice());
+    } else if (book.getPrice() < 0) {
+        throw new IllegalArgumentException("Цена должна быть положительной");
+    }
+
+    if (book.getPublishedYear() != 0) {
+        if (book.getPublishedYear() < 1000 || book.getPublishedYear() > 2025) {
+            throw new IllegalArgumentException("Год публикации должен быть от 1000 до 2025 года включительно");
+        }
+        existingBook.setPublishedYear(book.getPublishedYear());
+    }
+
+    return bookRepository.save(existingBook);
+}
 
     public void deleteById(Long id) {
         if (!bookRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Книга с id " + id + " уже удалена или не существует");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Книга с id \"" + id + "\" уже удалена или не существует");
         }
         bookRepository.deleteById(id);
     }

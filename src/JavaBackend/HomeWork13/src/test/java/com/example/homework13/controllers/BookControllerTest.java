@@ -2,7 +2,7 @@ package com.example.homework13.controllers;
 
 
 import com.example.homework13.entities.Book;
-import com.example.homework13.services.impl.BookServiceImpl;
+import com.example.homework13.services.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class BookControllerTest {
     @Autowired
-    private BookServiceImpl bookService;
+    private BookService bookService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -68,7 +68,7 @@ public class BookControllerTest {
         book.setAuthor(faker.book().author());
         book.setPrice(faker.number().randomDouble(2, 1, 9999));
 
-        Book result = bookService.createBook(book).getBody();
+        Book result = bookService.createBook(book);
 
         mockMvc.perform(get("/api/book/{id}", book.getId())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -170,7 +170,7 @@ public class BookControllerTest {
         book.setAuthor(faker.book().author());
         book.setPrice(faker.number().randomDouble(2, 1, 9999));
 
-        Book result = bookService.createBook(book).getBody();
+        Book result = bookService.createBook(book);
 
         Book newBook = new Book("NEW TITLE", "NEW AUTHOR", 146, 2012, 15.00);
 
@@ -200,14 +200,13 @@ public class BookControllerTest {
 
     // частичное обновление книги (PATCH)
     //todo ну тут видимо надо частично существующую книгу подправить
-
     @Test
     public void partial_book_update_return_ok(){
-
+        Book book = new Book();
+        //создать книгу, затем её частично (к примеру title обновить, получить ок)
     }
+
     // обновление с невалидными данными (400).
-    //todo надо править метод обновления, т.к. он либо находит и ничего не делает (отдает 200 при этом)
-    // либо не находит книгу и отдаёт 404
     @Test
     public void update_book_with_invalid_data_return_bad_request() throws Exception {
         Book book = new Book();
@@ -217,9 +216,9 @@ public class BookControllerTest {
         book.setAuthor(faker.book().author());
         book.setPrice(faker.number().randomDouble(2, 1, 9999));
 
-        Book result = bookService.createBook(book).getBody();
+        Book result = bookService.createBook(book);
 
-        Book newBook = new Book();
+        Book newBook = new Book(); //книга для обновления на пустые данные
 
         mockMvc.perform(put("/api/book/{id}", result.getId())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -227,7 +226,7 @@ public class BookControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-
+    //todo доделать задания
     //Задание 4: Поиск и фильтрация книг
     //Напишите тесты для поиска книг по различным критериям:
     // поиск по названию (частичное совпадение),
