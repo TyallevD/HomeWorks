@@ -3,6 +3,7 @@ package com.example.homework13.controllers;
 
 import com.example.homework13.entities.Book;
 import com.example.homework13.services.BookService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
@@ -199,11 +200,23 @@ public class BookControllerTest {
     }
 
     // частичное обновление книги (PATCH)
-    //todo ну тут видимо надо частично существующую книгу подправить
     @Test
-    public void partial_book_update_return_ok(){
+    public void partial_book_update_return_ok() throws Exception {
         Book book = new Book();
-        //создать книгу, затем её частично (к примеру title обновить, получить ок)
+        book.setTitle(faker.book().title());
+        book.setPublishedYear(faker.number().numberBetween(1900, 2026));
+        book.setIsbn(faker.number().numberBetween(100, 200));
+        book.setAuthor(faker.book().author());
+        book.setPrice(faker.number().randomDouble(2, 1, 9999));
+
+        Book result = bookService.createBook(book);
+
+        Book updatedBook = result;
+        updatedBook.setTitle("Обновленное название");
+        mockMvc.perform(put("/api/book/{id}", result.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updatedBook)))
+                .andExpect(status().isOk());
     }
 
     // обновление с невалидными данными (400).
@@ -226,7 +239,7 @@ public class BookControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    //todo доделать задания
+    //todo сделать контроллер для поиска с фильтрацией, пагинацией и сортировкой?
     //Задание 4: Поиск и фильтрация книг
     //Напишите тесты для поиска книг по различным критериям:
     // поиск по названию (частичное совпадение),

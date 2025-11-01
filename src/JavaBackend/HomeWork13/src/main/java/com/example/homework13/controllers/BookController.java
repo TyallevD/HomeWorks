@@ -7,6 +7,7 @@ import com.example.homework13.services.BookService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,38 +47,39 @@ public class BookController {
 
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Book> update(@PathVariable Long id, @Valid @RequestBody Book book) {
-//        Book updatedBook = bookService.updateBook(id, book);
-//        return ResponseEntity.ok(updatedBook);
-//    }
-@PutMapping("/{id}")
-public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid Book book) {
-    try {
-        Book updatedBook = bookService.updateBook(id, book);
-        return ResponseEntity.ok(updatedBook);
-    } catch (EntityNotFoundException ex) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
-    } catch (IllegalArgumentException ex) {
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid Book book) {
+        try {
+            Book updatedBook = bookService.updateBook(id, book);
+            return ResponseEntity.ok(updatedBook);
+        } catch (EntityNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+        } catch (IllegalArgumentException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+        }
     }
-}
-
-//    @PatchMapping("/{id}")
-//    public ResponseEntity<?> partialUpdate(@PathVariable Long id, @RequestBody Book book) {
-//        try {
-//            Book updatedBook = bookService.updateBook(id, book);
-//            return ResponseEntity.ok(updatedBook);
-//        } catch (EntityNotFoundException ex) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
-//        } catch (IllegalArgumentException ex) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
-//        }
-//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         bookService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/books")
+    public ResponseEntity<Page<Book>> getBooks(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String author,
+            @RequestParam(required = false) int isbn,
+            @RequestParam(required = false) int publishedYear,
+            @RequestParam(required = false) double price,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDirection,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+        Page<Book> books = bookService.findBooks(
+                title, author, isbn, publishedYear, price, sortBy, sortDirection, page, size
+        );
+        return ResponseEntity.ok(books);
     }
 }

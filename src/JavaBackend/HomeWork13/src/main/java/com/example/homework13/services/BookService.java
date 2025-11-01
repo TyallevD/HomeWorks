@@ -2,6 +2,7 @@ package com.example.homework13.services;
 
 import com.example.homework13.DTOs.BookDTO;
 import com.example.homework13.entities.Book;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,4 +18,14 @@ public interface BookService {
 
     void deleteById(Long id);
 
+    Page<Book> findBooks(
+            String title,
+            String author,
+            int isbn,
+            int publishedYear,
+            double price,
+            String sortBy,
+            String sortDirection,
+            int page,
+            int size);
 }
