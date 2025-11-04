@@ -133,7 +133,7 @@ public class BookControllerTest {
         book.setPublishedYear(faker.number().numberBetween(1900, 2025));
         book.setIsbn(faker.number().numberBetween(100, 200));
         book.setAuthor(faker.book().author());
-        book.setPrice(-200);
+        book.setPrice((double) -200);
 
         mockMvc.perform(post("/api/book")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -242,7 +242,25 @@ public class BookControllerTest {
     //todo сделать контроллер для поиска с фильтрацией, пагинацией и сортировкой?
     //Задание 4: Поиск и фильтрация книг
     //Напишите тесты для поиска книг по различным критериям:
-    // поиск по названию (частичное совпадение),
+    // поиск по названию (частичное совпадение)
+    @Test
+    public void find_book_by_title_return_book() throws Exception{
+        Book book = new Book();
+        book.setTitle((faker.book().title()));
+        book.setPublishedYear(faker.number().numberBetween(1900,2026));
+        book.setIsbn(faker.number().numberBetween(100,200));
+        book.setAuthor(faker.book().author());
+        book.setPrice(faker.number().randomDouble(2,1,9999));
+
+        bookService.createBook(book);
+
+        String partialTitle = book.getTitle().substring(0,3);
+        mockMvc.perform(get("/api/book/books")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(partialTitle)))
+                .andExpect(status().isOk());
+
+    }
     // поиск по автору,
     // фильтрация по диапазону цен,
     // фильтрация по году публикации,

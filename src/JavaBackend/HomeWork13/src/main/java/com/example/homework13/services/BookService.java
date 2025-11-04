@@ -21,9 +21,9 @@ public interface BookService {
     Page<Book> findBooks(
             String title,
             String author,
-            int isbn,
-            int publishedYear,
-            double price,
+            Integer isbn,
+            Integer publishedYear,
+            Double price,
             String sortBy,
             String sortDirection,
             int page,

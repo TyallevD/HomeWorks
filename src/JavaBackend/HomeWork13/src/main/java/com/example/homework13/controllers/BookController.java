@@ -69,9 +69,9 @@ public class BookController {
     public ResponseEntity<Page<Book>> getBooks(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String author,
-            @RequestParam(required = false) int isbn,
-            @RequestParam(required = false) int publishedYear,
-            @RequestParam(required = false) double price,
+            @RequestParam(required = false) Integer isbn,
+            @RequestParam(required = false) Integer publishedYear,
+            @RequestParam(required = false) Double price,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "asc") String sortDirection,
             @RequestParam(defaultValue = "0") int page,

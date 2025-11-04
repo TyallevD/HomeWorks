@@ -20,19 +20,19 @@ public class Book {
     private String author;
 
     @Positive(message = "ISBN должен быть положительным")
-    private int isbn;
+    private Integer isbn;
 
     @Min(value = 1000, message = "Год публикации не может быть меньше 1000 года")
     @Max(value = 2025, message = "Год публикации не может быть больше 2025 года")
-    private int publishedYear;
+    private Integer publishedYear;
 
     @Positive(message = "Цена должна быть положительной")
-    private double price;
+    private Double price;
 
     public Book() {
     }
 
-    public Book(String title, String author, int isbn, int publishedYear, double price) {
+    public Book(String title, String author, Integer isbn, Integer publishedYear, Double price) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
@@ -40,7 +40,7 @@ public class Book {
         this.price = price;
     }
 
-    public Book(Long id, String title, String author, int isbn, int publishedYear, double price) {
+    public Book(Long id, String title, String author, Integer isbn, Integer publishedYear, Double price) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -77,7 +77,7 @@ public class Book {
         return isbn;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(Integer isbn) {
         this.isbn = isbn;
     }
 
@@ -85,7 +85,7 @@ public class Book {
         return publishedYear;
     }
 
-    public void setPublishedYear(int publishedYear) {
+    public void setPublishedYear(Integer publishedYear) {
         this.publishedYear = publishedYear;
     }
 
@@ -93,7 +93,7 @@ public class Book {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }

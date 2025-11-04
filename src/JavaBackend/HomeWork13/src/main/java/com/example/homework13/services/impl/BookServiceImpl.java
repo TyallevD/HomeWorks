@@ -7,6 +7,10 @@ import com.example.homework13.services.BookService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -94,14 +98,26 @@ public class BookServiceImpl implements BookService {
     public Page<Book> findBooks(
             String title,
             String author,
-            int isbn,
-            int publishedYear,
-            double price,
+            Integer isbn,
+            Integer publishedYear,
+            Double price,
             String sortBy,
             String sortDirection,
             int page,
             int size) {
-        return null;
+
+        String direction = sortDirection.equalsIgnoreCase("desc")
+                ? "desc"
+                : "asc";
+        Sort sort = Sort.by(sortBy,direction);
+
+        Pageable pageable = PageRequest.of(page,size, sort);
+        return bookRepository.findAll(pageable);
+//        Specification<Book> spec = buildSpecification(title, author, isbn, publishedYear, price);
+//        Sort sort = buildSort(sortBy, sortDirection);
+//        Pageable pageable = PageRequest.of(page, size, sort);
+//
+//        return bookRepository.findAll(spec, pageable);
     }
 
 }
