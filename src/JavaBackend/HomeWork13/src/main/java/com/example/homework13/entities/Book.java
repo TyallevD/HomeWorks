@@ -73,7 +73,7 @@ public class Book {
         this.author = author;
     }
 
-    public int getIsbn() {
+    public Integer getIsbn() {
         return isbn;
     }
 
@@ -81,7 +81,7 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public int getPublishedYear() {
+    public Integer getPublishedYear() {
         return publishedYear;
     }
 
@@ -89,7 +89,7 @@ public class Book {
         this.publishedYear = publishedYear;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 

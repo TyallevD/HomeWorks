@@ -14,10 +14,11 @@ public interface BookService {
 
     Book createBook(Book book);
 
-    Book updateBook(Long id, com.example.homework13.entities.Book book);
+    Book updateBook(Long id, Book book);
 
     void deleteById(Long id);
 
+    //todo реализовать сервис частичного поиска, пагинации, фильтрации и сортировки
     Page<Book> findBooks(
             String title,
             String author,
@@ -28,4 +29,8 @@ public interface BookService {
             String sortDirection,
             int page,
             int size);
+
+//    List<BookDTO> findBooksByTitle(String title);
+//
+//    List<BookDTO> findBooksByAuthor(String author);
 }

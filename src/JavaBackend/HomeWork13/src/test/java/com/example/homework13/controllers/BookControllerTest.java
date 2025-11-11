@@ -232,7 +232,6 @@ public class BookControllerTest {
         Book result = bookService.createBook(book);
 
         Book newBook = new Book(); //книга для обновления на пустые данные
-
         mockMvc.perform(put("/api/book/{id}", result.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newBook)))
@@ -244,24 +243,50 @@ public class BookControllerTest {
     //Напишите тесты для поиска книг по различным критериям:
     // поиск по названию (частичное совпадение)
     @Test
-    public void find_book_by_title_return_book() throws Exception{
+    public void find_book_by_title_return_book() throws Exception {
         Book book = new Book();
-        book.setTitle((faker.book().title()));
-        book.setPublishedYear(faker.number().numberBetween(1900,2026));
-        book.setIsbn(faker.number().numberBetween(100,200));
+        book.setTitle(faker.book().title());
+        book.setPublishedYear(faker.number().numberBetween(1900, 2026));
+        book.setIsbn(faker.number().numberBetween(100, 200));
         book.setAuthor(faker.book().author());
-        book.setPrice(faker.number().randomDouble(2,1,9999));
+        book.setPrice(faker.number().randomDouble(2, 1, 9999));
 
         bookService.createBook(book);
 
-        String partialTitle = book.getTitle().substring(0,3);
-        mockMvc.perform(get("/api/book/books")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(partialTitle)))
+        String partialTitle = book.getTitle().substring(0, 3);
+
+        mockMvc.perform(get("/api/book/filter/{title}", partialTitle)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(partialTitle)))
                 .andExpect(status().isOk());
 
     }
+
     // поиск по автору,
+    @Test
+    public void find_book_by_author_return_ok() throws Exception {
+        Book book = new Book();
+        book.setTitle(faker.book().title());
+        book.setPublishedYear(faker.number().numberBetween(1900, 2026));
+        book.setIsbn(faker.number().numberBetween(100, 200));
+        book.setAuthor(faker.book().author());
+        book.setPrice(faker.number().randomDouble(2, 1, 9999));
+        bookService.createBook(book);
+
+        String authorSearch = book.getAuthor();
+
+//        mockMvc.perform(get("/api/book/filter/{author}", authorSearch)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(authorSearch)))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.author", is(book.getAuthor())));
+
+        mockMvc.perform(get("/api/book/books?author=", authorSearch)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(authorSearch)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.author", is(book.getAuthor())));
+    }
     // фильтрация по диапазону цен,
     // фильтрация по году публикации,
     // комбинированный поиск по нескольким параметрам.

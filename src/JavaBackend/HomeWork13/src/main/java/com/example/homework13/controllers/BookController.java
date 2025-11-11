@@ -65,6 +65,7 @@ public class BookController {
         return ResponseEntity.noContent().build();
     }
 
+    //todo надо сделать сервис и контроллер пагинации, фильтрации
     @GetMapping("/books")
     public ResponseEntity<Page<Book>> getBooks(
             @RequestParam(required = false) String title,
@@ -82,4 +83,17 @@ public class BookController {
         );
         return ResponseEntity.ok(books);
     }
+//    @GetMapping("/filter/{title}")
+//    public ResponseEntity<List<BookDTO>> getBooksByTitle(
+//            @PathVariable String title) {
+//        List<BookDTO> books = bookService.findBooksByTitle(title);
+//        return ResponseEntity.ok(books);
+//    }
+//
+//    @GetMapping("/filter/{author}")
+//    public ResponseEntity<List<BookDTO>> getBooksByAuthor(
+//            @PathVariable String author) {
+//        List<BookDTO> books = bookService.findBooksByAuthor(author);
+//        return ResponseEntity.ok(books);
+//    }
 }

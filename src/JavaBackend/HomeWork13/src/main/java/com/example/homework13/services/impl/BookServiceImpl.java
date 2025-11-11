@@ -15,8 +15,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,13 +69,13 @@ public class BookServiceImpl implements BookService {
 
         if (book.getIsbn() > 0) {
             existingBook.setIsbn(book.getIsbn());
-        } else if (book.getIsbn() < 0) {
+        } else {
             throw new IllegalArgumentException("ISBN должен быть положительным");
         }
 
         if (book.getPrice() > 0) {
             existingBook.setPrice(book.getPrice());
-        } else if (book.getPrice() < 0) {
+        } else {
             throw new IllegalArgumentException("Цена должна быть положительной");
         }
 
@@ -93,6 +96,7 @@ public class BookServiceImpl implements BookService {
         }
         bookRepository.deleteById(id);
     }
+
     //todo реализовать сервис частичного поиска, пагинации, фильтрации и сортировки
     @Override
     public Page<Book> findBooks(
@@ -109,15 +113,19 @@ public class BookServiceImpl implements BookService {
         String direction = sortDirection.equalsIgnoreCase("desc")
                 ? "desc"
                 : "asc";
-        Sort sort = Sort.by(sortBy,direction);
+        Sort sort = Sort.by(sortBy, direction);
 
-        Pageable pageable = PageRequest.of(page,size, sort);
+        Pageable pageable = PageRequest.of(page, size, sort);
         return bookRepository.findAll(pageable);
-//        Specification<Book> spec = buildSpecification(title, author, isbn, publishedYear, price);
-//        Sort sort = buildSort(sortBy, sortDirection);
-//        Pageable pageable = PageRequest.of(page, size, sort);
-//
-//        return bookRepository.findAll(spec, pageable);
     }
 
+//    @Override
+//    public List<BookDTO> findBooksByTitle(String title) {
+//        return bookRepository.findByTitleContaining(title).stream().map(BookDTO::fromEntity).toList();
+//    }
+//
+//    @Override
+//    public List<BookDTO> findBooksByAuthor(String author) {
+//        return bookRepository.findByAuthor(author);
+//    }
 }
